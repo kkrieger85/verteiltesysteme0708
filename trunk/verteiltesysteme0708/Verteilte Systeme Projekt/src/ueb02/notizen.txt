@@ -1,0 +1,30 @@
+rpcgen -Sc -Ss -C -N adr_lst.x 
+
+-Sc: Do generate sample client code
+-SS: Do generate sample server code
+-C: ANSI C (C++ compatible)
+-N: newstyle RPC (mehrere Parameter ohne structs)
+
+-K secs: Services created by rpcgen wait 120 after
+  servicing a reqeuest secs before exiting...
+  
+  Abschalten? -K -1
+  
+-N      Use the newstyle of rpcgen.  This allows procedures to have mul-
+         tiple arguments.  It also uses the style of parameter passing
+         that closely resembles C.  So, when passing an argument to a
+         remote procedure you do not have to pass a pointer to the argu-
+         ment but the argument itself.  This behaviour is different from
+         the oldstyle of rpcgen generated code.  The newstyle is not the
+         default case because of backward compatibility.
+
+adr_lst.x: Service definition in RPC Language
+adr_lst.h: Header
+adr_lst_xdr.c: XDR-Routines (Serializing)
+adr_lst_svc.c: Server-side stubs
+adr_lst_clnt.c: Client-side stubs
+
+adr_lst_client.c: Sample code for client.
+adr_lst_server.c: Sample code for server.
+
+http://www.freesoft.org/CIE/RFC/1831/19.htm
