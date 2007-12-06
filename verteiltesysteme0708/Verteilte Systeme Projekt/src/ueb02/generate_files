@@ -1,0 +1,2 @@
+#!/bin/sh
+rpcgen -a adr_lst.x
