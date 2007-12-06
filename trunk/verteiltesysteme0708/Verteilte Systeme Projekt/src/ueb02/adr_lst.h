@@ -6,89 +6,76 @@
 #ifndef _ADR_LST_H_RPCGEN
 #define _ADR_LST_H_RPCGEN
 
-#define RPCGEN_VERSION	199506
-
 #include <rpc/rpc.h>
 
 
-struct ADR_LST_QUERY_RESULT {
-	int success;
-	char *result;
-};
-typedef struct ADR_LST_QUERY_RESULT ADR_LST_QUERY_RESULT;
 #ifdef __cplusplus
-extern "C" bool_t xdr_ADR_LST_QUERY_RESULT(XDR *, ADR_LST_QUERY_RESULT*);
-#elif __STDC__
-extern  bool_t xdr_ADR_LST_QUERY_RESULT(XDR *, ADR_LST_QUERY_RESULT*);
-#else /* Old Style C */
-bool_t xdr_ADR_LST_QUERY_RESULT();
-#endif /* Old Style C */
+extern "C" {
+#endif
 
-#define ADR_LST_VERS 1
 
-struct adr_lst_auth_1_argument {
-	char *username;
-	char *passwd;
+struct adr_lst_auth_data {
+	char username[20];
+	char passwd[32];
 };
-typedef struct adr_lst_auth_1_argument adr_lst_auth_1_argument;
-#ifdef __cplusplus
-extern "C" bool_t xdr_adr_lst_auth_1_argument(XDR *, adr_lst_auth_1_argument);
-#elif __STDC__
-extern  bool_t xdr_adr_lst_auth_1_argument(XDR *, adr_lst_auth_1_argument);
-#else /* Old Style C */
-bool_t xdr_adr_lst_auth_1_argument();
-#endif /* Old Style C */
+typedef struct adr_lst_auth_data adr_lst_auth_data;
 
-
-struct adr_lst_query_1_argument {
+struct adr_lst_query_data {
 	int handle;
 	int what;
 };
-typedef struct adr_lst_query_1_argument adr_lst_query_1_argument;
-#ifdef __cplusplus
-extern "C" bool_t xdr_adr_lst_query_1_argument(XDR *, adr_lst_query_1_argument);
-#elif __STDC__
-extern  bool_t xdr_adr_lst_query_1_argument(XDR *, adr_lst_query_1_argument);
-#else /* Old Style C */
-bool_t xdr_adr_lst_query_1_argument();
-#endif /* Old Style C */
+typedef struct adr_lst_query_data adr_lst_query_data;
 
+struct adr_lst_query_result {
+	int success;
+	char result[255];
+};
+typedef struct adr_lst_query_result adr_lst_query_result;
 
-#define ADR_LST ((u_long)1)
-#define ADR_LST_VERS_1 ((u_long)1)
+#define ADR_LST 1004711
+#define ONE 1
 
-#ifdef __cplusplus
-#define ADR_LST_AUTH ((u_long)0)
-extern "C" int * adr_lst_auth_1(char , char , CLIENT *);
-extern "C" int * adr_lst_auth_1_svc(char , char , struct svc_req *);
-#define ADR_LST_QUERY ((u_long)1)
-extern "C" ADR_LST_QUERY_RESULT * adr_lst_query_1(int , int , CLIENT *);
-extern "C" ADR_LST_QUERY_RESULT * adr_lst_query_1_svc(int , int , struct svc_req *);
-#define ADR_LST_LOGOFF ((u_long)2)
-extern "C" int * adr_lst_logoff_1(int , CLIENT *);
-extern "C" int * adr_lst_logoff_1_svc(int , struct svc_req *);
+#if defined(__STDC__) || defined(__cplusplus)
+#define ADR_LST_AUTH 0
+extern  int * adr_lst_auth_1(adr_lst_auth_data *, CLIENT *);
+extern  int * adr_lst_auth_1_svc(adr_lst_auth_data *, struct svc_req *);
+#define ADR_LST_QUERY 1
+extern  adr_lst_query_result * adr_lst_query_1(adr_lst_query_data *, CLIENT *);
+extern  adr_lst_query_result * adr_lst_query_1_svc(adr_lst_query_data *, struct svc_req *);
+#define ADR_LST_LOGOFF 2
+extern  int * adr_lst_logoff_1(int *, CLIENT *);
+extern  int * adr_lst_logoff_1_svc(int *, struct svc_req *);
+extern int adr_lst_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
-#elif __STDC__
-#define ADR_LST_AUTH ((u_long)0)
-extern  int * adr_lst_auth_1(char , char , CLIENT *);
-extern  int * adr_lst_auth_1_svc(char , char , struct svc_req *);
-#define ADR_LST_QUERY ((u_long)1)
-extern  ADR_LST_QUERY_RESULT * adr_lst_query_1(int , int , CLIENT *);
-extern  ADR_LST_QUERY_RESULT * adr_lst_query_1_svc(int , int , struct svc_req *);
-#define ADR_LST_LOGOFF ((u_long)2)
-extern  int * adr_lst_logoff_1(int , CLIENT *);
-extern  int * adr_lst_logoff_1_svc(int , struct svc_req *);
-
-#else /* Old Style C */
-#define ADR_LST_AUTH ((u_long)0)
+#else /* K&R C */
+#define ADR_LST_AUTH 0
 extern  int * adr_lst_auth_1();
 extern  int * adr_lst_auth_1_svc();
-#define ADR_LST_QUERY ((u_long)1)
-extern  ADR_LST_QUERY_RESULT * adr_lst_query_1();
-extern  ADR_LST_QUERY_RESULT * adr_lst_query_1_svc();
-#define ADR_LST_LOGOFF ((u_long)2)
+#define ADR_LST_QUERY 1
+extern  adr_lst_query_result * adr_lst_query_1();
+extern  adr_lst_query_result * adr_lst_query_1_svc();
+#define ADR_LST_LOGOFF 2
 extern  int * adr_lst_logoff_1();
 extern  int * adr_lst_logoff_1_svc();
-#endif /* Old Style C */
+extern int adr_lst_1_freeresult ();
+#endif /* K&R C */
+
+/* the xdr functions */
+
+#if defined(__STDC__) || defined(__cplusplus)
+extern  bool_t xdr_adr_lst_auth_data (XDR *, adr_lst_auth_data*);
+extern  bool_t xdr_adr_lst_query_data (XDR *, adr_lst_query_data*);
+extern  bool_t xdr_adr_lst_query_result (XDR *, adr_lst_query_result*);
+
+#else /* K&R C */
+extern bool_t xdr_adr_lst_auth_data ();
+extern bool_t xdr_adr_lst_query_data ();
+extern bool_t xdr_adr_lst_query_result ();
+
+#endif /* K&R C */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* !_ADR_LST_H_RPCGEN */
