@@ -4,8 +4,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 
-#include <netinet/in.h> // Benötigt für Internet Namensauflösung
-#include <unistd.h> 	// Benötigt fürs Forken
+#include <netinet/in.h> // Benï¿½tigt fï¿½r Internet Namensauflï¿½sung
+#include <unistd.h> 	// Benï¿½tigt fï¿½rs Forken
 #include "userData.h"
 
 /** ToDo:
@@ -18,7 +18,7 @@
 #define PORT 4242
 #define MAX_QUEUE 1
 #define BUF_SIZE 1024
-#define FORKCOUNT 10   	// Ist dafür zustaendig das der Prozess sich maximal 10 mal Reproduziert
+#define FORKCOUNT 10   	// Ist dafï¿½r zustaendig das der Prozess sich maximal 10 mal Reproduziert
 int listen_sock, send_sock; // eigendliche Sockets
 
 struct sockaddr_in sockaddr_client;	// Adresse des anfragenden Clients
@@ -32,6 +32,7 @@ void gabeln();
 void connectSocket();
 
 int main(int args, char *argv[]) {
+	printf("initialisieren\n");
 	int fehler = 0;
 
 	//Socket Initialisieren
@@ -62,6 +63,7 @@ int main(int args, char *argv[]) {
 }
 
 void waitForConnect() {
+	printf("Auf Verbindung warten\n");
 	listen(listen_sock, MAX_QUEUE);
 	//uh da is ja schon einer, Schnell ma Forken
 	gabeln();
@@ -69,10 +71,11 @@ void waitForConnect() {
 
 void gabeln() {
 	//	int vater = 0;  // Temporaer fuer Debbiging Zwecke auskommentiert
+	printf("Gabeln\n");
 	forking++;
-	if (forking >= FORKCOUNT) {
+//	if (forking >= FORKCOUNT) {
 		connectSocket();
-	}
+//	}
 	//	else {
 	//		vater = fork();
 	//		if (vater == 0)
@@ -83,7 +86,7 @@ void gabeln() {
 }
 
 void connectSocket() {
-	
+	printf("Verbindung öffnen\n");
 	char* buffer = "Test";					// Buffer mit der zu uebertragenden Nachricht	
 	int inAddr = sizeof(sockaddr_client);	// Groesse der Clientadresse
 	
@@ -96,9 +99,9 @@ void connectSocket() {
 		
 	//send_sock = accept(listen_sock, 0, 0); // Aufgeschanppte Methoden
 	//recv (int, void *__buff, size_t __len, int __flags);
-	send(send_sock, *buffer, BUF_SIZE, 0); // Provoziert Warnung(trotzdem laufffähig) wegen Ganzzahl Typisierung?
+	send(send_sock, *buffer, BUF_SIZE, 0); // Provoziert Warnung(trotzdem laufffï¿½hig) wegen Ganzzahl Typisierung?
 	
-	// Terminieren (Fork läuft ja weiter)
+	// Terminieren (Fork lï¿½uft ja weiter)
 	close(send_sock);
 	close(listen_sock);
 	exit(0);
