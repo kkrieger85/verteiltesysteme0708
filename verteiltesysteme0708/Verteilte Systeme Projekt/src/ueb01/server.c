@@ -33,12 +33,12 @@ void gabeln();
 void connectSocket();
 
 int main(int args, char *argv[]) {
-	printf("initialisieren\n");
+	printf("initialisieren...\n");
 
 	//Socket Initialisieren
 	listen_sock = socket(PF_INET ,SOCK_STREAM , 0);
 	if (listen_sock < 0) {
-		perror("Socket konnte nicht geoeffnet werden");
+		perror("Socket konnte nicht geoeffnet werden!");
 		exit(1);
 	}
 
@@ -50,7 +50,7 @@ int main(int args, char *argv[]) {
 	// Sockets binden
 	if (bind(listen_sock, (struct sockaddr *) &sockaddr_server,
 			sizeof(sockaddr_server)) < 0) {
-		perror("Sockets konnten nicht gebunden werden");
+		perror("Sockets konnten nicht gebunden werden!");
 		exit(1);
 	}
 	// Auf Port Horchen
@@ -63,11 +63,11 @@ int main(int args, char *argv[]) {
 }
 
 void waitForConnect() {
-	printf("Auf Verbindung warten\n");	
+	printf("Auf Verbindung warten...\n");	
 	
 	// Socket wird in Listeningmodus versetzt
 	if (listen(listen_sock, MAX_QUEUE) == -1){	
-		perror("listen () fehlgeschalgen");
+		perror("listen () fehlgeschalgen!");
 	    fehler = 3;
 	}
 	//Forken anregen
@@ -76,7 +76,7 @@ void waitForConnect() {
 
 void gabeln() {
 	//	int vater = 0;  // Temporaer fuer Debbiging Zwecke auskommentiert
-	printf("Horchen\n");
+	printf("Horchen...\n");
 	forking++;
 //	if (forking >= FORKCOUNT) {
 		connectSocket();
@@ -91,18 +91,18 @@ void gabeln() {
 }
 
 void connectSocket() {
-	printf("Verbindung öffnen\n");
-	char buffer[BUF_SIZE] = "Test";					// Buffer mit der zu uebertragenden Nachricht	
+	printf("Verbindung öffnen...\n");
+	char buffer[BUF_SIZE] = "Test";			// Buffer mit der zu uebertragenden Nachricht	
 	int inAddr = sizeof(sockaddr_client);	// Groesse der Clientadresse
 	
 	// Sendesocket erstellen
 	send_sock =	accept(listen_sock, (struct sockaddr *) &sockaddr_client, &inAddr ); 
 	if( send_sock < 0 ){
-		perror("Verbindung konnte nicht hergestellt werden");
+		perror("Verbindung konnte nicht hergestellt werden!");
 		fehler = 1;
 	}
 	
-	printf("Sende: %c \n", buffer);
+	printf("Sende: %s \n", buffer); 
 	send(send_sock, buffer, BUF_SIZE, 0); 
 	
 	// Terminieren (Fork läuft ja weiter)
