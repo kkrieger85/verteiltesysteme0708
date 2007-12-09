@@ -72,7 +72,7 @@ adr_lst_1(rqstp, transp)
 {
 	union {
 		adr_lst_auth_data adr_lst_auth_1_arg;
-		adr_lst_query_data adr_lst_query_1_arg;
+		int adr_lst_query_1_arg;
 		int adr_lst_logoff_1_arg;
 	} argument;
 	char *result;
@@ -88,7 +88,7 @@ adr_lst_1(rqstp, transp)
 		break;
 
 	case ADR_LST_QUERY:
-		xdr_argument = xdr_adr_lst_query_data;
+		xdr_argument = xdr_int;
 		xdr_result = xdr_adr_lst_query_result;
 		local = (char *(*)()) adr_lst_query_1_svc;
 		break;
@@ -135,7 +135,7 @@ char *argv[];
 	struct sockaddr_in saddr;
 	int asize = sizeof (saddr);
 
-	if (0 && getsockname(0, (struct sockaddr *)&saddr, &asize) == 0) {
+	if (getsockname(0, (struct sockaddr *)&saddr, &asize) == 0) {
 		int ssize = sizeof (int);
 
 		if (saddr.sin_family != AF_INET)
@@ -148,7 +148,7 @@ char *argv[];
 		proto = 0;
 		openlog("adr_lst", LOG_PID, LOG_DAEMON);
 	} else {
-//#ifndef RPC_SVC_FG
+#ifndef RPC_SVC_FG
 		int size;
 		int pid, i;
 
@@ -171,7 +171,7 @@ char *argv[];
 			(void) close(i);
 		}
 		openlog("adr_lst", LOG_PID, LOG_DAEMON);
-//#endif
+#endif
 		sock = RPC_ANYSOCK;
 		(void) pmap_unset(ADR_LST, ONE);
 	}

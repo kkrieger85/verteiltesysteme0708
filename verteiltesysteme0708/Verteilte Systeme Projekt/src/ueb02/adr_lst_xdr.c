@@ -19,17 +19,6 @@ xdr_adr_lst_auth_data(xdrs, objp)
 }
 
 bool_t
-xdr_adr_lst_query_data(xdrs, objp)
-	XDR *xdrs;
-	adr_lst_query_data *objp;
-{
-
-	if (!xdr_int(xdrs, &objp->handle))
-		return (FALSE);
-	return (TRUE);
-}
-
-bool_t
 xdr_adr_lst_query_result(xdrs, objp)
 	XDR *xdrs;
 	adr_lst_query_result *objp;

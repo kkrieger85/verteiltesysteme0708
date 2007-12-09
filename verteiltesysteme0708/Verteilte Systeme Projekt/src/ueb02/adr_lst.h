@@ -25,19 +25,6 @@ bool_t xdr_adr_lst_auth_data();
 #endif /* Old Style C */
 
 
-struct adr_lst_query_data {
-	int handle;
-};
-typedef struct adr_lst_query_data adr_lst_query_data;
-#ifdef __cplusplus
-extern "C" bool_t xdr_adr_lst_query_data(XDR *, adr_lst_query_data*);
-#elif __STDC__
-extern  bool_t xdr_adr_lst_query_data(XDR *, adr_lst_query_data*);
-#else /* Old Style C */
-bool_t xdr_adr_lst_query_data();
-#endif /* Old Style C */
-
-
 struct adr_lst_query_result {
 	int error;
 	char result[255];
@@ -60,8 +47,8 @@ bool_t xdr_adr_lst_query_result();
 extern "C" int * adr_lst_auth_1(adr_lst_auth_data *, CLIENT *);
 extern "C" int * adr_lst_auth_1_svc(adr_lst_auth_data *, struct svc_req *);
 #define ADR_LST_QUERY ((u_long)1)
-extern "C" adr_lst_query_result * adr_lst_query_1(adr_lst_query_data *, CLIENT *);
-extern "C" adr_lst_query_result * adr_lst_query_1_svc(adr_lst_query_data *, struct svc_req *);
+extern "C" adr_lst_query_result * adr_lst_query_1(int *, CLIENT *);
+extern "C" adr_lst_query_result * adr_lst_query_1_svc(int *, struct svc_req *);
 #define ADR_LST_LOGOFF ((u_long)2)
 extern "C" int * adr_lst_logoff_1(int *, CLIENT *);
 extern "C" int * adr_lst_logoff_1_svc(int *, struct svc_req *);
@@ -71,8 +58,8 @@ extern "C" int * adr_lst_logoff_1_svc(int *, struct svc_req *);
 extern  int * adr_lst_auth_1(adr_lst_auth_data *, CLIENT *);
 extern  int * adr_lst_auth_1_svc(adr_lst_auth_data *, struct svc_req *);
 #define ADR_LST_QUERY ((u_long)1)
-extern  adr_lst_query_result * adr_lst_query_1(adr_lst_query_data *, CLIENT *);
-extern  adr_lst_query_result * adr_lst_query_1_svc(adr_lst_query_data *, struct svc_req *);
+extern  adr_lst_query_result * adr_lst_query_1(int *, CLIENT *);
+extern  adr_lst_query_result * adr_lst_query_1_svc(int *, struct svc_req *);
 #define ADR_LST_LOGOFF ((u_long)2)
 extern  int * adr_lst_logoff_1(int *, CLIENT *);
 extern  int * adr_lst_logoff_1_svc(int *, struct svc_req *);
