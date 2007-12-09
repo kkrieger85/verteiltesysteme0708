@@ -5,11 +5,10 @@ struct adr_lst_auth_data {
 
 struct adr_lst_query_data {
   int handle;
-  int what;
 };
 
 struct adr_lst_query_result {
-  int success;
+  int error;
   char result[255];
 };
 
