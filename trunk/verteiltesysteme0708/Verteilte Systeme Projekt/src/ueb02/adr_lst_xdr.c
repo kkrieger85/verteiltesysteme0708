@@ -6,42 +6,38 @@
 #include "adr_lst.h"
 
 bool_t
-xdr_adr_lst_auth_data (XDR *xdrs, adr_lst_auth_data *objp)
+xdr_adr_lst_auth_data(xdrs, objp)
+	XDR *xdrs;
+	adr_lst_auth_data *objp;
 {
-	register int32_t *buf;
 
-	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->username, 20,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->passwd, 32,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	return TRUE;
+	if (!xdr_vector(xdrs, (char *)objp->username, 20, sizeof(char), (xdrproc_t)xdr_char))
+		return (FALSE);
+	if (!xdr_vector(xdrs, (char *)objp->passwd, 32, sizeof(char), (xdrproc_t)xdr_char))
+		return (FALSE);
+	return (TRUE);
 }
 
 bool_t
-xdr_adr_lst_query_data (XDR *xdrs, adr_lst_query_data *objp)
+xdr_adr_lst_query_data(xdrs, objp)
+	XDR *xdrs;
+	adr_lst_query_data *objp;
 {
-	register int32_t *buf;
 
-	 if (!xdr_int (xdrs, &objp->handle))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->what))
-		 return FALSE;
-	return TRUE;
+	if (!xdr_int(xdrs, &objp->handle))
+		return (FALSE);
+	return (TRUE);
 }
 
 bool_t
-xdr_adr_lst_query_result (XDR *xdrs, adr_lst_query_result *objp)
+xdr_adr_lst_query_result(xdrs, objp)
+	XDR *xdrs;
+	adr_lst_query_result *objp;
 {
-	register int32_t *buf;
 
-	int i;
-	 if (!xdr_int (xdrs, &objp->success))
-		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->result, 255,
-		sizeof (char), (xdrproc_t) xdr_char))
-		 return FALSE;
-	return TRUE;
+	if (!xdr_int(xdrs, &objp->error))
+		return (FALSE);
+	if (!xdr_vector(xdrs, (char *)objp->result, 255, sizeof(char), (xdrproc_t)xdr_char))
+		return (FALSE);
+	return (TRUE);
 }
