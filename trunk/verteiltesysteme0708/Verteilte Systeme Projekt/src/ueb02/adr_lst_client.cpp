@@ -16,7 +16,6 @@ adr_lst_1(char *host)
 	int* result_1;
 	adr_lst_auth_data adr_lst_auth_1_arg;
 	adr_lst_query_result* result_2;
-	adr_lst_query_data adr_lst_query_1_arg;
 	int* result_3;
 	int handle;
 
@@ -44,9 +43,7 @@ adr_lst_1(char *host)
       if (handle == -1) {
          cerr << "Login denied" << endl;
       } else {
-         adr_lst_query_1_arg.handle = handle;
-         
-         result_2 = adr_lst_query_1(&adr_lst_query_1_arg, clnt);
+         result_2 = adr_lst_query_1(&handle, clnt);
          if (result_2 == (adr_lst_query_result *) NULL) {
             clnt_perror (clnt, "call failed");
          } else {

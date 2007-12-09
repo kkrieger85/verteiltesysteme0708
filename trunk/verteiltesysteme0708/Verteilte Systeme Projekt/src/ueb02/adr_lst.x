@@ -3,10 +3,6 @@ struct adr_lst_auth_data {
   char passwd[32];
 };
 
-struct adr_lst_query_data {
-  int handle;
-};
-
 struct adr_lst_query_result {
   int error;
   char result[255];
@@ -18,7 +14,7 @@ program ADR_LST {
     ADR_LST_AUTH(adr_lst_auth_data *authdata) = 0;
 
     adr_lst_query_result
-    ADR_LST_QUERY(adr_lst_query_data *querydata) = 1;
+    ADR_LST_QUERY(int handle) = 1;
     
     int
     ADR_LST_LOGOFF(int handle) = 2;

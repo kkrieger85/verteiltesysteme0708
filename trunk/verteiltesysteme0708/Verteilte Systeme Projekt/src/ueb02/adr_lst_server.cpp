@@ -64,12 +64,12 @@ adr_lst_auth_1_svc(adr_lst_auth_data *argp, struct svc_req *rqstp)
 }
 
 adr_lst_query_result *
-adr_lst_query_1_svc(adr_lst_query_data *argp, struct svc_req *rqstp)
+adr_lst_query_1_svc(int *argp, struct svc_req *rqstp)
 {
 	static adr_lst_query_result result;
    result.error = 0;
    
-   std::map<int, int>::const_iterator pos = handles.find(argp->handle);
+   std::map<int, int>::const_iterator pos = handles.find(*argp);
    
    if (pos == handles.end()) {
       result.error = -1;
