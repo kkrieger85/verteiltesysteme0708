@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<project default="javadocs" basedir="." name="Uebung3 Verteilte Systeme">
+<project default="javadocs" basedir="." name="Spielwiese Verteilte Systeme">
 
-	<property name="app.name" value="Uebung3 Verteilte Systeme"/>
+	<property name="app.name" value="Spielwiese Verteilte Systeme"/>
 	<property name="src.dir" value="../src"/>
-	<property name="package" value="../ueb03"/> 
+	<property name="package" value="../spielwiese"/> 
 	<property name="build.dir" value="../../build"/>
-	<property name="build.ueb3.dir" value="${build.dir}/ueb3"/>
+	<property name="build.ueb3.dir" value="${build.dir}/spielwiese"/>
 	<property name="dest.dir" value="../../dest"/>
 		
 	<property name="doc.javadocs" value="../../doc/javadocs"/>
@@ -36,8 +36,8 @@
 	             packagenames="ueb03"
 	             sourcepath="${src.dir}/${package}"
 	             Author="true" version="true" Use="true" noindex="true"
-	             Windowtitle="Uebung03"
-	             Doctitle="Uebung03">
+	             Windowtitle="Spielwiese"
+	             Doctitle="Spielwiese">
 	      	<arg line="-private" />
 	    	<classpath refid="buildproject"/>
 	      	<fileset dir="${src.dir}/${package}">

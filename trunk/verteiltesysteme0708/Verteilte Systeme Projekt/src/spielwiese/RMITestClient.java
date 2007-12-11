@@ -44,6 +44,7 @@ public class RMITestClient {
 		} catch (Exception e) {
 			// Zugriff auf Remote-Object fehlgeschlagen
 			System.out.println(e.getMessage()); 
+			e.printStackTrace(); 
 		}
 	}
 

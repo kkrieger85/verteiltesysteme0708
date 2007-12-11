@@ -36,7 +36,7 @@ public class RMITestImpl extends UnicastRemoteObject implements RMITestInterface
 	}
 
 	/**
-	 * @param int Nummer der auszugebenden Person 
+	 * @param number Nummer der auszugebenden Person 
 	 * @return RMITestObject Personenobjekt 
 	 */
 	public RMITestObject getPerson(int number) {	
