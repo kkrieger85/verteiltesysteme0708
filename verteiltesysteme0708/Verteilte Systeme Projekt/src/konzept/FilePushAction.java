@@ -48,7 +48,7 @@ public class FilePushAction extends Action {
 			// vollstaendig ausgefuellten metadaten auf alle
 			// betroffenen Rechner
 			for (int i=0; i < doc.backups.length; i++)
-				Configuration.actionQ.add(new MetaDatenPushAction(doc.backups[i], doc))
+				Configuration.actionQ.add(new MetaDatenPushAction(doc.backups[i], doc));
 		}
 		
 	}
