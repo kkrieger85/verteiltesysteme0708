@@ -13,4 +13,10 @@ public class Network {
 	// 				 = true  -> nur Metadaten uebertragen (updaten)
 	public boolean transferFile(Computer to, Document doc, boolean metadatenOnly) { return true; }
 	
+	
+	//Metadaten zu einer Datei von einem bestimmten Rechner erfragen
+	//benötigt falls Owner-Change zum erfragen des neuen Owners.
+	//docId = Ident-Number für das jeweilige Dokument.
+	public Document requestMetadata(Computer from, long docId){return new Document(); }
+	
 }
