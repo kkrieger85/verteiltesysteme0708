@@ -11,7 +11,7 @@ import java.util.Vector;
  *         reichert.sascha@googlemail.com</a>
  * 
  */
-public class RMITestThread extends Thread {
+public class RMITestThread implements Runnable {
 
 	private Vector objectList;
 	private int personNumber; 
@@ -49,10 +49,10 @@ public class RMITestThread extends Thread {
 		Date dt = new Date();
 		System.out.println(dt.toString() + ": Thread started");
 		
-		try {
+	/*	try {
 			sleep(5000);
 		} catch (InterruptedException e) {
-		}
+		} */ 
 		for (int i = 0; i < this.objectList.size(); i++)
 		{
 			if (i == this.personNumber)

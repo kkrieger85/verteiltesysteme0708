@@ -44,10 +44,16 @@ public class RMITestImpl extends UnicastRemoteObject implements RMITestInterface
 		
 		// Es wirdn Thread (Fred im weiteren Text) angelegt und gestartet 
 		RMITestThread thread = new RMITestThread(this.objectList, number); 
-		thread.start(); 
+		Thread th = new Thread(thread); 
+		th.start(); 
+		// Thread.sleep(5000); 
+			try {
+				Thread.sleep(5000);
+		} catch (InterruptedException e) {
+		} 
 		try {
 			// Warten auf den Fred 
-			thread.join(); 
+			th.join(); 
 		} catch (Exception ex){
 			// Falls Fred nen Fehler macht 
 			ex.printStackTrace(); 
