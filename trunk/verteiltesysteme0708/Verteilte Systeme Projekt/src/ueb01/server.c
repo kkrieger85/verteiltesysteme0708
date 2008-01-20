@@ -9,7 +9,7 @@
 #include <signal.h>		// Wird verwendet um herrauszukreigen wenn ein Kind beendet wurde
 #include "userData.h"
 
-/** ToDo
+/** ToDo 
  * ->	Daten zuruecksenden 
  * ->	Dokumentation der Funktionen von Lars
  * ->	Problem damit das Server Sendent aber Client ewig im Empfang feststeckt
