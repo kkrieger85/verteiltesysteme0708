@@ -35,8 +35,8 @@ int forking = 0;	// Fork Variabel, diese Gibt an welches Kind gerade am laufen i
 int fehler	= 0;	// Fehlervariable
 
 // Benutzerdatenarray folgt:
-const struct userData daten[]	=	{{ "Hugo\n","Balder",123456,"testosteron\n"},
-									{ "Master\n","keks",4223,"keks\n"}};
+const struct userData daten[]	=	{{ "Hugo\n","Balder\n","123456\n","testosteron\n"},
+									{ "Master\n","keks\n","4223\n","keks\n"}};
 const int	datenGroesse		= 2;
 
 //Funktions-Deklarationen
@@ -86,7 +86,8 @@ int main(int args, char *argv[]) {
 		printf(strerror(fehler));
 	close(send_sock);
 	close(listen_sock);	
-	return fehler;
+	printf("%i-!> Verbindung Beendet!",forking);
+	exit(fehler);
 }
 
 void aufVerbindungWarten() {
@@ -176,7 +177,8 @@ void verbindeMitClient() {
 	 * dem Benutzer werden 3 Logginversuche gestattet bis der 
 	 * Socket geschlossen wird
 	 */
-	for(int i = 0; (authorisiereUndSende()!= 0) &&(i < 3) ; i++){
+	int i;
+	for(i = 0; (authorisiereUndSende()!= 0) &&(i < 3) ; i++){
 		printf("%i-!> loggin Daten falsch!",forking);
 
 		// Sage Client das die Daten nicht Stimmen
@@ -185,64 +187,78 @@ void verbindeMitClient() {
 	}				
 	
 	// Sage Client das genug Versucht wurde
-	char ende[] = "Genug, das reicht! Zuviele Versuche\n";
-	send(send_sock, ende, strlen(ende), 0); 		
-	
-	// wenn der Durchlauf hier endet ist was Schief gegangen
-	fehler = 5;
-	return;
+	if (i != 0){
+		char ende[] = "Genug, das reicht! Zuviele Versuche\n";
+		send(send_sock, ende, strlen(ende), 0);
+		fehler = 5;
+	}	
 }
 int authorisiereUndSende(){
-	char buffer[BUF_SIZE] = "";	// Buffer mit der zu uebertragenden Nachricht		
+	char benutzer[BUF_SIZE] = "";	// Buffer mit dem uebertragenen Benutzer
+	char passwort[BUF_SIZE] = "";	// Buffer mit dem uebertragenen Passwort
 	char bestaetigt[]	= "Stimmt!\n";
 	
 	// eine Sekunde Schlafen um RaceConditions vorzubeugen
-	while( sleep(1) > 0){}
+//	while( sleep(1) > 0){}
 		
 	// Empfang des Benutzernamens
 	printf("%i-?> Empfange Benutzername...\n",forking);
-	readline(send_sock, buffer, BUF_SIZE);  // Warum wird der server nicht fertig mit dem empfangen?
-	buffer[BUF_SIZE]= '\0';		// C-String finalisieren		
-	printf("%i-$> Erhielt:\t%s \n",forking, buffer);
+	readline(send_sock, benutzer, BUF_SIZE);  // Warum wird der server nicht fertig mit dem empfangen?
+	benutzer[BUF_SIZE]= '\0';		// C-String finalisieren		
+	printf("%i-$> Erhielt:\t%s \n",forking, benutzer);
 	
 	//gehe alle Benutzernamen durch
-	int i;
 	int d = 0;
-	for(i = 0; i < datenGroesse ; i++){ 
-		if(strcmp(daten[i].name, buffer) !=0)
-			d++;			
+	int gefunden = 0;	// Booleanersatz zum Beenden falls gefunden	
+	for(int i = 0; (i < datenGroesse)&&(gefunden == 0) ; i++){ 
+		printf("\tEingang  Laenge: %i \n",strlen(benutzer));
+		printf("\tBenutzer Laenge: %i \n",strlen(daten[i].name));
+		if(strcmp(daten[i].name, benutzer) == 0){
+			d=i; // Merke I zum späteren Passwortvergleich
+			gefunden=1;
+		}
 	}
-	// wenn nichts gefunden wurde ist d = i, aslo wird Abgebrochen
-	if(d == i)
+	// wenn nichts gefunden wurde ist gefunden gleich 0, also wird Abgebrochen
+	if(gefunden == 0)
 		return 1;	
 	
+	// Gebe Anmeldenden Benutzernamen aus
+	printf("Benutzer %s meldet sich an\n",daten[d].name);
+	
 	// eine Sekunde Schlafen um RaceConditions vorzubeugen
-	while( sleep(1) > 0){}
+//	while( sleep(1) > 0){}
 	
 	// Sage Client das die Daten Stimmen
 	send(send_sock, bestaetigt,strlen(bestaetigt), 0); 
 	
 	// eine Sekunde Schlafen um RaceConditions vorzubeugen
-	while( sleep(1) > 0){}
+//	while( sleep(1) > 0){}
 	
 	// Empfang des Passwortes
 	printf("%i-?> Empfange Passwort...\n",forking);
-	readline(send_sock, buffer, BUF_SIZE); 
-	buffer[BUF_SIZE]= '\0';		// C-String finalisieren		
-	printf("%i-$> Erhielt:\t%s \n",forking, buffer);
+	readline(send_sock, passwort, BUF_SIZE); 
+	passwort[BUF_SIZE]= '\0';		// C-String finalisieren		
+	printf("%i-$> Erhielt:\t%s \n",forking, passwort);	
+	
+	// Laenge des passwortstrings und des Empfangenen Strigns ausgeben
+	printf("\tEingang Laenge: %i \n",strlen(passwort));
+	printf("\tPasswort Laenge: %i \n",strlen(daten[d].passwort));	
 	
 	// Passwort vergleichen, wenn es nicht stimmt, wird Abgebrochen
-	if(strcmp(daten[i].passwort, buffer) !=0)
+	if(strcmp(daten[d].passwort, passwort) !=0)
 		return 2;	
-
+	
+	// eine Sekunde Schlafen um RaceConditions vorzubeugen
+//	while( sleep(1) > 0){}
+	
 	// Sage Client das die Daten Stimmen
 	send(send_sock, bestaetigt,strlen(bestaetigt), 0); 
 	
-	// Hier muss noch das senden der Daten an den Client hin
-	
-	return 0;
-	
-	exit(0);
+	// Sende Accountdaten
+	send(send_sock, daten[d].vorname  ,strlen(daten[d].vorname), 0);
+	send(send_sock, daten[d].kundenNr ,strlen(daten[d].kundenNr),0); 
+		
+	return 0;	
 }
 
 // DOKU!!!!!

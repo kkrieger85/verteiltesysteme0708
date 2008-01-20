@@ -12,7 +12,8 @@ public class Client {
 	BufferedWriter senden;
 	Socket clientSocket;
 	String puffer;		// Wird zum auslesen der Rueckgaben verwendet
-
+	final static int BUF_SIZE = 1024;
+	
 	public Client(String ip) {
 		try {
 			System.out.println("!> Verbinde zu "+ip);
@@ -33,7 +34,7 @@ public class Client {
 			/* auf Bestaetigung warten,			
 			 * Es wird getrimt, weil der C-Server
 			 * einen String der gesammten
-			 * Bufferlaenge zurückgiebt
+			 * Bufferlaenge zurueckgiebt
 			 */
 			puffer = empfangen.readLine().trim();
 			
@@ -42,6 +43,11 @@ public class Client {
 				// Solange anmelden lassen bis Authorisiert
 				while(!einLoggen());
 				
+				// Empfange Benutzerdaten
+				System.out.println("!> Anmeldung erfolgreich"); 
+				System.out.println("\tNachname:\t"+ empfangen.readLine().trim());
+				System.out.println("\tKundenNr:\t"+ empfangen.readLine().trim());
+				
 			}else{
 				// Server antwortet nicht, voll? anderer Server als gewollt?
 				System.out.println("!> Verbinden zu "+ip+" nicht moeglich!");
@@ -49,7 +55,9 @@ public class Client {
 			}
 			
 			// Socket schliessen, Programm beenden
-			clientSocket.close();			
+			
+			clientSocket.close();	
+			System.out.println("!> Verbindung Beendet"); 
 			System.exit(0);
 			
 		} catch (Exception e) {
@@ -82,14 +90,12 @@ public class Client {
 		puffer = Stdin.readString();
 		
 		// Benutzernamen senden
-		senden.write(puffer.trim());
-		senden.newLine();
+		senden.write(puffer.trim()+"\n");
+		//senden.newLine();
 		senden.flush();
-				
-		System.out.println("test");
+		
 		// Vom Server bestaetigen lassen
 		puffer = empfangen.readLine().trim();			
-		System.out.println("test2"); // Hier kommt er nie an, obwohl server fertig sendet
 		
 		if(puffer.equals("Stimmt!"))
 			return true;
@@ -109,9 +115,9 @@ public class Client {
 		System.out.print("$> Passwort(KLARTEXT!):\t");	
 		puffer = Stdin.readlnString();
 		
-		// Passwort senden
-		senden.write(puffer.trim());
-		senden.newLine();
+		// Passwort senden puffer.trim()
+		senden.write(puffer.trim()+"\n");
+		//senden.newLine();
 		senden.flush();
 				
 		// Vom Server bestaetigen lassen
@@ -123,7 +129,8 @@ public class Client {
 			return false;
 		else
 			throw new IOException(puffer);		
-	}	
+	}		
+	
 	/**
 	 * Mainmethode welche den Start des Clients anregt, und die IP des servers Festlegt
 	 * @param args
