@@ -6,10 +6,9 @@
 
 #include <netinet/in.h> // Benoetigt fuer Internet Namensaufloesung
 #include <unistd.h> 	// Benoetigt fuers Forken
-#include <signal.h>		// Wird verwendet um herrauszukreigen wenn ein Kind beendet wurde
 #include "userData.h"
 
-/** ToDo 
+/** ToDo
  * ->	Daten zuruecksenden 
  * ->	Dokumentation der Funktionen von Lars
  * ->	Problem damit das Server Sendent aber Client ewig im Empfang feststeckt
@@ -43,9 +42,10 @@ const int	datenGroesse		= 2;
 void aufVerbindungWarten();
 void gabeln();
 void verbindeMitClient();
-int	 authorisiereUndSende();
+int	 authorisiere();
+void aktionsWahl();
 int  readline(register int fd, register char *ptr, register int maxlen) ;
-int  writen(register int fd, register char *ptr, register int nbytes);
+
 
 
 
@@ -121,18 +121,14 @@ void aufVerbindungWarten() {
 
 void gabeln() {
 	int vater = 0;  // Identifiziert ob der Prozess Vater oder schon Kind is
-	forking++;		// Forking wird erhoeht
-	
-	// eine Sekunde Schlafen um RaceConditions vorzubeugen
-	while( sleep(1) > 0){}
+	forking++;		// Forking wird erhoeht	
 	
 	/* Wenn Maximum erreicht, verbinde selbst "Sollte noch geaendert werden,
 	 * weil sonst server nach 10 Anfragen aus ist
 	 */
 	if (forking >= FORKCOUNT) {
 		verbindeMitClient();
-	}	
-	else {
+	}else{
 		vater = fork();
 		
 		// Kind kuemmert sich um den Client		
@@ -178,7 +174,7 @@ void verbindeMitClient() {
 	 * Socket geschlossen wird
 	 */
 	int i;
-	for(i = 0; (authorisiereUndSende()!= 0) &&(i < 3) ; i++){
+	for(i = 0; (authorisiere()!= 0) &&(i < 3) ; i++){
 		printf("%i-!> loggin Daten falsch!",forking);
 
 		// Sage Client das die Daten nicht Stimmen
@@ -186,21 +182,18 @@ void verbindeMitClient() {
 		send(send_sock, sendBuffer, strlen(sendBuffer), 0); 		
 	}				
 	
-	// Sage Client das genug Versucht wurde
+	// Sage Client das genug Versucht wurde, und beende die Verbindung
 	if (i != 0){
 		char ende[] = "Genug, das reicht! Zuviele Versuche\n";
 		send(send_sock, ende, strlen(ende), 0);
 		fehler = 5;
 	}	
 }
-int authorisiereUndSende(){
+int authorisiere(){
 	char benutzer[BUF_SIZE] = "";	// Buffer mit dem uebertragenen Benutzer
 	char passwort[BUF_SIZE] = "";	// Buffer mit dem uebertragenen Passwort
 	char bestaetigt[]	= "Stimmt!\n";
-	
-	// eine Sekunde Schlafen um RaceConditions vorzubeugen
-//	while( sleep(1) > 0){}
-		
+			
 	// Empfang des Benutzernamens
 	printf("%i-?> Empfange Benutzername...\n",forking);
 	readline(send_sock, benutzer, BUF_SIZE);  // Warum wird der server nicht fertig mit dem empfangen?
@@ -224,16 +217,10 @@ int authorisiereUndSende(){
 	
 	// Gebe Anmeldenden Benutzernamen aus
 	printf("Benutzer %s meldet sich an\n",daten[d].name);
-	
-	// eine Sekunde Schlafen um RaceConditions vorzubeugen
-//	while( sleep(1) > 0){}
-	
+		
 	// Sage Client das die Daten Stimmen
 	send(send_sock, bestaetigt,strlen(bestaetigt), 0); 
-	
-	// eine Sekunde Schlafen um RaceConditions vorzubeugen
-//	while( sleep(1) > 0){}
-	
+		
 	// Empfang des Passwortes
 	printf("%i-?> Empfange Passwort...\n",forking);
 	readline(send_sock, passwort, BUF_SIZE); 
@@ -247,19 +234,38 @@ int authorisiereUndSende(){
 	// Passwort vergleichen, wenn es nicht stimmt, wird Abgebrochen
 	if(strcmp(daten[d].passwort, passwort) !=0)
 		return 2;	
-	
-	// eine Sekunde Schlafen um RaceConditions vorzubeugen
-//	while( sleep(1) > 0){}
-	
+		
 	// Sage Client das die Daten Stimmen
 	send(send_sock, bestaetigt,strlen(bestaetigt), 0); 
 	
-	// Sende Accountdaten
-	send(send_sock, daten[d].vorname  ,strlen(daten[d].vorname), 0);
-	send(send_sock, daten[d].kundenNr ,strlen(daten[d].kundenNr),0); 
+	aktionsWahl(d);
 		
 	return 0;	
 }
+
+void aktionsWahl(int benutzer){
+	char auswahl[BUF_SIZE] = "";
+	char ende[] = "Ende\n";
+	
+	/* Empfang der Auswahl, wird solange bis Beendet
+	 * 0: Beenden
+	 * 1: Datenausgabe
+	 */
+	while(strcmp("0\n",auswahl)!= 0){
+		printf("%i-?> Empfange Auswahl...\n",forking);
+		readline(send_sock, auswahl, BUF_SIZE); 
+		auswahl[BUF_SIZE]= '\0';		// C-String finalisieren	
+		
+		if(strcmp("1\n",auswahl)== 0){
+			// Sende Accountdaten
+			send(send_sock, daten[benutzer].vorname  ,strlen(daten[benutzer].vorname), 0);
+			send(send_sock, daten[benutzer].kundenNr ,strlen(daten[benutzer].kundenNr),0); 
+		}else
+			printf("%i-?> Falsche Parameter\n",forking);			
+	}
+	send(send_sock, ende ,strlen(ende),0); 
+}
+
 
 // DOKU!!!!!
 // Umsetzung von Charweisem lesen zu zeilenweisem Lesen
@@ -281,18 +287,4 @@ int readline(register int fd, register char *ptr, register int maxlen) {
 	}
 	*ptr = 0;
 	return (n);
-}
-
-// Umsezung des Sendens an Client
-int writen(register int fd, register char *ptr, register int nbytes) {
-	int nleft, nwritten;
-	nleft = nbytes;
-	while (nleft > 0) {
-		nwritten = write(fd, ptr, nleft);
-		if (nwritten <= 0)
-			return (nwritten); /* error */
-		nleft -= nwritten;
-		ptr += nwritten;
-	}
-	return (nbytes - nleft);
 }
