@@ -9,6 +9,7 @@
 
 using namespace std;
 
+/* Abfragefunktion. */
 void
 adr_lst_1(char *host)
 {
@@ -18,20 +19,27 @@ adr_lst_1(char *host)
 	adr_lst_query_result* result_2;
 	int* result_3;
 	int handle;
+   
 
+   /* Verbindung aufbauen. */
+   
 	clnt = clnt_create (host, ADR_LST, ONE, "udp");
 	if (clnt == NULL) {
 		clnt_pcreateerror (host);
 		exit (1);
 	}
-
-   string in;
+   
+   
+   /* Benutzername & Passwort einlesen. */
    
    cout << "Benutzername? ";
    cin >> adr_lst_auth_1_arg.username;
    
    cout << "Passwort? ";
    cin >> adr_lst_auth_1_arg.passwd;
+   
+   
+   /* Login durchfuehren. */
 
 	result_1 = adr_lst_auth_1(&adr_lst_auth_1_arg, clnt);
    
@@ -43,7 +51,11 @@ adr_lst_1(char *host)
       if (handle == -1) {
          cerr << "Login denied" << endl;
       } else {
+         
+         /* Abfrage durchfuehren. */
+         
          result_2 = adr_lst_query_1(&handle, clnt);
+
          if (result_2 == (adr_lst_query_result *) NULL) {
             clnt_perror (clnt, "call failed");
          } else {
@@ -53,6 +65,9 @@ adr_lst_1(char *host)
                cout << "Query result: " << result_2->result << endl;
             }
          }
+         
+         
+         /* Abmeldung durchfuehren. */
          
          result_3 = adr_lst_logoff_1(&handle, clnt);
          if (result_3 == (int *) NULL) {
@@ -70,6 +85,8 @@ adr_lst_1(char *host)
 }
 
 
+/* Mainfunktion. Ruft die Abfragefunktion fuer den angegebenen Server auf.
+ */
 int
 main (int argc, char *argv[])
 {

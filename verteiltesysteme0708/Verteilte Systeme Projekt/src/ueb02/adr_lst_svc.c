@@ -67,9 +67,22 @@ adr_lst_1(struct svc_req *rqstp, register SVCXPRT *transp)
 	return;
 }
 
+/* Zufaelligen Seed fuer den Random Number Generator zurueckliefern. */
+static unsigned long
+random_seed()
+{
+   static int n = 0;
+   struct timeval tv;
+   
+   gettimeofday(&tv, 0);
+   return tv.tv_sec ^ tv.tv_usec ^ getpid() ^ n++;
+}
+
 int
 main (int argc, char **argv)
 {
+   srand(random_seed());
+   
 	register SVCXPRT *transp;
 
 	pmap_unset (ADR_LST, ONE);
