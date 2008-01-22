@@ -8,21 +8,8 @@
 #include <unistd.h> 	// Benoetigt fuers Forken
 #include "userData.h"
 
-/** ToDo
- * ->	Daten zuruecksenden 
- * ->	Dokumentation der Funktionen von Lars
- * ->	Problem damit das Server Sendent aber Client ewig im Empfang feststeckt
- */
-/** Erklaerung zu der Ausagebe des laufenden Programm:
- * 	Die Zahl an erster Stelle sagt welcher Fork er ist.
- * 
- * 	Warum Forkt nur der Prozess 0?
- *  Damit dieser die Forks entsprechend Zaehlen kann und
- *  bei der Maximalzahl dicht macht
- */
-
 #define PORT 4242
-#define MAX_QUEUE 3				// Maximale Anzahl von wartenden CLients in der Listen-Queue
+#define MAX_QUEUE 3			// Maximale Anzahl von wartenden CLients in der Listen-Queue
 #define BUF_SIZE 1024			// Maximale groesse der uebertragenden Nachricht
 #define FORKCOUNT 10   			// Ist dafuer zustaendig das der Prozess sich maximal 10 mal Reproduziert
 int 	listen_sock, send_sock; // eigendliche Sockets
@@ -267,8 +254,13 @@ void aktionsWahl(int benutzer){
 }
 
 
-// DOKU!!!!!
-// Umsetzung von Charweisem lesen zu zeilenweisem Lesen
+/**
+ * Ermöglicht das zeilenweise Lesen der eigentlich 
+ * charbassierten Übertragung Es werden Zeichen zum Buffer 
+ * hinzugefügt bis ein Zeilenende gefunden wird oder Buffersize
+ * ausgereizt ist. 
+ * @param: sockel fd, char buffer, int buffersize
+ */
 int readline(register int fd, register char *ptr, register int maxlen) {
 	int n, rc;
 	char c;
@@ -279,11 +271,11 @@ int readline(register int fd, register char *ptr, register int maxlen) {
 				break;
 		} else if (rc == 0) {
 			if (n == 1)
-				return (0); /* EOF, no data read */
+				return (0); 
 			else
-				break; /* EOF, some data was read */
+				break;
 		} else
-			return (-1); /* error */
+			return (-1); 
 	}
 	*ptr = 0;
 	return (n);
