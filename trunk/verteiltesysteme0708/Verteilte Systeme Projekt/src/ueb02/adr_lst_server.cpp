@@ -24,6 +24,7 @@ static const int access_denied_delay = 3;
  */
 static const char* logins[][3] = {
    { "foo", "bar", "Ein guter Freund des Hauses." },
+   { "bar", "foo", "Ein gutes Haus des Freundes." },
    { "peter", "morphose", "Ein alter Bekannter." },
    { "butter", "brot", "Schmeckt gut." },
    { NULL, NULL, NULL }
