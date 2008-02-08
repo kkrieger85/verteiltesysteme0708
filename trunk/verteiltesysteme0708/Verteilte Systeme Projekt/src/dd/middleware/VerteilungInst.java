@@ -29,6 +29,8 @@ public class VerteilungInst implements Verteilung {
 		// ... und tragen ihn als Backup-Rechner ein ...
 		doc.setDistribution(new DocumentDistribution(comp));
 
+		System.out.println("Verteilung: 1 Backup-Rechner ausgewählt, Auftrag ans Netzwerk geben");
+		
 		// ... und verschicken das Dokument an ihn ...
 		Main.network.sendDocument(comp, doc);
 	
