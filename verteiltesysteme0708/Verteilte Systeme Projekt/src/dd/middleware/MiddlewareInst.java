@@ -30,19 +30,12 @@ public class MiddlewareInst implements Middleware {
 		if (!dd.Main.rechte.can_createDocument(doc))
 			throw new Exception("Dokument darf nicht verteilt werden");
 		
-		try {
-			// Document versionieren
-			dd.Main.vers.newDocument(doc);
-			
-			// Dokument verteilen
-			dd.Main.vert.distributeDocument(doc);
-			
-		}
-		catch (Exception e) {
-			
-			
-		}
+		// Document versionieren
+		dd.Main.vers.newDocument(doc);
 		
+		// Dokument verteilen
+		dd.Main.vert.distributeDocument(doc);
+			
 	}
 
 	
