@@ -8,6 +8,10 @@ import dd.data.Document;
  */
 public interface Verteilung {
 
+	/**
+	 * Dokument jetzt letztendlich im Netzwerk verteilen
+	 * 
+	 */
 	public void distributeDocument(Document doc) throws Exception;
 	
 }
