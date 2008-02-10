@@ -1,4 +1,4 @@
-package diverse;
+package konzept.diverse;
 
 // hier ist alles Netzwerkzeug implementiert dass wir brauchen
 

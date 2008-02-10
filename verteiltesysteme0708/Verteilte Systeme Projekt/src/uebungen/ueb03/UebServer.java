@@ -1,4 +1,4 @@
-package ueb03;
+package uebungen.ueb03;
 
 import java.net.MalformedURLException;
 import java.rmi.*;

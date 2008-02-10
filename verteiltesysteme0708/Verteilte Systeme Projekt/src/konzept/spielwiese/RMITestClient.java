@@ -1,7 +1,7 @@
 /**
  * 
  */
-package spielwiese;
+package konzept.spielwiese;
 
 import java.rmi.Naming;
 import java.util.Date;

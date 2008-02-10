@@ -1,4 +1,4 @@
-package diverse;
+package konzept.diverse;
 
 // ein kombiniertes Benutzer/Computer Objekt
 

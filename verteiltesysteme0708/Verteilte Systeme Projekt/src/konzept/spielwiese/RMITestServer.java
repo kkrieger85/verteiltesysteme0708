@@ -1,7 +1,7 @@
 /**
  * 
  */
-package spielwiese;
+package konzept.spielwiese;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;

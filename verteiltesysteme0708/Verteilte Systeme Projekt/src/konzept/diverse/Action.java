@@ -1,4 +1,4 @@
-package diverse;
+package konzept.diverse;
 
 // root-Action, hiervon werden alle anderen Actions abgeleitet
 

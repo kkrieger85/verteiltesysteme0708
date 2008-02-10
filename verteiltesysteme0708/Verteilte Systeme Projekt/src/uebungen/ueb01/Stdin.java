@@ -1,4 +1,4 @@
-package ueb01;
+package uebungen.ueb01;
 import java.io.*;
 import java.util.*;
 
