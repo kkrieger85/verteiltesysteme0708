@@ -1,4 +1,4 @@
-package ueb01.proof_concept;
+package uebungen.ueb01.proof_concept;
 
 import java.net.*;
 import java.io.*;

@@ -1,4 +1,4 @@
-package diverse;
+package konzept.diverse;
 
 // dieses Objekt bildet eine Datei ab
 // d.h. dies sind die Metadaten

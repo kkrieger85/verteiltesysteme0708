@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ueb03;
+package uebungen.ueb03;
 import java.rmi.*;
 
 /**

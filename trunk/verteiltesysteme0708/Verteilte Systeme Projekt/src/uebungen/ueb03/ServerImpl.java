@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ueb03;
+package uebungen.ueb03;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -22,14 +22,14 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 		super();
 	}
 	/* (non-Javadoc)
-	 * @see ueb03.ServerInterface#getInfo()
+	 * @see uebungen.ueb03.ServerInterface#getInfo()
 	 */
 	public String getInfo() throws RemoteException {
 		return "Admin;Admin;Blubbnummer";
 	}
 
 	/* (non-Javadoc)
-	 * @see ueb03.ServerInterface#login()
+	 * @see uebungen.ueb03.ServerInterface#login()
 	 */
 	public boolean login(String name, String pass) throws RemoteException {
 		 
@@ -42,7 +42,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 	}
 
 	/* (non-Javadoc)
-	 * @see ueb03.ServerInterface#logout()
+	 * @see uebungen.ueb03.ServerInterface#logout()
 	 */
 	public boolean logout() throws RemoteException {
 		return true; 

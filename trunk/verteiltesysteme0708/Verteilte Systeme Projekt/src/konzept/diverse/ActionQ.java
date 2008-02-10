@@ -1,4 +1,4 @@
-package diverse;
+package konzept.diverse;
 
 
 // dies ist ein Thread

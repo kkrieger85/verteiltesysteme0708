@@ -1,7 +1,7 @@
 /**
  * 
  */
-package spielwiese;
+package konzept.spielwiese;
 
 import java.io.Serializable;
 

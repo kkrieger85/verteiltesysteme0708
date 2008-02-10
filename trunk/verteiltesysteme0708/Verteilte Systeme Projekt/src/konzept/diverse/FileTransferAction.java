@@ -1,4 +1,4 @@
-package diverse;
+package konzept.diverse;
 
 public class FileTransferAction extends Action {
 

@@ -1,9 +1,9 @@
-package ueb01;
+package uebungen.ueb01;
 
 import java.net.*;
 import java.io.*;
 
-import ueb01.*;
+import uebungen.ueb01.*;
 
 public class Client {
 

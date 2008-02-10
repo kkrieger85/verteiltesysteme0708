@@ -1,4 +1,4 @@
-package diverse;
+package konzept.diverse;
 
 public class ReceiveToUpdateAction extends Action {
 
