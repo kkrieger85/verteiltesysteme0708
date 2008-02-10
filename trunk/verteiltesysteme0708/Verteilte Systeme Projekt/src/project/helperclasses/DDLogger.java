@@ -75,8 +75,7 @@ public class DDLogger {
 		    log.setLevel( lvl );
 		  } catch( Exception ex ) {
 		    System.out.println( ex );
-		  }
-		    
+		  }	    
 	}
 	
 	/**

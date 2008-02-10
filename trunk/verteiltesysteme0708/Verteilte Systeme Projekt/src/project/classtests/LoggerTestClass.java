@@ -2,9 +2,6 @@
  * 
  */
 package project.classtests;
-
-import org.apache.log4j.*; 
-
 import project.helperclasses.DDLogger;
 
 /**
@@ -14,7 +11,6 @@ import project.helperclasses.DDLogger;
 public class LoggerTestClass {
 
 	public DDLogger ddl; 
-
 	/**
 	 * C'tor 
 	 */
