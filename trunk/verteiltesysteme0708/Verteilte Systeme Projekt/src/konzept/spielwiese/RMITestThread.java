@@ -13,7 +13,7 @@ import java.util.Vector;
  */
 public class RMITestThread implements Runnable {
 
-	private Vector objectList;
+	private Vector<RMITestObject> objectList;
 	private int personNumber; 
 	private RMITestObject returnObject;
 
@@ -22,7 +22,7 @@ public class RMITestThread implements Runnable {
 	 * @param objectList
 	 * @param personNumber
 	 */
-	public RMITestThread(Vector objectList, int personNumber){
+	public RMITestThread(Vector<RMITestObject> objectList, int personNumber){
 		this.objectList = objectList; 
 		this.personNumber = personNumber; 
 	}
@@ -38,7 +38,7 @@ public class RMITestThread implements Runnable {
 	 * @param objectList
 	 *            the objectList to set
 	 */
-	public void setObjectList(Vector objectList) {
+	public void setObjectList(Vector<RMITestObject> objectList) {
 		this.objectList = objectList;
 	}
 

@@ -18,7 +18,7 @@ public class RMITestImpl extends UnicastRemoteObject implements RMITestInterface
 	 */
 	private static final long serialVersionUID = 7771915602214179133L;
 
-	private Vector objectList; 
+	private Vector<RMITestObject> objectList; 
 	
 	/**
 	 * Konstruktor der Klasse RMITestImpl
@@ -26,7 +26,7 @@ public class RMITestImpl extends UnicastRemoteObject implements RMITestInterface
 	 */
 	public RMITestImpl() throws RemoteException {
 		super();	
-		objectList = new Vector(); 
+		objectList = new Vector<RMITestObject>(); 
 		RMITestObject personOne = new RMITestObject("Test", "Tester", "12345"); 
 		this.objectList.add(personOne); 
 		RMITestObject personTwo = new RMITestObject("Blah", "Blubb", "4711"); 

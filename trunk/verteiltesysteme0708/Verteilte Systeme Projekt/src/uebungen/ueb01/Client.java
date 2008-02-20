@@ -3,8 +3,6 @@ package uebungen.ueb01;
 import java.net.*;
 import java.io.*;
 
-import uebungen.ueb01.*;
-
 public class Client {
 
 	BufferedReader empfangen;
@@ -178,7 +176,8 @@ public class Client {
 	 * @param args
 	 */
 	public static void main(String args[]) {
-		// fï¿½r schnelleres Testen feste ip.
+		// für schnelleres Testen feste ip.
+		@SuppressWarnings("unused")
 		Client test = new Client("127.0.0.1");
 	}
 

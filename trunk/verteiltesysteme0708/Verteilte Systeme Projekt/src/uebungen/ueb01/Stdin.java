@@ -634,7 +634,8 @@ erhalb des Wertebereiches
  *            @return den eingelesenen String
  */
 
-  public static String readlnString()
+  @SuppressWarnings("static-access")
+public static String readlnString()
      {
             StringBuffer gelesen = new StringBuffer();
             String       helfer;
@@ -963,7 +964,8 @@ erhalb des Wertebereiches
 
 
 
-  private static void leseToken()
+  @SuppressWarnings("static-access")
+private static void leseToken()
      {
         teiler.eolIsSignificant( true );
 
@@ -1032,7 +1034,8 @@ erhalb des Wertebereiches
 
 
 
-  private static String uebertrageStringToken()
+  @SuppressWarnings("static-access")
+private static String uebertrageStringToken()
      {
              String hilfe;
 
@@ -1142,7 +1145,8 @@ erhalb des Wertebereiches
      }
 
 
-  private static void leseBisEoln()
+  @SuppressWarnings({ "unused", "static-access" })
+private static void leseBisEoln()
      {
 
 

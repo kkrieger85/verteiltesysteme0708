@@ -60,6 +60,7 @@ public class Client {
 	 */
 	public static void main(String[] args) {
 		// für schnelleres Testen feste ip.
+		@SuppressWarnings("unused")
 		Client test = new Client("localhost");
 	}
 
