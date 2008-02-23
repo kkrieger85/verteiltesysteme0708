@@ -9,4 +9,9 @@ package project.data;
  */
 public interface Computer {
 
+	public long getAvailableSpace();
+	
+	
+	public long getUsedSpace();
 }
+

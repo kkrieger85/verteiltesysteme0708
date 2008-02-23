@@ -2,6 +2,8 @@ package project.middleware;
 
 import project.*;
 import project.data.*;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author ab
@@ -13,27 +15,50 @@ public class VerteilungInst implements Verteilung {
 	 * Dokument jetzt letztendlich im Netzwerk verteilen
 	 * 
 	 */
-	public void distributeDocument(Document doc) throws Exception {
+	public Computer[] distributeDocument(Document doc) throws Exception {
 
-		// zuerstmal prüfen, ob das Dokument lokal vollständig ist
-		// also gültig ist und auch schon eine Version hat
-		if (!doc.isValid() && doc.getVersion() != null)
-			throw new Exception("Dokument muss erst vollständig und versioniert sein, bevor es verteilt werden kann");
+		//zuerst einmal holen wir uns die größe unseres dokumentes.
+		
+		File docfile = new File (doc.getFile().toString());
+		long groesse = docfile.length();
 		
 		// wir schnappen uns einfach mal den ersten Rechner aus unserer IP-Liste ...
-		Computer comp = project.Main.network.getIPListe().elementAt(0); 
+		Vector<Computer> computers = project.Main.network.getIPListe(); 
 		
-		// eventuell hier noch unterscheiden ob bereits Backup-Rechner
-		// eingetragen sind ...
+		// wir durchsuchen die IP-Liste und suchen uns 3 Rechner aus
 		
-		// ... und tragen ihn als Backup-Rechner ein ...
-		doc.setDistribution(new DocumentDistribution(comp));
-
-		System.out.println("Verteilung: 1 Backup-Rechner ausgewählt, Auftrag ans Netzwerk geben");
+		ComputerWrapper[] complist = new ComputerWrapper[3];
+		
+		for (int i = 0; i < computers.size() - 1; i++)
+		{
+			for (int j = i; j < computers.size() - 1; j++)
+			{
+				long firstpercents; // prozentuale Anzahl des benutzten Speicherplatzes für computer(j)
+				long secondpercents; // prozentuale Anzahl des benutzten Speicherplatzes für computer(j+1)
+				
+				firstpercents = ((ComputerWrapper)computers.get(j)).getUsedSpace() / (((ComputerWrapper)computers.get(j)).getAvailableSpace() / 100);
+				secondpercents = ((ComputerWrapper)computers.get(j)).getUsedSpace() / (((ComputerWrapper)computers.get(j)).getAvailableSpace() / 100);
+				if (firstpercents > secondpercents)
+				{
+					ComputerWrapper temp = (ComputerWrapper)computers.get(j);
+					computers.setElementAt(computers.get(j+1), j);
+					computers.setElementAt(temp, j+1);
+				}
+			}
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			if (((ComputerWrapper)computers.get(i)).getAvailableSpace() - ((ComputerWrapper)computers.get(i)).getUsedSpace() > groesse)
+			{
+				complist[i] = (ComputerWrapper)computers.get(i);
+			}
+		}
+		
+		
 		
 		// ... und verschicken das Dokument an ihn ...
-		Main.network.sendDocument(comp, doc);
 	
+		return complist;
 	}
 	
 }

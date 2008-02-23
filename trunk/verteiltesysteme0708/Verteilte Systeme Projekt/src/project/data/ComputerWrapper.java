@@ -12,8 +12,8 @@ public class ComputerWrapper implements Computer {
 	// IP des Computers
 	private String IP;
 
-	// private long speicherPlatz_avail ?
-	// private long speicherPlatz_free  ?
+	private long speicherPlatz_available;
+	private long speicherPlatz_used;
 	// ...
 	
 	/**
@@ -23,6 +23,14 @@ public class ComputerWrapper implements Computer {
 	 */
 	public ComputerWrapper(String IP) {
 		this.IP = IP;
+	}
+	
+	public long getAvailableSpace(){
+		return speicherPlatz_available;
+	}
+	
+	public long getUsedSpace(){
+		return speicherPlatz_used;
 	}
 
 	/*
