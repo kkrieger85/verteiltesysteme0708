@@ -6,7 +6,7 @@ import konzept.diverse.abnetwork.Server;
 import konzept.diverse.abnetwork.ServerInst;
 import project.gui.*;
 import project.middleware.*;
-import project.network.*;
+
 
 /**
  * Main-Klasse, die den Startvorgang der Software durchführt
