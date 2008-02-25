@@ -12,6 +12,7 @@ import org.apache.log4j.*;
 public class DDLogger {
 
 	private static Logger log = Logger.getRootLogger();
+	private static DDLogger ddlogger; 
 	public static Level ALL = Level.ALL; 
 	public static Level DEBUG = Level.DEBUG; 
 	public static Level INFO = Level.INFO; 
@@ -53,28 +54,32 @@ public class DDLogger {
 	 * @param logfile Die Datei in die geschrieben werden soll 
 	 */
 	public DDLogger(Level lvl, String logfile){
-		/// Logger Bekommt als Standardeinstellung ALL falls nichts übergeben wurde 
-		if (lvl == null){
-			lvl = ALL; 
+		if (ddlogger == null)
+		{
+			/// Logger Bekommt als Standardeinstellung ALL falls nichts übergeben wurde 
+			if (lvl == null){
+				lvl = ALL; 
+			}
+			// Logfile kann angegeben werden Muss aber nicht !!! 	
+			if (logfile == null){
+				logfile = "default.log"; 
+			}
+		    try {
+		    	// Alle Appender vorher Löschen!!! Es könnten sonst noch welche drin sein die dort nicht sein sollen. 
+		    	log.removeAllAppenders(); 
+		    	PatternLayout layout = new PatternLayout( "%d{ISO8601} %-5p [%t] %c: %m%n" );     
+			    // Es wird immer der ConsolenAppender und der Dateiappender benutzt !!! Bei Bedarf erweiterbar !!
+			    ConsoleAppender consoleAppender = new ConsoleAppender( layout );
+			    log.addAppender( consoleAppender );
+			    FileAppender fileAppender = new FileAppender( layout, logfile, true );
+			    log.addAppender( fileAppender );
+			    // ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
+			    log.setLevel( lvl );
+			  } catch( Exception ex ) {
+			    System.out.println( ex );
+			  }	    
+			  ddlogger = this;  
 		}
-		// Logfile kann angegeben werden Muss aber nicht !!! 	
-		if (logfile == null){
-			logfile = "default.log"; 
-		}
-	    try {
-	    	// Alle Appender vorher Löschen!!! Es könnten sonst noch welche drin sein die dort nicht sein sollen. 
-	    	log.removeAllAppenders(); 
-	    	PatternLayout layout = new PatternLayout( "%d{ISO8601} %-5p [%t] %c: %m%n" );     
-		    // Es wird immer der ConsolenAppender und der Dateiappender benutzt !!! Bei Bedarf erweiterbar !!
-		    ConsoleAppender consoleAppender = new ConsoleAppender( layout );
-		    log.addAppender( consoleAppender );
-		    FileAppender fileAppender = new FileAppender( layout, logfile, true );
-		    log.addAppender( fileAppender );
-		    // ALL | DEBUG | INFO | WARN | ERROR | FATAL | OFF:
-		    log.setLevel( lvl );
-		  } catch( Exception ex ) {
-		    System.out.println( ex );
-		  }	    
 	}
 	
 	/**
@@ -107,5 +112,13 @@ public class DDLogger {
 			DDLogger.log.fatal(msg); 
 		}			
 		return true; 
+	}
+	
+	/**
+	 * Halbe Singleton Implementation 
+	 * @return  den DDLogger 
+	 */
+	public synchronized static DDLogger getLogger(){
+		return DDLogger.ddlogger;
 	}
 }
