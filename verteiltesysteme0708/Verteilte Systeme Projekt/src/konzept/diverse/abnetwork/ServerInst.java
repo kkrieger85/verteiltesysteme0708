@@ -1,4 +1,5 @@
-package project.network;
+package konzept.diverse.abnetwork;
+
 
 /**
  * Implementiert den Server-Part der Software, welcher autark vom 
