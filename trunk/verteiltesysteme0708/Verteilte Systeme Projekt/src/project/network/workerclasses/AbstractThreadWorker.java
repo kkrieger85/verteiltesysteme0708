@@ -1,7 +1,7 @@
 /**
  * 
  */
-package project.network;
+package project.network.workerclasses;
 
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
@@ -10,10 +10,10 @@ package project.network;
 public abstract class AbstractThreadWorker {
 
 	@SuppressWarnings("unused")
-	private String serverPort; 
+	protected String serverPort; 
 	@SuppressWarnings("unused")
-	private String serverAddress; 
-	private Object resultObject; 
+	protected String serverAddress; 
+	protected Object resultObject; 
 	/**
 	 * Standardstart Methode, gibt true zurück wenn alles geklappt hat!!
 	 * @return

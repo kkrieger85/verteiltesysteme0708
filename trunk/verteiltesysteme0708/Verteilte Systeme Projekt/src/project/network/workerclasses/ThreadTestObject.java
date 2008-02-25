@@ -1,7 +1,7 @@
 /**
  * 
  */
-package project.network;
+package project.network.workerclasses;
 
 import java.util.Random;
 

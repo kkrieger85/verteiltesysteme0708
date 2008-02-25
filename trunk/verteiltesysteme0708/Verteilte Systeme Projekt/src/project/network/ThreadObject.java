@@ -8,6 +8,7 @@ import java.util.Observable;
 
 import project.exception.ThreadObjectException;
 import project.helperclasses.DDLogger;
+import project.network.workerclasses.*;
 
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
@@ -27,6 +28,7 @@ public class ThreadObject extends Observable implements Runnable {
 
 	
 	public static final int THREADTEST = 0; 
+	public static final int GETIPLISTACTION = 1; 
 	// TODO weitere Typen festlegen !!! 
 	
 	private static int MAXTRIALS = 10; 
@@ -102,6 +104,7 @@ public class ThreadObject extends Observable implements Runnable {
 			if (this.threadWorkerInterf == null){
 				switch (this.type){
 				case ThreadObject.THREADTEST: this.threadWorkerInterf = new ThreadTestObject(this.serverAddress, this.serverPort); break; 
+				case ThreadObject.GETIPLISTACTION: this.threadWorkerInterf = new GetIPListWorker(this.serverAddress, this.serverPort); break;
 				default: throw new ThreadObjectException(ThreadObjectException.NOTYPE); 
 				}
 				
