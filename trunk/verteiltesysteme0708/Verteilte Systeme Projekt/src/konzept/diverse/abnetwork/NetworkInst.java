@@ -1,6 +1,7 @@
-package project.network;
+package konzept.diverse.abnetwork;
 
 import java.util.Vector;
+
 
 import project.data.*;
 

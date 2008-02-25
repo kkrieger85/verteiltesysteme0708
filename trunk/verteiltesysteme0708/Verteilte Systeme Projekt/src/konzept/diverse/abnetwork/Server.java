@@ -1,4 +1,4 @@
-package project.network;
+package konzept.diverse.abnetwork;
 
 /**
  * @author ab

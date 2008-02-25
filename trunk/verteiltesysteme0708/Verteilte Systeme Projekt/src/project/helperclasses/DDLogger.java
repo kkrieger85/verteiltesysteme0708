@@ -25,8 +25,7 @@ public class DDLogger {
 	 * Vereinfachter Konstruktor mit Standardeinstellungen!! 
 	 */
 	public DDLogger(){
-		this(null, null); 
-		
+		this(null, null); 	
 	}
 	
 	/**
