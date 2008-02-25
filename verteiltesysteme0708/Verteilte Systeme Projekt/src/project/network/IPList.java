@@ -48,16 +48,15 @@ public class IPList implements Serializable {
 	public LinkedList<ServerDataObject> testIPList(){
 		LinkedList<ServerDataObject> ll = new LinkedList<ServerDataObject>(); 
 		try {
-			ServerDataObject sdo = new ServerDataObject("localhost", "3333");
+			ServerDataObject sdo = new ServerDataObject("192.168.2.101", "1099");
 			ll.add(sdo);
-			sdo = new ServerDataObject("localhost", "4444");
+			sdo = new ServerDataObject("192.168.2.100", "1099");
 			ll.add(sdo);
-			sdo = new ServerDataObject("localhost", "5555");
+			sdo = new ServerDataObject("192.168.2.102", "1099");
 			ll.add(sdo);
-			sdo = new ServerDataObject("localhost", "6666");
+			sdo = new ServerDataObject("192.168.2.103", "1099");
 			ll.add(sdo);
 		} catch (ServerDataObjectException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return ll; 

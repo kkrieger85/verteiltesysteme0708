@@ -102,8 +102,8 @@ public class ThreadObserver implements Observer {
 		
 		if (this.runningQueue.size() >= ThreadObserver.MAXTHREADS){
 			this.unfinnishedQueue.add(tobj);
-			// DDLogger ddl = DDLogger.getLogger(); 
-			// ddl.createLog("Queue ist Voll!!!", DDLogger.INFO); 
+			 DDLogger ddl = DDLogger.getLogger(); 
+			 ddl.createLog("Queue ist Voll!!!", DDLogger.INFO); 
 		} else {
 			startThread(tobj); 
 			this.runningQueue.add(tobj); 
