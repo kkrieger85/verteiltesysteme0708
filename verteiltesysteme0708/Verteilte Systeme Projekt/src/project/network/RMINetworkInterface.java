@@ -19,4 +19,13 @@ public interface RMINetworkInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	public LinkedList<ServerDataObject> getIPList() throws RemoteException;
+	
+	/**
+	 * Pusht die IP Liste einem Computer 
+	 * @param list
+	 * @return Gibt ein Bool zurück ob das ganze geklappt hat
+	 * @throws RemoteException
+	 */
+	public boolean pushIPList(LinkedList<ServerDataObject> list) throws RemoteException;
+	
 }

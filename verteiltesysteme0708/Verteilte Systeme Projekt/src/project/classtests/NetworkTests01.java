@@ -24,8 +24,20 @@ public class NetworkTests01 {
 		int type = ThreadObject.GETIPLISTACTION; 
 		try {
 			
-			for (int i = 0; i < 999; i++) {
+			for (int i = 0; i < 5; i++) {
 			ThreadObject to = new ThreadObject(address,port,type); 
+			to.addObserver(tobs); 
+			tobs.addThread(to); 
+			}
+			
+		} catch (Exception ex){
+			
+		}
+		
+		try {
+			
+			for (int i = 0; i < 5; i++) {
+			ThreadObject to = new ThreadObject("192.168.2.105",port,type); 
 			to.addObserver(tobs); 
 			tobs.addThread(to); 
 			}

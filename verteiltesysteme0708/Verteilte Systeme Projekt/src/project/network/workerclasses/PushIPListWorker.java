@@ -4,20 +4,21 @@
 package project.network.workerclasses;
 
 import java.rmi.Naming;
-import project.network.RMINetworkInterface;
 
+import project.network.IPList;
+import project.network.RMINetworkInterface;
 
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
  *
  */
-public class GetIPListWorker extends AbstractThreadWorker {
+public class PushIPListWorker extends AbstractThreadWorker {
 
 	/**
 	 * @param address
 	 * @param port
 	 */
-	public GetIPListWorker(String address, String port) {
+	public PushIPListWorker(String address, String port) {
 		super(address, port);
 	}
 
@@ -26,14 +27,16 @@ public class GetIPListWorker extends AbstractThreadWorker {
 	 */
 	@Override
 	public synchronized boolean start() {
-	try {
+		try {
 		RMINetworkInterface intf = (RMINetworkInterface) Naming.lookup("rmi://"+this.serverAddress +"/server");
-		this.resultObject = intf.getIPList(); 
+		IPList iplist = IPList.getInstance(); 		
+		this.resultObject = intf.pushIPList(iplist.getIPList()); 
 		if (this.resultObject != null)
 			return true; 
 		else return false; 
 		} catch (Exception e) {
 			return false; 
 		}
-	}
+}
+	
 }

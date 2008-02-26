@@ -15,6 +15,7 @@ public class ThreadObjectException extends Exception {
 	public static String NOADDRESS 		= "Keine IP Adresse mitgegeben!!!"; 
 	public static String NOPORT 		= "Keinen PORT mitgegeben!!!"; 
 	public static String NOTYPE 		= "Keinen Anfragetyp mitgegeben!!!"; 
+	public static String NOINFOHASH		= "Keine Informationen mitgegeben!!!"; 
 	public static String THREADFAILED 	= "Ausführung Thread fehlgeschlagen!!"; 
 	
 	/**
