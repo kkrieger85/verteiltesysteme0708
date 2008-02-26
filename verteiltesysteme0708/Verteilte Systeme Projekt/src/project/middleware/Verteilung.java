@@ -13,6 +13,6 @@ public interface Verteilung {
 	 * Dokument jetzt letztendlich im Netzwerk verteilen
 	 * 
 	 */
-	public Computer[] distributeDocument(Document doc) throws Exception;
+	public Computer[] distributeDocument(Document doc, int anzahl) throws Exception;
 	
 }

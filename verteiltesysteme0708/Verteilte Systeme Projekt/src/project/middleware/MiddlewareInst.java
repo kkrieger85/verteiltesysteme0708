@@ -8,6 +8,8 @@ import project.data.*;
  */
 public class MiddlewareInst implements Middleware {
 
+	// Auf wieviele Rechner wird verteilt?
+	private static final int distributeNumber = 3;
 	/**
 	 * High-Level Funktion, um ein (lokal) neu erstelltes Dokument zu verteilen
 	 *
@@ -34,7 +36,7 @@ public class MiddlewareInst implements Middleware {
 		project.Main.vers.newDocument(doc);
 		
 		// Dokument verteilen
-		project.Main.vert.distributeDocument(doc);
+		project.Main.vert.distributeDocument(doc, distributeNumber);
 			
 	}
 
