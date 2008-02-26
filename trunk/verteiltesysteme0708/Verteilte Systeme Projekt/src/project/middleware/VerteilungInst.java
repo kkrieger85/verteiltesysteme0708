@@ -1,6 +1,5 @@
 package project.middleware;
 
-import project.*;
 import project.data.*;
 import java.io.*;
 import java.util.*;
@@ -15,7 +14,7 @@ public class VerteilungInst implements Verteilung {
 	 * Dokument jetzt letztendlich im Netzwerk verteilen
 	 * 
 	 */
-	public Computer[] distributeDocument(Document doc) throws Exception {
+	public Computer[] distributeDocument(Document doc, int anzahl) throws Exception {
 
 		//zuerst einmal holen wir uns die größe unseres dokumentes.
 		
@@ -23,11 +22,16 @@ public class VerteilungInst implements Verteilung {
 		long groesse = docfile.length();
 		
 		// wir schnappen uns einfach mal den ersten Rechner aus unserer IP-Liste ...
-		Vector<Computer> computers = project.Main.network.getIPListe(); 
+		Vector<Computer> computers = project.Main.network.getIPListe();
+		
+		if (computers.size() < anzahl)
+		{
+			anzahl = computers.size();
+		}
 		
 		// wir durchsuchen die IP-Liste und suchen uns 3 Rechner aus
 		
-		ComputerWrapper[] complist = new ComputerWrapper[3];
+		ComputerWrapper[] complist = new ComputerWrapper[anzahl];
 		
 		for (int i = 0; i < computers.size() - 1; i++)
 		{
@@ -46,7 +50,8 @@ public class VerteilungInst implements Verteilung {
 				}
 			}
 		}
-		for (int i = 0; i < 3; i++)
+		
+		for (int i = 0; i < anzahl; i++)
 		{
 			if (((ComputerWrapper)computers.get(i)).getAvailableSpace() - ((ComputerWrapper)computers.get(i)).getUsedSpace() > groesse)
 			{
