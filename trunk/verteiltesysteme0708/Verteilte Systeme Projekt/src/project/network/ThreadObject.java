@@ -4,6 +4,7 @@
 package project.network;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Observable;
 
 import project.exception.ThreadObjectException;
@@ -29,6 +30,7 @@ public class ThreadObject extends Observable implements Runnable {
 	
 	public static final int THREADTEST = 0; 
 	public static final int GETIPLISTACTION = 1; 
+	public static final int PUSHIPLISTACTION = 2; 
 	// TODO weitere Typen festlegen !!! 
 	
 	private static int MAXTRIALS = 10; 
@@ -43,6 +45,8 @@ public class ThreadObject extends Observable implements Runnable {
 	private int trials; 
 	private String ident; 
 	
+	// Weitere Informationen für das Threadobjekt 
+	private HashMap<String,String> informationHash; 
 	
 	private AbstractThreadWorker threadWorkerInterf; 
 	/**
@@ -52,8 +56,7 @@ public class ThreadObject extends Observable implements Runnable {
 	private ThreadObject() {
 		this.trials = 0; 
 		this.failure = false; 
-		this.maxtrials = false; 
-		
+		this.maxtrials = false; 	
 	}
 	
 	/**
@@ -80,6 +83,15 @@ public class ThreadObject extends Observable implements Runnable {
 		
 		this.refreshIdent(); 
 	}
+	
+	public ThreadObject(String address, String port, int type, HashMap<String,String> informationHash) 
+			throws ThreadObjectException {  
+		this(address, port, type); 
+		if (informationHash == null)
+			throw new ThreadObjectException(ThreadObjectException.NOINFOHASH); 
+		this.informationHash = informationHash; 
+	}
+	
 
 	/** (non-Javadoc)
 	 * @see java.lang.Runnable#run()
@@ -103,8 +115,10 @@ public class ThreadObject extends Observable implements Runnable {
 			
 			if (this.threadWorkerInterf == null){
 				switch (this.type){
-				case ThreadObject.THREADTEST: this.threadWorkerInterf = new ThreadTestObject(this.serverAddress, this.serverPort); break; 
+				case ThreadObject.THREADTEST: this.threadWorkerInterf = new ThreadTestObject(this.serverAddress, this.serverPort, this.informationHash); break; 
 				case ThreadObject.GETIPLISTACTION: this.threadWorkerInterf = new GetIPListWorker(this.serverAddress, this.serverPort); break;
+				case ThreadObject.PUSHIPLISTACTION: this.threadWorkerInterf = new PushIPListWorker(this.serverAddress, this.serverPort); break;
+				
 				default: throw new ThreadObjectException(ThreadObjectException.NOTYPE); 
 				}
 				

@@ -3,6 +3,8 @@
  */
 package project.network.workerclasses;
 
+import java.util.HashMap;
+
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
  *
@@ -14,6 +16,7 @@ public abstract class AbstractThreadWorker {
 	@SuppressWarnings("unused")
 	protected String serverAddress; 
 	protected Object resultObject; 
+	protected HashMap<String,String> informationHash; 
 	/**
 	 * Standardstart Methode, gibt true zurück wenn alles geklappt hat!!
 	 * @return
@@ -33,6 +36,17 @@ public abstract class AbstractThreadWorker {
 		this.serverAddress = address; 
 		this.serverPort = port; 
 		this.resultObject = null; 
+	}
+	
+	/**
+	 * Konstruktor der zusätzlich eine Hashmap enthält !!
+	 * @param address
+	 * @param port
+	 * @param informationHash
+	 */
+	public AbstractThreadWorker(String address, String port, HashMap<String,String> informationHash){
+		this(address, port); 
+		this.informationHash = informationHash; 
 	}
 
 	/**
