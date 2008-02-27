@@ -63,8 +63,8 @@ public class RMINetworkImpl extends UnicastRemoteObject implements
 		return list.getIPList(); 
 	}
 	
-	/**
-	 * Mit dieser Funktion kann man eine IPListe zu einem anderen Server schicken!!
+	/* (non-Javadoc)
+	 * @see project.network.RMINetworkInterface#pushIPList()
 	 */
 	@Override
 	public boolean pushIPList(LinkedList<ServerDataObject> list)

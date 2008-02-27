@@ -23,10 +23,8 @@ public class NetworkFacade {
 	 * @return Gibt die LinkedList mit den Serverdaten zurück 
 	 */
 	public LinkedList<ServerDataObject> getIPList(){ 
-		// TODO Funktion aus der Klasse IPList richtig einbinden 
 		LinkedList<ServerDataObject> list = new LinkedList<ServerDataObject>(); 
-		IPList iplist = IPList.getInstance(); 
-		list = iplist.testIPList(); 
+		list = IPList.getInstance().getIPList(); 
 		return list; 
 	}
 	

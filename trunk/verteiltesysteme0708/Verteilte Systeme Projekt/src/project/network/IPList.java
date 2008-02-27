@@ -43,7 +43,7 @@ public class IPList implements Serializable {
 	}
 
 	/**
-	 * XML Datei laden
+	 * Mit dieser Funktion kann man die XML Datei in die Klasse reinladen 
 	 */
 	@SuppressWarnings("unchecked")
 	public void loadXML() {
@@ -91,16 +91,23 @@ public class IPList implements Serializable {
 			}
 
 		} catch (JDOMException e) {
-			// TODO Exceptions ordentlich abfangen 1!!
+			DDLogger.getLogger().createLog(e.getMessage(), DDLogger.ERROR); 
 		} catch (IOException e) {
-
+			DDLogger.getLogger().createLog(e.getMessage(), DDLogger.ERROR); 
 		}
 
 	}
 
 	/**
-	 * XML Datei speichern Grundstruktur soll so aussehen: <iplist> <dataobject>
-	 * <address></address> <port></port> usw. </dataobject> </iplist>
+	 * XML Datei speichern 
+	 * Grundstruktur soll so aussehen: 
+	 * <iplist> 
+	 * 		<dataobject>
+	 * 			<address></address>
+	 * 			<port></port> 
+	 * 			usw. 
+	 * 		</dataobject> 
+	 * </iplist>
 	 */
 	public void saveXML() {
 		Element iplistElem;
@@ -109,17 +116,24 @@ public class IPList implements Serializable {
 			// Falls die Datei nicht erstellt werden konnte wirf eine Exception
 			// Teste ob die Datei existiert
 			File file = new File(IPList.file);
-		//	if (!file.exists()) {
+			file.createNewFile();
+			file.setWritable(true);
+			
+			iplistElem = new Element("iplist");
+			doc.setRootElement(iplistElem);
+			
+		// Code wegen Fehlerwahrscheinlichkeit auskommentiert, bei erneuter Betrachtung verändern	
+		/*	if (!file.exists()) {
 				file.createNewFile();
 				file.setWritable(true);
-		//	}
+			}
 			// Zuerst Grundvoraussetzungen schaffen für die Liste !!!
-		//	if (doc.hasRootElement()) {
-		//		iplistElem = doc.getRootElement();
-		//	} else {
+			if (doc.hasRootElement()) {
+				iplistElem = doc.getRootElement();
+			} else {
 				iplistElem = new Element("iplist");
 				doc.setRootElement(iplistElem);
-		//	}
+			}   */
 
 			// Durchlaufe die IP Liste !!!
 			if (!IPList.list.isEmpty()) {
@@ -147,47 +161,41 @@ public class IPList implements Serializable {
 				filewriter.flush();
 			}
 		} catch (Exception ex) {
-			DDLogger logger = DDLogger.getLogger();
-			logger.createLog(ex.getMessage(), DDLogger.DEBUG);
+			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
 		}
 	}
 
-	/**
-	 * Testfunktion TODO Testfunktion später rausschmeißen !!!
-	 * 
+	/** 
+	 * Implementierung der Singletonklasse
+	 * Gibt halt die Instanz der Klasse selber zurück 
 	 * @return
 	 */
-	public LinkedList<ServerDataObject> testIPList() {
-		LinkedList<ServerDataObject> ll = new LinkedList<ServerDataObject>();
-		try {
-			ServerDataObject sdo = new ServerDataObject("192.168.2.101", "1099");
-			ll.add(sdo);
-			sdo = new ServerDataObject("192.168.2.100", "1099");
-			ll.add(sdo);
-			sdo = new ServerDataObject("192.168.2.102", "1099");
-			ll.add(sdo);
-			sdo = new ServerDataObject("192.168.2.103", "1099");
-			ll.add(sdo);
-		} catch (ServerDataObjectException e) {
-			e.printStackTrace();
-		}
-		IPList.list = ll;
-		return ll;
-	}
-
 	public static IPList getInstance() {
 		return IPList.iplist;
 	}
 
+	/**
+	 * Ganz normale toStringmethode
+	 * Dient nur zum Testen des Inhalts
+	 */
 	public String toString() {
 		return "Count Objects " + IPList.list.size()+ "  " + IPList.list.toString();
 	}
 
+	/**
+	 * Mit dieser Funktion kann ein zusätzliches Listenelement hinzugefügt werden 
+	 * Die Liste wird dann sogleich gespeichert. 
+	 * @param obj Das anzulegende Objekt 
+	 */
 	public void addObject(ServerDataObject obj){
 		IPList.list.add(obj); 
 		this.saveXML(); 
 	}
 	
+	/** 
+	 * Funktion dient zum erhalten der IPListe 
+	 * @return LinkedList<ServerDataObject> 
+	 */
 	public LinkedList<ServerDataObject> getIPList(){
 		IPList.iplist.loadXML(); 
 		if (IPList.list == null || IPList.list.size() == 0){	

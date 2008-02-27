@@ -117,6 +117,10 @@ public class ServerDataObject implements Serializable {
 		return serialVersionUID;
 	}
 	
+	/** 
+	 * Ganz normale toStringmethode zum Testen des Inhalts
+	 * gibt halt einen String zurück. 
+	 */
 	public String toString(){
 		return "Object: " + this.address + " | " + this.port + " | " + this.latestActivity.toString();  
 	}

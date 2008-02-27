@@ -84,6 +84,16 @@ public class ThreadObject extends Observable implements Runnable {
 		this.refreshIdent(); 
 	}
 	
+	/**
+	 * Erweiterter Konstruktor mit dem eine zusätzliche HashMap übergeben wird 
+	 * Dient dazu weitere Informationen zu übergeben, Struktur kennt dann der ThreadWorker 
+	 * selber. 
+	 * @param address
+	 * @param port
+	 * @param type
+	 * @param informationHash
+	 * @throws ThreadObjectException
+	 */
 	public ThreadObject(String address, String port, int type, HashMap<String,String> informationHash) 
 			throws ThreadObjectException {  
 		this(address, port, type); 

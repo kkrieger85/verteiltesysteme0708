@@ -18,8 +18,11 @@ import project.helperclasses.NetworkHelper;
  *	RMI Serverimplementierung !!!
  */
 public class RMIServerImpl {
-
-	// TODO Exceptions richtig abfangen!!! 
+	
+	/**
+	 * Konstruktor 
+	 * Ruft einfach nur den Server auf und startet ihn. 
+	 */
 	public RMIServerImpl(){
 	DDLogger ddl = DDLogger.getLogger(); 
 	String host = null ;
@@ -37,11 +40,10 @@ public class RMIServerImpl {
 	      Naming.rebind("rmi://"+host+"/server", new RMINetworkImpl());
 	    }
 	    catch (MalformedURLException ex) {
-	      System.out.println(ex.getMessage());
+	    	ddl.createLog(ex.getMessage() , DDLogger.FATAL); 
 	    }
 	    catch (RemoteException ex) {
-	      System.out.println(ex.getMessage());
-	      ex.printStackTrace(); 
+	    	ddl.createLog(ex.getMessage() , DDLogger.FATAL); 
 	    }
 	}
 }
