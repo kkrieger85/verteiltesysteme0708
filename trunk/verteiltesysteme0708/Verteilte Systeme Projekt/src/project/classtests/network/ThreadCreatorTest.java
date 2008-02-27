@@ -1,7 +1,7 @@
 /**
  * 
  */
-package project.classtests;
+package project.classtests.network;
 
 import java.util.HashMap;
 

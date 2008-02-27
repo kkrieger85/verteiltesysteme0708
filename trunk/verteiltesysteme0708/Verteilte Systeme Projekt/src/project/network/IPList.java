@@ -45,12 +45,14 @@ public class IPList implements Serializable {
 	/**
 	 * XML Datei laden
 	 */
+	@SuppressWarnings("unchecked")
 	public void loadXML() {
 		SAXBuilder saxb = new SAXBuilder();
 		String serverAddress = "address";
 		String serverPort = "port";
 		Document doc;
 		Element root;
+		IPList.list = new LinkedList<ServerDataObject>(); 
 		List<Element> list;
 		Iterator<Element> ite;
 		try {
@@ -204,7 +206,8 @@ public class IPList implements Serializable {
 		if (newList != null){
 			
 			IPList iplist = IPList.getInstance(); 
-			IPList.list = new LinkedList<ServerDataObject>(newList) ; 
+			IPList.list.clear(); 
+			IPList.list = newList ; 
 			iplist.saveXML(); 
 			return true; 
 		} else 

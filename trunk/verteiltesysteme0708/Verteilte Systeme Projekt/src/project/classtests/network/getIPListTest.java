@@ -1,21 +1,24 @@
 /**
  * 
  */
-package project.classtests;
+package project.classtests.network;
 
-import project.exception.ServerDataObjectException;
 import project.helperclasses.DDLogger;
-import project.network.*;
+import project.network.IPList;
+import project.network.ThreadObject;
+import project.network.ThreadObserver;
+
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
  *
  */
-public class IPListXMLTest {
+public class getIPListTest {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		DDLogger ddl = new DDLogger(DDLogger.ALL); 
 		// Zuerst die IP Liste anlegen !! 
 		IPList iplist = IPList.getInstance(); 
@@ -25,15 +28,18 @@ public class IPListXMLTest {
 		iplist.saveXML(); 
 		// Datei auslesen und ausgeben 
 		iplist.loadXML(); 
-		System.out.println(iplist); 
-		ServerDataObject sdo;
+		
+		ThreadObserver tobs = ThreadObserver.getInstance(); 
+		String address = "192.168.2.100"; 
+		String port = "1099"; 
+		int type = ThreadObject.GETIPLISTACTION; 
 		try {
-			sdo = new ServerDataObject("192.168.2.103", "1099");
-			iplist.addObject(sdo); 
-		} catch (ServerDataObjectException e) {
-			e.printStackTrace();
+			ThreadObject to = new ThreadObject(address,port,type); 
+			to.addObserver(tobs); 
+			tobs.addThread(to); 
+		} catch (Exception ex){
+		
 		}
-		System.out.println(iplist); 
 	}
 
 }

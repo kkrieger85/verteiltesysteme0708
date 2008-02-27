@@ -1,7 +1,7 @@
 /**
  * 
  */
-package project.classtests;
+package project.classtests.helper;
 
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>

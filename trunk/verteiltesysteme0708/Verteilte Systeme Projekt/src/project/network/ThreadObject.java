@@ -204,4 +204,33 @@ public class ThreadObject extends Observable implements Runnable {
 	public synchronized String getIdent() {
 		return ident;
 	}
+
+	/**
+	 * @return the type
+	 */
+	public synchronized int getType() {
+		return type;
+	}
+
+	/**
+	 * @return the serverPort
+	 */
+	public synchronized String getServerPort() {
+		return serverPort;
+	}
+
+	/**
+	 * @return the serverAddress
+	 */
+	public synchronized String getServerAddress() {
+		return serverAddress;
+	}
+	
+	/**
+	 * Übergibt das resultObject
+	 * @return
+	 */
+	public synchronized Object getResultObject(){
+		return this.threadWorkerInterf.getResultObject(); 		
+	}
 }
