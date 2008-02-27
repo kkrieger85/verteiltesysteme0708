@@ -107,10 +107,10 @@ public class IPList implements Serializable {
 			// Falls die Datei nicht erstellt werden konnte wirf eine Exception
 			// Teste ob die Datei existiert
 			File file = new File(IPList.file);
-			if (!file.exists()) {
+		//	if (!file.exists()) {
 				file.createNewFile();
 				file.setWritable(true);
-			}
+		//	}
 			// Zuerst Grundvoraussetzungen schaffen für die Liste !!!
 		//	if (doc.hasRootElement()) {
 		//		iplistElem = doc.getRootElement();
