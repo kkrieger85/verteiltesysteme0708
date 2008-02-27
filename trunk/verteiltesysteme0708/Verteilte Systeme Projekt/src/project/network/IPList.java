@@ -202,8 +202,9 @@ public class IPList implements Serializable {
 	 */
 	public boolean setIPList(LinkedList<ServerDataObject> newList){
 		if (newList != null){
-			IPList.list = newList; 
+			
 			IPList iplist = IPList.getInstance(); 
+			IPList.list = new LinkedList<ServerDataObject>(newList) ; 
 			iplist.saveXML(); 
 			return true; 
 		} else 
