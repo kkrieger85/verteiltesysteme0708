@@ -18,6 +18,7 @@ public class Main2 {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		@SuppressWarnings("unused")
 		DDLogger ddl = new DDLogger(DDLogger.ALL); 
 		Main2 main = new Main2();
 		main.server = new RMIServerImpl(); 

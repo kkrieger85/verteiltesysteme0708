@@ -57,7 +57,7 @@ public class RMINetworkImpl extends UnicastRemoteObject implements
 	@Override
 	public LinkedList<ServerDataObject> getIPList() throws RemoteException {
 		DDLogger ddl = DDLogger.getLogger(); 
-		ddl.createLog("Anfrage von Client kommt...", DDLogger.INFO); 
+		ddl.createLog("Liste wird abgerufen!", DDLogger.INFO); 
 		IPList list = IPList.getInstance(); 
 		
 		return list.getIPList(); 
@@ -70,6 +70,9 @@ public class RMINetworkImpl extends UnicastRemoteObject implements
 	public boolean pushIPList(LinkedList<ServerDataObject> list)
 			throws RemoteException {
 		boolean returnvalue = false; 
+		DDLogger ddl = DDLogger.getLogger(); 
+		ddl.createLog("Liste wird geschickt!", DDLogger.INFO); 
+		
 		IPList iplist = IPList.getInstance(); 
 		returnvalue = iplist.setIPList(list); 
 		return returnvalue;

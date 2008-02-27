@@ -1,7 +1,7 @@
 /**
  * 
  */
-package project.classtests;
+package project.classtests.helper;
 import project.helperclasses.DDLogger;
 
 /**

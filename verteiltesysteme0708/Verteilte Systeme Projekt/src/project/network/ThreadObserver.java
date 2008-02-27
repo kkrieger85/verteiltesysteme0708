@@ -78,8 +78,11 @@ public class ThreadObserver implements Observer {
 			} 
 		} else {
 			// Falls alles geklappt hat mache hier weiter 
-			ddl.createLog(obj.getIdent() + " : " +"Thread ist fertig!!!", DDLogger.INFO); 
+			// ddl.createLog(obj.getIdent() + " : " +"Thread ist fertig!!!", DDLogger.INFO); 
 			// TODO Behandlung von fertigen Threads einbauen 
+			ThreadResultProcessing processing = new ThreadResultProcessing(obj.getServerAddress(),obj.getServerPort(),obj.getType(), obj.getResultObject());
+			Thread thread = new Thread(processing); 
+			thread.start(); 
 		}
 	}
 	
