@@ -17,6 +17,7 @@ public class NetworkTests01 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		DDLogger ddl = new DDLogger(DDLogger.ALL); 
 		ThreadObserver tobs = ThreadObserver.getInstance(); 
 		String address = "192.168.2.101"; 

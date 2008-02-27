@@ -25,7 +25,7 @@ public class IPListXMLTest {
 		iplist.saveXML(); 
 		// Datei auslesen und ausgeben 
 		iplist.loadXML(); 
-		System.out.println(iplist); 
+		ddl.createLog(iplist.toString(), DDLogger.DEBUG); 
 		ServerDataObject sdo;
 		try {
 			sdo = new ServerDataObject("192.168.2.103", "1099");

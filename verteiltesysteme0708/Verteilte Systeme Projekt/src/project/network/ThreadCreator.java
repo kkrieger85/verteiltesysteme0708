@@ -37,6 +37,15 @@ public class ThreadCreator {
 			return null; 
 	}
 	
+	/**
+	 * Mittels dieses Aufrufs kann man verschiedene Threads direkt erstellen 
+	 * hierzu wird die IPListe benötigt, der Threadtyp und die Hashmap mit weiteren 
+	 * Informationen für den späteren Verlauf 
+	 * @param iplist
+	 * @param type
+	 * @param informationHash
+	 * @return
+	 */
 	public boolean createThreads(LinkedList<ServerDataObject> iplist, int type, HashMap<String,String> informationHash){
 		
 		for (int i = 0; i< iplist.size(); i++ ){
@@ -46,12 +55,9 @@ public class ThreadCreator {
 				tobj.addObserver(threadobserver); 
 				threadobserver.addThread(tobj); 			
 			} catch (ThreadObjectException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			
-		}
-		
+				// TODO  Catch ordentlich bearbeiten !!! 
+			} 		
+		}		
 		return true; 
 	}
 	
