@@ -112,12 +112,12 @@ public class IPList implements Serializable {
 				file.setWritable(true);
 			}
 			// Zuerst Grundvoraussetzungen schaffen für die Liste !!!
-			if (doc.hasRootElement()) {
-				iplistElem = doc.getRootElement();
-			} else {
+		//	if (doc.hasRootElement()) {
+		//		iplistElem = doc.getRootElement();
+		//	} else {
 				iplistElem = new Element("iplist");
 				doc.setRootElement(iplistElem);
-			}
+		//	}
 
 			// Durchlaufe die IP Liste !!!
 			if (!IPList.list.isEmpty()) {
