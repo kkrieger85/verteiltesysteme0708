@@ -41,9 +41,11 @@ public class pushIPListTest {
 		String port = "1099"; 
 		int type = ThreadObject.PUSHIPLISTACTION; 
 		try {
-			ThreadObject to = new ThreadObject(address,port,type); 
-			to.addObserver(tobs); 
-			tobs.addThread(to); 
+			for (int i = 0; i< 5; i++){		
+				ThreadObject to = new ThreadObject(address,port,type); 
+				to.addObserver(tobs); 
+				tobs.addThread(to); 
+			}
 		} catch (Exception ex){
 		
 		}

@@ -5,6 +5,7 @@ package project.network.workerclasses;
 
 import java.util.HashMap;
 
+
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
  *
