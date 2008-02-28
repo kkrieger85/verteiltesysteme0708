@@ -46,7 +46,7 @@ public class IPList implements Serializable {
 	 * Mit dieser Funktion kann man die XML Datei in die Klasse reinladen 
 	 */
 	@SuppressWarnings("unchecked")
-	public void loadXML() {
+	public synchronized void loadXML() {
 		SAXBuilder saxb = new SAXBuilder();
 		String serverAddress = "address";
 		String serverPort = "port";
@@ -109,7 +109,7 @@ public class IPList implements Serializable {
 	 * 		</dataobject> 
 	 * </iplist>
 	 */
-	public void saveXML() {
+	public synchronized void saveXML() {
 		Element iplistElem;
 		Document doc = new Document();
 		try {

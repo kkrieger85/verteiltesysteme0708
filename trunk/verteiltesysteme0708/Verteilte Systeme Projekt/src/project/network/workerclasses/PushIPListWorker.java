@@ -4,6 +4,7 @@
 package project.network.workerclasses;
 
 import java.rmi.Naming;
+import project.helperclasses.*;
 
 import project.network.IPList;
 import project.network.RMINetworkInterface;
@@ -35,6 +36,7 @@ public class PushIPListWorker extends AbstractThreadWorker {
 			return true; 
 		else return false; 
 		} catch (Exception e) {
+			DDLogger.getLogger().createLog(e.getMessage(), DDLogger.WARN); 
 			return false; 
 		}
 }

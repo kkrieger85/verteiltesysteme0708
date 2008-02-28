@@ -34,9 +34,10 @@ public class getIPListTest {
 		String port = "1099"; 
 		int type = ThreadObject.GETIPLISTACTION; 
 		try {
+			for (int i = 0; i< 5; i++){		
 			ThreadObject to = new ThreadObject(address,port,type); 
 			to.addObserver(tobs); 
-			tobs.addThread(to); 
+			tobs.addThread(to); }
 		} catch (Exception ex){
 		
 		}

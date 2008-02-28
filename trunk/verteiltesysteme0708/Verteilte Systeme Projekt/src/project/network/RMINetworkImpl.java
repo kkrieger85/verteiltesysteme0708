@@ -28,6 +28,7 @@ public class RMINetworkImpl extends UnicastRemoteObject implements
 	 * @throws RemoteException
 	 */
 	public RMINetworkImpl() throws RemoteException {
+
 	}
 
 	/**
@@ -48,18 +49,31 @@ public class RMINetworkImpl extends UnicastRemoteObject implements
 	 */
 	public RMINetworkImpl(int arg0, RMIClientSocketFactory arg1,
 			RMIServerSocketFactory arg2) throws RemoteException {
-		super(arg0, arg1, arg2);
+		super(arg0, arg1, arg2);			
 	}
 
+	/** 
+	 * Destruktor von Java ;) 
+	 */
+	protected void finalize() throws Throwable
+	{
+		//do finalization here
+		super.finalize(); //not necessary if extending Object.
+	} 
+	
 	/* (non-Javadoc)
 	 * @see project.network.RMINetworkInterface#getIPList()
 	 */
 	@Override
 	public LinkedList<ServerDataObject> getIPList() throws RemoteException {
+		/* Auskommentiert wegen fehlender Testmöglichkeit 
+		if (this.checkMaxThreads()==false)
+			throw new RemoteException("Zuviele Threads!!!"); 
+			*/
 		DDLogger ddl = DDLogger.getLogger(); 
 		ddl.createLog("Liste wird abgerufen!", DDLogger.INFO); 
 		IPList list = IPList.getInstance(); 
-		
+		// IncomingThreadCounter.getInstance().decCount(); 
 		return list.getIPList(); 
 	}
 	
@@ -68,16 +82,38 @@ public class RMINetworkImpl extends UnicastRemoteObject implements
 	 */
 	@Override
 	public boolean pushIPList(LinkedList<ServerDataObject> list)
-			throws RemoteException {
+			throws RemoteException {		
+		/* Auskommentiert wegen fehlender Testmöglichkeit 
+		if (this.checkMaxThreads()==false)
+			throw new RemoteException("Zuviele Threads!!!"); 
+			*/
 		boolean returnvalue = false; 
 		DDLogger ddl = DDLogger.getLogger(); 
 		ddl.createLog("Liste wird geschickt!", DDLogger.INFO); 
 		
 		IPList iplist = IPList.getInstance(); 
 		returnvalue = iplist.setIPList(list); 
+		// IncomingThreadCounter.getInstance().decCount(); 
 		return returnvalue;
 	}
 	
+	
+	/** 
+	 * Checkt ob zuviele threads am laufen sind 
+	 * Übergibt True wenn ein weiterer benutzt werden kann 
+	 * @return
+	 */
+	@SuppressWarnings("unused")
+	private synchronized boolean checkMaxThreads(){
+		DDLogger.getLogger().createLog("Count=  " + IncomingThreadCounter.getInstance().getCount(), DDLogger.DEBUG); 
+		if (IncomingThreadCounter.getInstance().getCount() >= IncomingThreadCounter.MAXTHREADCOUNT){		
+			return false; 
+		} else {
+			IncomingThreadCounter.getInstance().incCount(); 
+			return true;  
+			
+		}
+	}
 	
 
 }
