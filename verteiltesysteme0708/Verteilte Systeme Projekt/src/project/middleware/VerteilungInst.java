@@ -59,11 +59,39 @@ public class VerteilungInst implements Verteilung {
 			}
 		}
 		
-		
-		
 		// ... und verschicken das Dokument an ihn ...
 	
 		return complist;
 	}
 	
+	public long getMyAvailableSpace(){
+		File mainDir = new File ("C:\"");
+		return mainDir.getFreeSpace();
+	}
+	
+	public long getMyUsedSpace(){
+		return getDirUsedSpace("../");
+	}
+	
+	public long getDirUsedSpace(String dirpath)
+	{
+		long dirsize = 0;
+		File dir = new File (dirpath);
+		if (dir.isDirectory())
+		{
+			File[] fileList = dir.listFiles();
+			for (int i = 0; i < fileList.length; i++)
+			{
+				if (fileList[i].isDirectory())
+				{
+					dirsize += getDirUsedSpace(fileList[i].getPath());
+				}
+				else
+				{
+					dirsize += fileList[i].length();
+				}
+			}
+		}
+		return dirsize;
+	}
 }
