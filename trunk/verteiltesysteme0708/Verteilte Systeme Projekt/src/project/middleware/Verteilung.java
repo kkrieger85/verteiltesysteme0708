@@ -15,4 +15,8 @@ public interface Verteilung {
 	 */
 	public Computer[] distributeDocument(Document doc, int anzahl) throws Exception;
 	
+	public long getMyAvailableSpace();
+	
+	public long getMyUsedSpace();
+	
 }
