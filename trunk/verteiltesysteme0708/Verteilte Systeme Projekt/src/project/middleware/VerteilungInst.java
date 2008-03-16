@@ -5,16 +5,19 @@ import java.io.*;
 import java.util.*;
 
 /**
- * @author ab
+ * @author Christian Schwerdtfeger
+ * 
+ * Klasse zum Suchen geeigneter Backup-Rechner im Netzwerk.
  *
  */
 public class VerteilungInst implements Verteilung {
 
 	/**
-	 * Dokument jetzt letztendlich im Netzwerk verteilen
-	 * 
+	 * Methode die eine Liste von Computern zurückgibt.
+	 * @param doc Das Dokument für das Backup-Rechner gesucht werden
+	 * @param anzahl Die Anzahl der Backup-Rechner die gesucht werden sollen.
 	 */
-	public Computer[] distributeDocument(Document doc, int anzahl) throws Exception {
+	public Vector<Computer> distributeDocument(Document doc, int anzahl){
 
 		//zuerst einmal holen wir uns die größe unseres dokumentes.
 		
@@ -30,8 +33,6 @@ public class VerteilungInst implements Verteilung {
 		}
 		
 		// wir durchsuchen die IP-Liste und suchen uns 3 Rechner aus
-		
-		ComputerWrapper[] complist = new ComputerWrapper[anzahl];
 		
 		for (int i = 0; i < computers.size() - 1; i++)
 		{
@@ -51,47 +52,19 @@ public class VerteilungInst implements Verteilung {
 			}
 		}
 		
+		Vector<Computer> complist = new Vector<Computer>();
+		
 		for (int i = 0; i < anzahl; i++)
 		{
-			if (((ComputerWrapper)computers.get(i)).getAvailableSpace() - ((ComputerWrapper)computers.get(i)).getUsedSpace() > groesse)
+			//Wenn der Speicherplatz größer als die Größe des Dokumentes ist kommt der Computer in die Liste.
+			if (((ComputerWrapper)computers.get(i)).getAvailableSpace() > groesse)
 			{
-				complist[i] = (ComputerWrapper)computers.get(i);
+				complist.add((ComputerWrapper)computers.get(i));
 			}
 		}
 		
-		// ... und verschicken das Dokument an ihn ...
 	
 		return complist;
 	}
-	
-	public long getMyAvailableSpace(){
-		File mainDir = new File ("C:\"");
-		return mainDir.getFreeSpace();
-	}
-	
-	public long getMyUsedSpace(){
-		return getDirUsedSpace("../");
-	}
-	
-	public long getDirUsedSpace(String dirpath)
-	{
-		long dirsize = 0;
-		File dir = new File (dirpath);
-		if (dir.isDirectory())
-		{
-			File[] fileList = dir.listFiles();
-			for (int i = 0; i < fileList.length; i++)
-			{
-				if (fileList[i].isDirectory())
-				{
-					dirsize += getDirUsedSpace(fileList[i].getPath());
-				}
-				else
-				{
-					dirsize += fileList[i].length();
-				}
-			}
-		}
-		return dirsize;
-	}
+
 }
