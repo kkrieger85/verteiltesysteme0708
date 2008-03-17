@@ -1,26 +1,32 @@
 package project.rightmanagement;
 
-import project.data.Document;
+import project.data.*;
 import project.exception.LoginException;
 import project.exception.RightException;
+import java.rmi.Naming;
 
-public class Simple implements Fassade{
-	
-	public boolean changeDocument(String id){
-		return true;
+public class Simple extends Fassade{
+	private TasInterface authServer;
+	public Simple(String url, String user, String passwd){
+		super(url, user, passwd);
+		authServer = (TasInterface) Naming.lookup(url);
+		roles = listRoles(user);
 	}
-	public boolean openDocument(String id){
-		return true;
-		
+	
+	public boolean changeDocument(DocumentWrapper doc){
+		return authServer.canWriteInRole(user, DocumentWrapper.getMetadata().getRole());
+	}
+	public boolean openDocument(DocumentWrapper doc ){
+		return authServer.canReadInRole(user, DocumentWrapper.getMetadata().getRole());		
 	}
 	public boolean createDocument(String role){
-		return true;		
+		return authServer.canCreateInRole(user, role);	
 	}
-	public boolean login (String user, String password)throws LoginException{
-		return true;
+	protected boolean login(String user, String password)throws RemoteException{
+		return authServer.login(user, password);
 	}
-	public boolean setVertrauensstelle(){
-		return true;		
+	public boolean setVertrauensstelle(String user, String role){
+		return authServer.isRoleAdmin(this.user, role) ? authServer.createRoleAmin(String user, String role): false;		
 	}
 	public boolean addRoleToDocument(){
 		return true;
@@ -29,21 +35,13 @@ public class Simple implements Fassade{
 		return true;
 	}
 	public boolean addUserToRole(String user, String role){
-		return true;
+		return authServer.isRoleAdmin(this.user, role) ? authServer.addUserToRole(String user, String role): false;
 	}
 	public boolean removeUserFromRole(String user, String role){
-		return true;
+		return authServer.isRoleAdmin(this.user, role) ? authServer.remoteUserFromRole(String user, String role): false;
 	}
 	public String[] listRoles(){
-		String[] temp = new String[1];
-		temp[0]= "Test";
-		return temp;
-	}
-	public void encrypt(Document doc)throws RightException{
-		
-	}
-	public void decrypt(Document doc)throws RightException{
-		
+		return roles;
 	}
 
 }

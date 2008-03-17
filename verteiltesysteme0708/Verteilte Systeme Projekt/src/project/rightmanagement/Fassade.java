@@ -2,24 +2,37 @@ package project.rightmanagement;
 
 import project.exception.*;
 import project.data.*;
-
+import java.rmi.RemoteException;
 /**
  * Fassadeninterface für das Rechtemanagement
  * @author mafolz
  *
  */
-public interface Fassade {	
-	public boolean loggedin = false;
-	public boolean changeDocument(String id);
-	public boolean openDocument(String id);
-	public boolean createDocument(String role);
-	public boolean login (String user, String password)throws LoginException;
-	public boolean setVertrauensstelle();
-	public boolean addRoleToDocument();
-	public boolean removeRoleFromDocument();
-	public boolean addUserToRole(String user, String role);
-	public boolean removeUserFromRole(String user, String role);
-	public String[] listRoles();
-	public void encrypt(Document doc)throws RightException;
-	public void decrypt(Document doc)throws RightException;
+public abstract class Fassade {
+	protected String url;
+	protected String user;
+	protected String[] roles;
+	
+	public Fassade(String url, String user, String password)throws RemoteException, LoginException{
+		this.url=url;
+		this.user=user;
+		if(!login(user,password))
+			throw new LoginException(LoginException.CANNOTLOGIN);
+	}
+	public abstract boolean changeDocument(DocumentWrapper doc);
+	public abstract boolean openDocument(DocumentWrapper doc);
+	public abstract boolean createDocument(String role);
+	protected abstract boolean login (String user, String password)throws RemoteException;
+	public abstract boolean setVertrauensstelle();
+	public abstract boolean addRoleToDocument();
+	public abstract boolean removeRoleFromDocument();
+	public abstract boolean addUserToRole(String user, String role);
+	public abstract boolean removeUserFromRole(String user, String role);
+	public abstract String[] listRoles();
+	public DocumentWrapper encrypt( DocumentWrapper doc) throws RightException{
+		return doc;
+	}
+	public DocumentWrapper decrypt( DocumentWrapper doc) throws RightException{
+		return doc;
+	}
 }
