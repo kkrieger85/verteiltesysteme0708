@@ -16,7 +16,9 @@ public class DiskSpaceHelper {
 	/**
 	 * Methode die den noch verfügbaren Speicherplatz auf der Partition auf der das Programm
 	 * installiert wurde zurückgibt.
+	 * 
 	 * @return verfügbarer Speicherplatz in bytes.
+	 * 
 	 * @throws SecurityException wenn der angemeldete Benutzer keine Schreibrechte für das
 	 * Verzeichnis hat.
 	 */

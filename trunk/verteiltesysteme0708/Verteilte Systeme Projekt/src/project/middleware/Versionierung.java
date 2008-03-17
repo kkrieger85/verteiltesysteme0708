@@ -13,6 +13,8 @@ public interface Versionierung {
 	 * 
 	 * @param doc	neues Dokoument
 	 */
-	public void newDocument(Document doc) throws Exception;
+	public void newDocument(Document doc, String comment) throws Exception;
+	
+	public void updateDocument(Document doc, String comment) throws Exception;
 	
 }

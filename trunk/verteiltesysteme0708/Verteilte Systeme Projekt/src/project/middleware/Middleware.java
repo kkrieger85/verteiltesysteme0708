@@ -17,6 +17,6 @@ public interface Middleware {
 	 * 					Bereich und notwendige Teile der Metadaten sein.
 	 * @see	Document
 	 */
-	public void createDocument(Document doc) throws Exception; 
+	public void createDocument(Document doc, String comment) throws Exception; 
 	
 }
