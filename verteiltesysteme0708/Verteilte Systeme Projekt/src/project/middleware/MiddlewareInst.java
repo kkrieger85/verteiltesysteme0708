@@ -21,7 +21,7 @@ public class MiddlewareInst implements Middleware {
 	 * 					Bereich und notwendige Teile der Metadaten sein.
 	 * @see	Document
 	 */
-	public void createDocument(Document doc) throws Exception {
+	public void createDocument(Document doc, String comment) throws Exception {
 		
 		// zuerst überprüfen, ob das gelieferte Dokument korrekt vorliegt und so
 		// verteilt werden kann
@@ -33,7 +33,7 @@ public class MiddlewareInst implements Middleware {
 			throw new Exception("Dokument darf nicht verteilt werden");
 		
 		// Document versionieren
-		project.Main.vers.newDocument(doc);
+		project.Main.vers.newDocument(doc, comment);
 		
 		// Dokument verteilen
 		project.Main.vert.distributeDocument(doc, distributeNumber);

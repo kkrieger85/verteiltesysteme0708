@@ -10,9 +10,6 @@ package project.data;
  *
  */
 public class DocumentMetadata {
-
-	// MUSS-Feld: Dateiname
-	private String filename;
 	
 	// KANN-Feld: Beschreibung
 	private String beschreibung;
@@ -25,14 +22,7 @@ public class DocumentMetadata {
 	 *  Es muss mindestens der Dateinamen ausgefüllt sein,
 	 *  alle anderen Parameter können optional gesetzt werden
 	 */
-	public DocumentMetadata(String filename) throws Exception {
-		if (filename == null)
-			throw new Exception("Dateinamen muss angegeben werden");
-		this.filename = filename;
-	}
-
-	public String getFilename() {
-		return filename;
+	public DocumentMetadata(){
 	}
 	
 	public String getBeschreibung() {
@@ -47,7 +37,8 @@ public class DocumentMetadata {
 	 * toString()
 	 */
 	public String toString() {
-		return "(" + filename + "," + beschreibung + ")";
+		//ToDo String-Methode
+		return "(" + beschreibung + ")";
 	}
 
 }

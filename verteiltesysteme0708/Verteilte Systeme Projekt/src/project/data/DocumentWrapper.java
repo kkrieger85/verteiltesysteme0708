@@ -23,8 +23,8 @@ public class DocumentWrapper implements Document {
 	// Metadaten des Dokuments
 	private DocumentMetadata dmeta 			= null;
 	
-	// Versionsinformationen des Dokuments
-	private DocumentVersion dversion 		= null;
+	// Versionsinformationen zur aktuellen Version des Dokuments
+	private DocumentVersion lastVersion 		= null;
 	
 	// Verteilungs- (Backup-) Informationen über das Dokument 
 	private DocumentDistribution dbackup 	= null;
@@ -62,11 +62,11 @@ public class DocumentWrapper implements Document {
 
 
 	public DocumentVersion getVersion() {
-		return dversion;
+		return lastVersion;
 	}
 
 	public void setVersion(DocumentVersion dversion) {
-		this.dversion = dversion;
+		this.lastVersion = dversion;
 	}
 
 	public DocumentDistribution getDistribution() {
@@ -89,7 +89,7 @@ public class DocumentWrapper implements Document {
 	 * toString()
 	 */
 	public String toString() {
-		String s = dfile + ", " + dmeta + ", " + dversion.getVersion() + ", " + dbackup;
+		String s = dfile + ", " + dmeta + ", " + lastVersion.getVersion() + ", " + dbackup;
 		return s;
 	}
 }

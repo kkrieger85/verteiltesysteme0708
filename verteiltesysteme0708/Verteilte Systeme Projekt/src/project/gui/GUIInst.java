@@ -23,9 +23,9 @@ public class GUIInst implements GUI {
 		
 		try {
 		
-			Document doc = new DocumentWrapper(new DocumentFile(), new DocumentMetadata("test.doc"));
+			Document doc = new DocumentWrapper(new DocumentFile("test.doc"), new DocumentMetadata());
 			
-			Main.middleware.createDocument(doc);
+			Main.middleware.createDocument(doc, "testcomment");
 			
 		}
 		

@@ -1,20 +1,39 @@
 package project.data;
 
+import java.util.Vector;
+
 public class DocumentDistribution {
 
 	// Backup-Rechner
 	// @TODO: korrekt implementieren
-	private Computer backup1 = null, backup2 = null, backup3 = null;
+	private Vector<Computer> backup;
 	
-	public DocumentDistribution(Computer backup1) {
-		this.backup1 = backup1; 
+	public DocumentDistribution(Vector<Computer> backups) 
+	{
+		this.backup = backups; 
+	}
+	
+	public void addComputer(Computer newBackup)
+	{
+		backup.add(newBackup);
+	}
+	
+	public void removeComputer(Computer oldBackup)
+	{
+		backup.remove(oldBackup);
 	}
 
 	/*
 	 * toString()
 	 */
 	public String toString() {
-		return "(" + backup1 + "," + backup2 + "," + backup3 + ")";
+		String ausgabe = "{";
+		for (int i = 0; i < backup.size(); i++)
+		{
+			ausgabe += backup.elementAt(i) + ", ";
+		}
+		ausgabe += "}";
+		return ausgabe;
 	}
 	
 }

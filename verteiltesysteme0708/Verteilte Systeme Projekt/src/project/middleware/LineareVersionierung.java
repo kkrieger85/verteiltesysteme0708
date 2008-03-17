@@ -1,6 +1,7 @@
 package project.middleware;
 
 import project.data.*;
+import java.util.Date;
 
 /**
  * @author ab
@@ -13,16 +14,28 @@ public class LineareVersionierung implements Versionierung {
 	 * 
 	 * @param doc	neues Dokoument
 	 */
-	public void newDocument(Document doc) throws Exception {
-		// zuerst prüfen, ob wirklich ein neues Dokument
-		// (also ohne bisherige Versionsinformation) übergeben wurde
-		if (doc.getVersion() != null)
-			throw new Exception("Dokument zum Veteilen muss noch ohne Version sein");
+	public void newDocument(Document doc, String comment) throws Exception {
 		
-		// Versionierung durchführen ... 
-		System.out.println("Versionierung: neues Dokument versioniert");
-		doc.setVersion(new DocumentVersion(0));
+		DocumentVersion version = new DocumentVersion();
+		version.setVersionNumber(1);
+		version.setParent(null);
+		version.setAuthor_username("testauthor");
+		version.setCreationTime(new Date());
+		version.setComment(comment);
+		doc.setVersion(version);
+		
 	}
 
+	public void updateDocument(Document doc, String comment) throws Exception {
+		DocumentVersion version = new DocumentVersion();
+		version.setVersionNumber(0);
+		version.setParent(doc.getVersion());
+		version.setAuthor_username("testauthor");
+		version.setCreationTime(new Date());
+		version.setComment(comment);
+		doc.setVersion(version);
+	}
+	
+	
 	
 }
