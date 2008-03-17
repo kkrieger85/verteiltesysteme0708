@@ -2,7 +2,7 @@ package project.exception;
 /**
  * Fehler die die Rechte betreffen und dessen Ver-/Entschlüßelung
  * @author mafolz
- *
+ * 
  */
 public class RightException extends Exception {
 	public final static String DECRYPT = "konnte nicht entschlüßeln";
