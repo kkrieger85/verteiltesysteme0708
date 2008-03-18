@@ -13,14 +13,15 @@ public class DocumentMetadata {
 	
 	// KANN-Feld: Beschreibung
 	private String beschreibung;
+	private String rolle;
 	
 	// ...
 	
 	/**
 	 * Konstruktor der Metadaten
 	 * 
-	 *  Es muss mindestens der Dateinamen ausgefüllt sein,
-	 *  alle anderen Parameter können optional gesetzt werden
+	 *  Es muss mindestens der Dateinamen ausgefï¿½llt sein,
+	 *  alle anderen Parameter kï¿½nnen optional gesetzt werden
 	 */
 	public DocumentMetadata(){
 	}
@@ -33,6 +34,9 @@ public class DocumentMetadata {
 		this.beschreibung = beschreibung;
 	}
 	
+	public String getRolle(){
+		return rolle;
+	}
 	/*
 	 * toString()
 	 */
