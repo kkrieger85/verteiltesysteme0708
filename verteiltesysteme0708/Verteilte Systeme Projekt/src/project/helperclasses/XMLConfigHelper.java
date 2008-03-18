@@ -25,6 +25,7 @@ import project.exception.XMLConfigException;
 public class XMLConfigHelper {
 
 	public static final String MAINFOLDERATTR = "mainfolder"; 
+	public static final String PROGRAMMLANGUAGE = "language"; 
 	
 	private SAXBuilder saxb = new SAXBuilder();
 	private Document doc;
@@ -157,6 +158,22 @@ public class XMLConfigHelper {
 			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
 		}
 		return returnString; 
+	}
+	
+	/**
+	 * Gibt die Sprache zurück
+	 * @return
+	 */
+	public String getProgrammLanguage(){	
+		String returnString = ""; 
+		try {
+			returnString = this.searchAttribut(XMLConfigHelper.PROGRAMMLANGUAGE); 
+		} catch (Exception ex) {
+			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+		}
+		return returnString; 
+		
+		
 	}
 
 }
