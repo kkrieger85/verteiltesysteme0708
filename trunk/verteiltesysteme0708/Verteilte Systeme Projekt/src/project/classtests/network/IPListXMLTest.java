@@ -28,7 +28,7 @@ public class IPListXMLTest {
 		ddl.createLog(iplist.toString(), DDLogger.DEBUG); 
 		ServerDataObject sdo;
 		try {
-			sdo = new ServerDataObject("192.168.2.103", "1099");
+			sdo = new ServerDataObject("192.168.2.103", "1099", 100);
 			iplist.addObject(sdo); 
 		} catch (ServerDataObjectException e) {
 			e.printStackTrace();

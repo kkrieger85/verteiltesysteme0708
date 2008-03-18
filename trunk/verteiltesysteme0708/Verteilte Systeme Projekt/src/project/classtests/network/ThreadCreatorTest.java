@@ -39,7 +39,7 @@ public class ThreadCreatorTest {
 		// Variable festlegen für Testfälle !! 
 		int type = 0; 
 		
-		HashMap<String, String> hm = new HashMap<String, String>(); 
+		HashMap<String, Object> hm = new HashMap<String, Object>(); 
 		hm.put("blubb", "Das hier ist dann die Blubbnachricht !!!"); 
 		
 		tc.createThreads(iplist.getIPList(), type, hm); 

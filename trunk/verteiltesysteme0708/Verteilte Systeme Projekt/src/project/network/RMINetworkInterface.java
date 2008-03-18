@@ -28,4 +28,11 @@ public interface RMINetworkInterface extends Remote {
 	 */
 	public boolean pushIPList(LinkedList<ServerDataObject> list) throws RemoteException;
 	
+	/**
+	 * Routine soll einen String in einem Verzeichnis auf einem anderen PC suchen
+	 * @param searchString
+	 * @return
+	 * @throws RemoteException
+	 */
+	public LinkedList<SearchResult> startSearchRoutine(String searchString) throws RemoteException; 
 }

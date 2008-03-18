@@ -31,6 +31,7 @@ public class ThreadObject extends Observable implements Runnable {
 	public static final int THREADTEST = 0; 
 	public static final int GETIPLISTACTION = 1; 
 	public static final int PUSHIPLISTACTION = 2; 
+	public static final int SEARCHFILE = 3; 
 	// TODO weitere Typen festlegen !!! 
 	
 	private static int MAXTRIALS = 10; 
@@ -46,7 +47,7 @@ public class ThreadObject extends Observable implements Runnable {
 	private String ident; 
 	
 	// Weitere Informationen für das Threadobjekt 
-	private HashMap<String,String> informationHash; 
+	private HashMap<String,Object> informationHash; 
 	
 	private AbstractThreadWorker threadWorkerInterf; 
 	/**
@@ -94,7 +95,7 @@ public class ThreadObject extends Observable implements Runnable {
 	 * @param informationHash
 	 * @throws ThreadObjectException
 	 */
-	public ThreadObject(String address, String port, int type, HashMap<String,String> informationHash) 
+	public ThreadObject(String address, String port, int type, HashMap<String,Object> informationHash) 
 			throws ThreadObjectException {  
 		this(address, port, type); 
 		if (informationHash == null)
@@ -128,6 +129,7 @@ public class ThreadObject extends Observable implements Runnable {
 				case ThreadObject.THREADTEST: this.threadWorkerInterf = new ThreadTestObject(this.serverAddress, this.serverPort, this.informationHash); break; 
 				case ThreadObject.GETIPLISTACTION: this.threadWorkerInterf = new GetIPListWorker(this.serverAddress, this.serverPort); break;
 				case ThreadObject.PUSHIPLISTACTION: this.threadWorkerInterf = new PushIPListWorker(this.serverAddress, this.serverPort); break;
+				case ThreadObject.SEARCHFILE: this.threadWorkerInterf = new SearchFileWorker(this.serverAddress, this.serverPort,this.informationHash);break; 
 				
 				default: throw new ThreadObjectException(ThreadObjectException.NOTYPE); 
 				}

@@ -24,6 +24,8 @@ import project.exception.XMLConfigException;
  */
 public class XMLConfigHelper {
 
+	public static final String MAINFOLDERATTR = "mainfolder"; 
+	
 	private SAXBuilder saxb = new SAXBuilder();
 	private Document doc;
 
@@ -36,7 +38,6 @@ public class XMLConfigHelper {
 	 * </root>
 	 */
 	public XMLConfigHelper() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -84,6 +85,12 @@ public class XMLConfigHelper {
 		return resultString;
 	}
 
+	/**
+	 * Speichert ein angegebenes Attribut ab!! 
+	 * @param attribut
+	 * @param value
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public boolean saveAttribut(String attribut, String value) {
 		Element root;
@@ -136,6 +143,20 @@ public class XMLConfigHelper {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * Liefert das Hauptverzeichnis zurück, in dem die Dateien gespeichert werden sollen !!!
+	 * @return
+	 */
+	public String getMainFolder(){
+		String returnString = ""; 
+		try {
+			returnString = this.searchAttribut(XMLConfigHelper.MAINFOLDERATTR); 
+		} catch (Exception ex) {
+			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+		}
+		return returnString; 
 	}
 
 }

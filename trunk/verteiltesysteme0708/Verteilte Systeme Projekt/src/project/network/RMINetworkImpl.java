@@ -10,6 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 
 import project.helperclasses.DDLogger;
+import project.network.serverclasses.FileSearch;
 
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
@@ -113,6 +114,19 @@ public class RMINetworkImpl extends UnicastRemoteObject implements
 			return true;  
 			
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see project.network.RMINetworkInterface#startSearchRoutine(java.lang.String)
+	 */
+	@Override
+	public LinkedList<SearchResult> startSearchRoutine(String searchString)
+			throws RemoteException {
+		DDLogger ddl = DDLogger.getLogger(); 
+		ddl.createLog("Es wird nach einer Datei gesucht: " + searchString, DDLogger.INFO); 
+		FileSearch fs = new FileSearch(); 
+		fs.searchFiles(searchString); 		
+		return fs.getResult();
 	}
 	
 
