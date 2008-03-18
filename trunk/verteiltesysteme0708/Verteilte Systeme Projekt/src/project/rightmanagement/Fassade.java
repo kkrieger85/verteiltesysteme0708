@@ -13,7 +13,7 @@ public abstract class Fassade {
 	protected String user;
 	protected String[] roles;
 	
-	public Fassade(String url, String user, String password)throws RemoteException, LoginException{
+	public Fassade(String url, String user, String password)throws  LoginException{
 		this.url=url;
 		this.user=user;
 		if(!login(user,password))
@@ -22,8 +22,8 @@ public abstract class Fassade {
 	public abstract boolean changeDocument(DocumentWrapper doc);
 	public abstract boolean openDocument(DocumentWrapper doc);
 	public abstract boolean createDocument(String role);
-	protected abstract boolean login (String user, String password)throws RemoteException;
-	public abstract boolean setVertrauensstelle();
+	protected abstract boolean login (String user, String password)throws LoginException;
+	public abstract boolean setVertrauensstelle(String user, String role);
 	public abstract boolean addRoleToDocument();
 	public abstract boolean removeRoleFromDocument();
 	public abstract boolean addUserToRole(String user, String role);

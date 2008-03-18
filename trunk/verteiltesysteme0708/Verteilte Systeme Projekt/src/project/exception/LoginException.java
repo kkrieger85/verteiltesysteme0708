@@ -5,7 +5,8 @@ package project.exception;
  *
  */
 public class LoginException extends Exception {
-	public final static String SERVERFAIL	= "Server nicht erreichbar";
+	public final static String SERVERFAIL  = "Servername nicht erreichbar";
+	public final static String SERVERNOTRESPONSE  = "Server antwortet nicht";
 	public final static String NOTLOGGEDIN = "nicht eingelogt";
 	public final static String CANNOTLOGIN = "Benutzername oder Password falsch";
 
