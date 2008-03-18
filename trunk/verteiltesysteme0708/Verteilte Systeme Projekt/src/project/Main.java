@@ -28,7 +28,7 @@ public class Main {
 	public static Middleware middleware;
 	
 	// Programmbereich GUI
-	public static GUI gui;
+// 	public static GUI gui;
 	
 	public static void main(String[] args) {
 
@@ -46,10 +46,10 @@ public class Main {
 		middleware = new MiddlewareInst();
 
 		// und zuletzt die GUI
-		gui = new GUIInst();
+// 		gui = new GUIInst();
 		
 		// und wir starten das grafische Benutzerinterface
-		gui.start();
+// 		gui.start();
 		
 	}
 
