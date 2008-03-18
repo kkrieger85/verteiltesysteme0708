@@ -54,10 +54,11 @@ public class RightQuery {
 	public boolean login(String url, String user, String password) throws LoginException{
 		return instanz== new Simple(url,user, password);
 	}
-	public boolean setVertrauensstelle() throws LoginException{
+	
+	public boolean setVertrauensstelle(String user, String role) throws LoginException{
 		if( instanz == null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
-		return instanz.setVertrauensstelle();
+		return instanz.setVertrauensstelle(user, role);
 		
 	}
 	public boolean addRoleToDocument() throws LoginException{
@@ -72,6 +73,8 @@ public class RightQuery {
 		return instanz.removeRoleFromDocument();
 		
 	}
+	
+	
 	public boolean addUserToRole(String user, String role) throws LoginException{
 		if(instanz==null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
