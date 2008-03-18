@@ -31,6 +31,10 @@ public class IPList implements Serializable {
 	private static String file = "iplist.xml";
 	private static IPList iplist = new IPList();
 	private static LinkedList<ServerDataObject> list = new LinkedList<ServerDataObject>();
+	
+	private static final String ADDRESS = "address";
+	private static final String PORT = "port";
+	private static final String FREESPACE = "freespace"; 
 	/**
 	 * 
 	 */
@@ -48,8 +52,7 @@ public class IPList implements Serializable {
 	@SuppressWarnings("unchecked")
 	public synchronized void loadXML() {
 		SAXBuilder saxb = new SAXBuilder();
-		String serverAddress = "address";
-		String serverPort = "port";
+
 		Document doc;
 		Element root;
 		IPList.list = new LinkedList<ServerDataObject>(); 
@@ -69,18 +72,20 @@ public class IPList implements Serializable {
 					Element tmp;
 					String tmpAddress = null;
 					String tmpPort = null;
+					String tmpFreeSpace = null;
 					if (innerlist.size() != 0){
 						while (innerIte.hasNext()) {
 							tmp = (Element) innerIte.next();
-							if (tmp.getName().equals(serverAddress)) {
+							if (tmp.getName().equals(IPList.ADDRESS)) {
 								tmpAddress = tmp.getText();
-							} else if (tmp.getName().equals(serverPort)) {
+							} else if (tmp.getName().equals(IPList.PORT)) {
 								tmpPort = tmp.getText();
-							}
+							} else if (tmp.getName().equals(IPList.FREESPACE))
+								tmpFreeSpace = tmp.getText(); 
 						}
 						try {
 							ServerDataObject sdo = new ServerDataObject(tmpAddress,
-									tmpPort);
+									tmpPort, Long.parseLong(tmpFreeSpace));
 							IPList.iplist.addObject(sdo); 
 						} catch (ServerDataObjectException e) {
 							// TODO Catch besser bearbeiten
@@ -105,6 +110,7 @@ public class IPList implements Serializable {
 	 * 		<dataobject>
 	 * 			<address></address>
 	 * 			<port></port> 
+	 * 			<freespace></freespace>
 	 * 			usw. 
 	 * 		</dataobject> 
 	 * </iplist>
@@ -143,14 +149,17 @@ public class IPList implements Serializable {
 					// Dataobj anlegen !!
 					Element dataObjElem = new Element("dataobject");
 					// Kinderknoten anlegen
-					Element addressElem = new Element("address");
-					Element portElem = new Element("port");
+					Element addressElem = new Element(IPList.ADDRESS);
+					Element portElem = new Element(IPList.PORT);
+					Element freespaceElem = new Element(IPList.FREESPACE);
 					// füllen !!
 					addressElem.addContent(obj.getAddress());
 					portElem.addContent(obj.getPort());
+					freespaceElem.addContent(Long.toString(obj.getFreespace())); 
 					// Kinderknoten dem Elternknoten zuweisen
 					dataObjElem.addContent(addressElem);
 					dataObjElem.addContent(portElem);
+					dataObjElem.addContent(freespaceElem);
 					// Das Datenobjekt dem Rootknoten zuweisen
 					iplistElem.addContent(dataObjElem);
 				}

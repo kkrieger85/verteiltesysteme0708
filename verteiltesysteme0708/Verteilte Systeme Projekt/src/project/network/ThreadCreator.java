@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import project.exception.ThreadObjectException;
+import project.helperclasses.DDLogger;
 
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
@@ -46,7 +47,7 @@ public class ThreadCreator {
 	 * @param informationHash
 	 * @return
 	 */
-	public boolean createThreads(LinkedList<ServerDataObject> iplist, int type, HashMap<String,String> informationHash){
+	public boolean createThreads(LinkedList<ServerDataObject> iplist, int type, HashMap<String,Object> informationHash){
 		
 		for (int i = 0; i< iplist.size(); i++ ){
 			ServerDataObject sdo = iplist.get(i); 
@@ -54,8 +55,8 @@ public class ThreadCreator {
 				ThreadObject tobj = new ThreadObject(sdo.getAddress(),sdo.getPort(),type,informationHash);
 				tobj.addObserver(threadobserver); 
 				threadobserver.addThread(tobj); 			
-			} catch (ThreadObjectException e) {
-				// TODO  Catch ordentlich bearbeiten !!! 
+			} catch (ThreadObjectException ex) {
+				DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
 			} 		
 		}		
 		return true; 

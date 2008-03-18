@@ -17,7 +17,7 @@ public abstract class AbstractThreadWorker {
 	@SuppressWarnings("unused")
 	protected String serverAddress; 
 	protected Object resultObject; 
-	protected HashMap<String,String> informationHash; 
+	protected HashMap<String,Object> informationHash; 
 	/**
 	 * Standardstart Methode, gibt true zurück wenn alles geklappt hat!!
 	 * @return
@@ -45,7 +45,7 @@ public abstract class AbstractThreadWorker {
 	 * @param port
 	 * @param informationHash
 	 */
-	public AbstractThreadWorker(String address, String port, HashMap<String,String> informationHash){
+	public AbstractThreadWorker(String address, String port, HashMap<String,Object> informationHash){
 		this(address, port); 
 		this.informationHash = informationHash; 
 	}

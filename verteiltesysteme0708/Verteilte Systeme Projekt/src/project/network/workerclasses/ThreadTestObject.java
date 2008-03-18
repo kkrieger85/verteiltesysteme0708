@@ -17,7 +17,7 @@ public class ThreadTestObject extends AbstractThreadWorker {
 		super(address, port);
 	}
 	
-	public ThreadTestObject(String address, String port, HashMap<String,String> informationHash) {
+	public ThreadTestObject(String address, String port, HashMap<String,Object> informationHash) {
 		super(address, port, informationHash);		
 	}
 	
@@ -40,7 +40,7 @@ public class ThreadTestObject extends AbstractThreadWorker {
 			ddl.createLog("Thread Sleep Error", DDLogger.ERROR); 
 		}
 		
-		ddl.createLog(this.informationHash.get("blubb"), DDLogger.INFO); 
+		ddl.createLog(this.informationHash.get("blubb").toString(), DDLogger.INFO); 
 		if (i < 2){
 			countI(); 
 			return false;

@@ -61,9 +61,17 @@ public class ThreadResultProcessing implements Runnable{
 		DDLogger.getLogger().createLog("Verarbeitung gestartet!!", DDLogger.DEBUG);
 		switch (type){
 		case ThreadObject.GETIPLISTACTION: this.getIPListActionHandler(); break; 
+		case ThreadObject.SEARCHFILE: this.searchFileActionHandler(); break; 
 		case ThreadObject.PUSHIPLISTACTION: break; 
 		default: break; 
 		}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void searchFileActionHandler(){
+		DDLogger ddl = DDLogger.getLogger(); 
+		ddl.createLog("Logge gefundene Dateien!!", DDLogger.DEBUG);
+		ddl.createLog(((LinkedList<SearchResult>)this.resultObject).toString(),DDLogger.DEBUG);  
 	}
 	
 	/**

@@ -24,6 +24,7 @@ public class ServerDataObject implements Serializable {
 	private String port; 
 	private boolean active; 
 	private Date latestActivity; 
+	private long freespace; 
 	
 	
 	/**
@@ -32,17 +33,19 @@ public class ServerDataObject implements Serializable {
 	 * @param port
 	 * @throws ServerDataObjectException 
 	 */
-	public ServerDataObject(String address, String port) throws ServerDataObjectException {
+	public ServerDataObject(String address, String port, long freespace) throws ServerDataObjectException {
 		if (address == null)
 			throw new ServerDataObjectException(ServerDataObjectException.NOADDRESS); 
 		
 		if (port == null)
 			throw new ServerDataObjectException(ServerDataObjectException.NOPORT); 
 		
+		
 		this.address = address; 
 		this.port = port; 
 		this.active = true; 
 		this.latestActivity = new Date(); 
+		this.freespace = freespace; 
 	}
 
 
@@ -124,5 +127,22 @@ public class ServerDataObject implements Serializable {
 	public String toString(){
 		return "Object: " + this.address + " | " + this.port + " | " + this.latestActivity.toString();  
 	}
+
+
+	/**
+	 * @return the freespace
+	 */
+	public synchronized long getFreespace() {
+		return freespace;
+	}
+
+
+	/**
+	 * @param freespace the freespace to set
+	 */
+	public synchronized void setFreespace(long freespace) {
+		this.freespace = freespace;
+	}
+	
 
 }
