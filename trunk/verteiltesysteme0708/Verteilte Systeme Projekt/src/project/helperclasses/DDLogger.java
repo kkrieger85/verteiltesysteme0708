@@ -3,6 +3,10 @@
  */
 package project.helperclasses;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.RandomAccessFile;
+
 import org.apache.log4j.*; 
 
 /**
@@ -121,4 +125,52 @@ public class DDLogger {
 	public synchronized static DDLogger getLogger(){
 		return DDLogger.ddlogger;
 	}
+	
+	/**
+	 * Die Methode requestLog sendet den Verlauf an die GUI um diesen
+	 * anzuzeigen.
+	 * 
+	 * @return String der das Log enthält.
+	 */
+	public static String requestLog() {
+		String returnString = ""; 
+		try {
+			
+			XMLConfigHelper xmlconf = new XMLConfigHelper(); 
+			String logfile = xmlconf.getLogfile(); 
+						
+
+
+		    RandomAccessFile f = new RandomAccessFile(logfile, "r" ); 
+		 
+		    for ( String line; (line=f.readLine()) != null; ) 
+		       returnString += line; 
+		
+		    f.close(); 
+			
+		} catch (Exception ex) {
+		}
+		return returnString;
+	}
+	
+	
+	/**
+	 * Methode zum zurücksetzen des Logs.
+	 */	
+	public static void cleanLog(){
+		try {
+			
+			XMLConfigHelper xmlconf = new XMLConfigHelper(); 
+			String logfile = xmlconf.getLogfile(); 
+			
+		    RandomAccessFile f = new RandomAccessFile(logfile, "rw" ); 
+		    f.setLength(0);  
+		    f.close(); 
+			
+		} catch (Exception ex) {
+			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR); 
+
+		}
+	}
+	
 }
