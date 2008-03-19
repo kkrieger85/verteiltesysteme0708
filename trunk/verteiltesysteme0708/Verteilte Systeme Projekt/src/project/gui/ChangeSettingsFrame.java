@@ -35,6 +35,8 @@ public class ChangeSettingsFrame extends JDialog implements ActionListener{
 	private static final long serialVersionUID = -1229422196558528624L;
 	private ResourceBundle bundle;
 	private JButton settingsPathButton; 
+	private JButton logfilePathButton; 
+	private JTextField logfilePath; 
 
 	/**
 	 * 
@@ -96,10 +98,44 @@ public class ChangeSettingsFrame extends JDialog implements ActionListener{
 		gridbag.gridy = 1;
 		this.add(settingsPathButton, gridbag);
 		
+		
+		// Logdatei angeben !!! 
+		
+		// Label für den Dateipfad  
+		gridbag.gridx = 0;
+		gridbag.gridy = 2;
+		JLabel logPath = new JLabel(this.bundle.getString("pathsettings_logfile_text"));
+		this.add(settingsPathLabel, gridbag); 
+		
+		// Textfeld für Einstellungspfad
+		// Hier alten Pfad auslesen und eintragen 
+		String oldLogfilePath; 
+		try {
+			XMLConfigHelper xmlconf = new XMLConfigHelper(); 
+			oldLogfilePath = xmlconf.getLogfile(); 
+		} catch (Exception exc) {
+			oldLogfilePath = "default.log";
+		}
+		
+		this.logfilePath = new JTextField();
+		this.logfilePath.setText(oldLogfilePath); 
+		gridbag.gridx = 0;
+		gridbag.gridy = 3;
+		this.logfilePath.setEditable(false);
+		this.add(	this.logfilePath ,gridbag); 
+		
+		// Button für Einstellungspfad 
+		logfilePathButton = new JButton(this.bundle.getString("pathsettings_settingsbutton_text")); 
+		logfilePathButton.addActionListener(this);
+		gridbag.gridx = 1;
+		gridbag.gridy = 3;
+		this.add(logfilePathButton, gridbag);
+		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+	// Dateipfad einstellen !!! 
 	if (e.getSource().equals(this.settingsPathButton)){
 		
 		XMLConfigHelper xmlconf = new XMLConfigHelper(); 	
@@ -113,6 +149,25 @@ public class ChangeSettingsFrame extends JDialog implements ActionListener{
 				String newSettingspath = file.getCanonicalPath();
 				xmlconf.saveAttribut(XMLConfigHelper.MAINFOLDERATTR, newSettingspath);
 				((JTextField)((JButton)e.getSource()).getParent().getComponent(1)).setText(newSettingspath);
+			} 
+		} catch (Exception ex ){
+			// TODO Richtig abfangen !!! 
+		}
+	}
+	// Logdatei einstellen 
+	if (e.getSource().equals(this.logfilePathButton)){
+		
+		XMLConfigHelper xmlconf = new XMLConfigHelper(); 	
+		String settingspath = xmlconf.getMainFolder(); 
+		try {
+			JFileChooser fc = new JFileChooser(settingspath);
+			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			int returnVal = fc.showOpenDialog(this);
+			if (returnVal == JFileChooser.APPROVE_OPTION){
+				File file = fc.getSelectedFile();
+				String newSettingspath = file.getCanonicalPath();
+				xmlconf.saveAttribut(XMLConfigHelper.LOGFILE, newSettingspath);
+				this.logfilePath.setText(newSettingspath); 
 			} 
 		} catch (Exception ex ){
 			// TODO Richtig abfangen !!! 

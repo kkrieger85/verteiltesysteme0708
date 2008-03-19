@@ -58,6 +58,7 @@ public class DDLogger {
 	 * @param logfile Die Datei in die geschrieben werden soll 
 	 */
 	public DDLogger(Level lvl, String logfile){
+
 		if (ddlogger == null)
 		{
 			/// Logger Bekommt als Standardeinstellung ALL falls nichts übergeben wurde 
@@ -66,7 +67,16 @@ public class DDLogger {
 			}
 			// Logfile kann angegeben werden Muss aber nicht !!! 	
 			if (logfile == null){
-				logfile = "default.log"; 
+
+				try {
+					XMLConfigHelper xmlconf = new XMLConfigHelper(); 
+					logfile = xmlconf.getLogfile(); 
+				} catch (Exception exc) {
+					XMLConfigHelper xmlconf = new XMLConfigHelper(); 
+					logfile = "default.log"; 
+					xmlconf.saveAttribut(XMLConfigHelper.LOGFILE, logfile); 
+				}
+				
 			}
 		    try {
 		    	// Alle Appender vorher Löschen!!! Es könnten sonst noch welche drin sein die dort nicht sein sollen. 
