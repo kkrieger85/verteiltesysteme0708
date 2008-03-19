@@ -37,7 +37,7 @@ public class Simple extends Fassade{
 		return authServer.login(user, password);
 	}
 	public boolean setVertrauensstelle(String user, String role){
-		return authServer.isRoleAdmin(this.user, role) ? authServer.createRoleAmin(user, role): false;		
+		return authServer.isRoleAdmin(this.user, role) ? authServer.createRoleAmin(this.user, role, user): false;		
 	}
 	public boolean addRoleToDocument(){
 		return true;
@@ -46,10 +46,10 @@ public class Simple extends Fassade{
 		return true;
 	}
 	public boolean addUserToRole(String user, String role){
-		return authServer.isRoleAdmin(this.user, role) ? authServer.addUserToRole(user, role): false;
+		return authServer.isRoleAdmin(this.user, role) ? authServer.addUserToRole(this.user, role, user): false;
 	}
 	public boolean removeUserFromRole(String user, String role){
-		return authServer.isRoleAdmin(this.user, role) ? authServer.remoteUserFromRole(user, role): false;
+		return authServer.isRoleAdmin(this.user, role) ? authServer.removeUserFromRole(this.user, role, user): false;
 	}
 	public String[] listRoles(){
 		return roles;
