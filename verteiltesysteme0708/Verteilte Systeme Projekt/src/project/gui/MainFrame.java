@@ -224,6 +224,10 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
 		
 	}
 
+	public void repaint(){
+		super.repaint(); 
+	}
+	
 	/**
 	 * @return the tabPageContainer
 	 */
