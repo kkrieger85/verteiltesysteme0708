@@ -16,6 +16,9 @@ import project.helperclasses.BundleWrapper;
 public class DDTabbedPane extends JTabbedPane {
 
 	private ResourceBundle bundle;
+	private InformationTabbedPage infopane;
+	private SearchTabbedPane searchpane;
+	private LocaleTabbedPane localpane;
 
 	/**
 	 * 
@@ -28,11 +31,14 @@ public class DDTabbedPane extends JTabbedPane {
 		// Add Panes 
 		
 		// Information Page 
-		this.add(this.bundle.getString("tabbedpages_informationpage_title"), new InformationTabbedPage()); 
+		this.infopane = new InformationTabbedPage(); 
+		this.add(this.bundle.getString("tabbedpages_informationpage_title"), this.infopane); 
 		// Search Page 
-		this.add(this.bundle.getString("tabbedpages_searchpage_title"), new SearchTabbedPane()); 	
+		this.searchpane = new SearchTabbedPane(); 
+		this.add(this.bundle.getString("tabbedpages_searchpage_title"), this.searchpane); 	
 		// Local Files Page 
-		this.add(this.bundle.getString("tabbedpages_localpage_title"), new LocaleTabbedPane()); 
+		this.localpane = new LocaleTabbedPane();
+		this.add(this.bundle.getString("tabbedpages_localpage_title"), this.localpane); 
 		
 	}
 
