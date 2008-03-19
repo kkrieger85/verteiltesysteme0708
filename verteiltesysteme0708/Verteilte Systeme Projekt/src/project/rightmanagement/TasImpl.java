@@ -20,9 +20,9 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		rollen.add("gast");
 		// erinnerung an Bitmaske. lesen,schreiben,erstellen,admin
 		benutzer.add(new TasObject("heinz", "testosteron"));
-		benutzer.get(benutzer.indexOf("heinz")).addRole(
+		benutzer.get(0).addRole(
 				rollen.get(0), true,false,false,false); // Benutzerrolle
-		benutzer.get(benutzer.indexOf("heinz")).addRole(
+		benutzer.get(0).addRole(
 				rollen.get(1),true,true,true,true); // Gastrolle
 	}
 	
