@@ -3,8 +3,6 @@
  */
 package project.helperclasses;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.RandomAccessFile;
 
 import org.apache.log4j.*; 

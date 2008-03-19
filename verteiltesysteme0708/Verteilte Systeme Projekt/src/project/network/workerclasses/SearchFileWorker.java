@@ -7,7 +7,6 @@ import java.rmi.Naming;
 import java.util.HashMap;
 
 import project.helperclasses.DDLogger;
-import project.network.IPList;
 import project.network.RMINetworkInterface;
 
 /**

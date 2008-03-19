@@ -104,8 +104,10 @@ public class SearchTabbedPane extends JPanel implements ActionListener {
 		gridbag.anchor = GridBagConstraints.FIRST_LINE_START;
 		
 		// TODO Spaltennamen richtig einbauen 
-		String[] tableHeaders = {"Dateiname", "ServerIP", ""}; 
-		Object[][] tableData = {{ "test", "1.2.3.4", ""}};
+		String[] tableHeaders = { this.bundle.getString("searchpane_tabletopic_filename"),	 
+								  this.bundle.getString("searchpane_tabletopic_ipaddress"),
+								  this.bundle.getString("searchpane_tabletopic_filesize")}; 
+		Object[][] tableData = {{ "", "", ""}};
 		DDTableModel tablemodel = new DDTableModel(tableData,tableHeaders);
 		this.table = new JTable(tablemodel);
 		this.table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -155,6 +157,7 @@ public class SearchTabbedPane extends JPanel implements ActionListener {
 			MainFrame.getInstance().refreshInformationLabel(this.bundle.getString("searchpane_searchstartet_text")+ " " + this.searchValue.getText());
 			
 			// Central Logic Klasse ansteuern 
+			@SuppressWarnings("unused")
 			NormalFilesearchTemplate nft = new NormalFilesearchTemplate(this.searchValue.getText()); 
 			
 			// Testfüllen 
