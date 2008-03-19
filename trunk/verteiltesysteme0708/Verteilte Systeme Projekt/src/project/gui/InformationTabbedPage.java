@@ -46,7 +46,6 @@ public class InformationTabbedPage extends JPanel {
 		// Freienspeicher anzeigen lassen 
 		long freeSpace = f.getFreeSpace(); 
 		// Belegten Speicher anzeigen lassen 
-		long Totalspace = f.getTotalSpace(); 
 
 		// Layout festlegen
 		GridBagLayout bagLayout = new GridBagLayout();
