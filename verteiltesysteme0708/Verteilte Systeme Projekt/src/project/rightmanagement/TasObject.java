@@ -92,6 +92,9 @@ public class TasObject implements Comparable{
 		if(o instanceof TasObject){
 			TasObject t = (TasObject)o;
 			return user.compareTo(t.user);
+		}else if(o instanceof String){
+			String t = (String)o;
+			return user.compareTo(t);
 		}
 		return -1;
 	}
