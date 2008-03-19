@@ -216,7 +216,9 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
 		
 		// Abfangen vom Log ansehen 
 		if (e.getSource().equals(this.file_log)){
-			// TODO Einbauen log ansehen !!! 
+			LogFileView lfv = new LogFileView();
+			lfv.setSize(new Dimension(640, 480));
+			lfv.setVisible(true);
 		}
 		
 	}

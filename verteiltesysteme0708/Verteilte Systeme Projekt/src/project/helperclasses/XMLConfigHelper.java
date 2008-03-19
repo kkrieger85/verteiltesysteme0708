@@ -26,6 +26,7 @@ public class XMLConfigHelper {
 
 	public static final String MAINFOLDERATTR = "mainfolder"; 
 	public static final String PROGRAMMLANGUAGE = "language"; 
+	public static final String LOGFILE = "logfile";
 	
 	private SAXBuilder saxb = new SAXBuilder();
 	private Document doc;
@@ -174,6 +175,20 @@ public class XMLConfigHelper {
 		return returnString; 
 		
 		
+	}
+	
+	/**
+	 * Gibt die Logdatei zurück
+	 * @return
+	 */
+	public String getLogfile(){	
+		String returnString = ""; 
+		try {
+			returnString = this.searchAttribut(XMLConfigHelper.LOGFILE); 
+		} catch (Exception ex) {
+			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+		}
+		return returnString; 	
 	}
 
 }
