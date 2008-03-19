@@ -44,7 +44,7 @@ public class SearchTabbedPane extends JPanel implements ActionListener {
 	 */
 	public SearchTabbedPane() {
 		
-	
+		
 		// ResourceBundle festlegen (Standard ist Deutsch)
 		BundleWrapper bw = new BundleWrapper(); 
 		this.bundle = bw.getBundle();

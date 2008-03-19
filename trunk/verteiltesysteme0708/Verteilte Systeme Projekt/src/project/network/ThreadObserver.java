@@ -56,8 +56,8 @@ public class ThreadObserver implements Observer {
 		int removevalue = this.runningQueue.lastIndexOf(obj); 
 		if (removevalue != -1) {
 			this.runningQueue.remove(removevalue); 
-			ddl.createLog("Obj aus Liste gelöscht!! " , DDLogger.DEBUG); 
-			ddl.createLog("Liste:  " + runningQueue.toString(), DDLogger.DEBUG); 
+			// ddl.createLog("Obj aus Liste gelöscht!! " , DDLogger.DEBUG); 
+			// ddl.createLog("Liste:  " + runningQueue.toString(), DDLogger.DEBUG); 
 			
 			
 		} else {
@@ -109,8 +109,7 @@ public class ThreadObserver implements Observer {
 		
 		if (this.runningQueue.size() >= ThreadObserver.MAXTHREADS){
 			this.unfinnishedQueue.add(tobj);
-			 DDLogger ddl = DDLogger.getLogger(); 
-			 ddl.createLog("Queue ist Voll!!!", DDLogger.INFO); 
+			 // DDLogger.getLogger().createLog("Queue ist Voll!!!", DDLogger.INFO); 
 		} else {
 			startThread(tobj); 
 			this.runningQueue.add(tobj); 

@@ -3,14 +3,12 @@
  */
 package project.gui;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -137,18 +135,6 @@ public class InformationTabbedPage extends JPanel {
 		gridbag.gridy = 4;
 		JLabel freespace = new JLabel(Long.toString(freeSpace));
 		this.add(freespace, gridbag);	
-		
-		
-		
-		// anzahl dateien im Verzeichnis anzeigen 
-		
-		// Belegter speicherplatz 
-		
-		// Sonstige einstellungen 
-		
-		
+	
 	}
-
-
-
 }
