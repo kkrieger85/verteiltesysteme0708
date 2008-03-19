@@ -4,8 +4,8 @@ import konzept.diverse.abnetwork.Network;
 import konzept.diverse.abnetwork.NetworkInst;
 import konzept.diverse.abnetwork.Server;
 import konzept.diverse.abnetwork.ServerInst;
+import project.centrallogic.*;
 import project.gui.*;
-import project.middleware.*;
 
 
 /**

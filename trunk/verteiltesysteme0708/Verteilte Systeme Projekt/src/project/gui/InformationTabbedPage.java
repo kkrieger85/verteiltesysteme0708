@@ -3,8 +3,6 @@
  */
 package project.gui;
 
-import java.awt.LayoutManager;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -13,6 +11,11 @@ import javax.swing.JPanel;
  *
  */
 public class InformationTabbedPage extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8455730417119680112L;
 
 	/**
 	 * 

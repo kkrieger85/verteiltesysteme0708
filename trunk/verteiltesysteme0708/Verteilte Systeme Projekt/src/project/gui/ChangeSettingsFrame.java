@@ -105,7 +105,7 @@ public class ChangeSettingsFrame extends JDialog implements ActionListener{
 		gridbag.gridx = 0;
 		gridbag.gridy = 2;
 		JLabel logPath = new JLabel(this.bundle.getString("pathsettings_logfile_text"));
-		this.add(settingsPathLabel, gridbag); 
+		this.add(logPath, gridbag); 
 		
 		// Textfeld für Einstellungspfad
 		// Hier alten Pfad auslesen und eintragen 

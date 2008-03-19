@@ -6,7 +6,6 @@ package project.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
@@ -20,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import project.helperclasses.BundleWrapper;
+import project.centrallogic.*;
 import java.util.Vector;
 
 /**
@@ -28,6 +28,10 @@ import java.util.Vector;
  */
 public class SearchTabbedPane extends JPanel implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5676877783101073084L;
 	private ResourceBundle bundle;
 	private JTextField searchValue;
 	private JLabel topiclabel;
@@ -145,10 +149,13 @@ public class SearchTabbedPane extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource().equals(this.startSearchButton)){
+			
+			
 			// Wenn suchen Button gedrück wurde mach etwas ;) 
 			MainFrame.getInstance().refreshInformationLabel(this.bundle.getString("searchpane_searchstartet_text")+ " " + this.searchValue.getText());
 			
 			// Central Logic Klasse ansteuern 
+			NormalFilesearchTemplate nft = new NormalFilesearchTemplate(this.searchValue.getText()); 
 			
 			// Testfüllen 
 			// this.addResults(this.fillTest()); 

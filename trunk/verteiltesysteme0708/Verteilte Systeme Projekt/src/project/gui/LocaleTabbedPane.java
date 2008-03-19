@@ -3,8 +3,6 @@
  */
 package project.gui;
 
-import java.awt.LayoutManager;
-
 import javax.swing.JPanel;
 
 /**
@@ -12,6 +10,11 @@ import javax.swing.JPanel;
  *
  */
 public class LocaleTabbedPane extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9173104823649931155L;
 
 	/**
 	 * 

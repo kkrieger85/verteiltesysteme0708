@@ -20,7 +20,7 @@ import project.helperclasses.*;
 public class ThreadObserver implements Observer {
 	
 	// Anzahl Maximal gestarteter Threads 
-	private static int MAXTHREADS = 4; 
+	private static int MAXTHREADS = 10; 
 	// Singleton Umsetzung 
 	private static ThreadObserver observer = new ThreadObserver();
 	
