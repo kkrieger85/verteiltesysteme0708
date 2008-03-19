@@ -10,6 +10,7 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 	private Vector<String> rollen;
 	private Vector<TasObject> benutzer;
 	
+	
 	public TasImpl() throws RemoteException {
 		super();	
 		benutzer= new Vector<TasObject>(40);
@@ -17,29 +18,76 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		
 		rollen.add("benutzer");
 		rollen.add("gast");
-		
+		// erinnerung an Bitmaske. lesen,schreiben,erstellen,admin
 		benutzer.add(new TasObject("heinz", "testosteron"));
-		benutzer.get(benutzer.indexOf("heinz")).rollen.put(rollen.get(0), false); // Benutzerrolle
-		benutzer.get(benutzer.indexOf("heinz")).rollen.put(rollen.get(1), true); // Gastrolle
+		benutzer.get(benutzer.indexOf("heinz")).addRole(
+				rollen.get(0), true,false,false,false); // Benutzerrolle
+		benutzer.get(benutzer.indexOf("heinz")).addRole(
+				rollen.get(1),true,true,true,true); // Gastrolle
 	}
 	
 	public boolean canWriteInRole(String user, String role){
-		
+		if(benutzer.contains(user))
+			return benutzer.get(benutzer.indexOf(user)).canWrite(role);
+		return false;
 	}
 	public boolean canReadInRole( String user, String role){
-		
+		if(benutzer.contains(user))
+			return benutzer.get(benutzer.indexOf(user)).canRead(role);
+		return false;
 	}
 	public boolean canCreateInRole(String user, String role){
-		
+		if(benutzer.contains(user))
+			return benutzer.get(benutzer.indexOf(user)).canCreate(role);
+		return false;
 	}
 	public boolean login(String user, String password){
-		
+		if(benutzer.contains(user))
+			return benutzer.get(benutzer.indexOf(user)).login(password);
+		return false;
 	}
 	public boolean isRoleAdmin(String user, String role){
+		if(benutzer.contains(user))
+			return benutzer.get(benutzer.indexOf(user)).isAdmin(role);
+		return false;
 		
 	}
-	public boolean createRoleAmin(String user, String role);
-	public boolean addUserToRole(String user, String role);
-	public boolean remoteUserFromRole(String user, String role);
-	public String[] listRoles(String user);
+	/**
+	 * eventuell hier noch überprüfen ob der username des
+	 */
+	public boolean createRoleAmin(String owner, String role , String user){
+		if(isRoleAdmin(owner,role) &&
+				benutzer.get(benutzer.indexOf(owner)).login &&
+				benutzer.get(benutzer.indexOf(user)).isRole(role) ){
+			benutzer.get(benutzer.indexOf(user)).setRole(role, true,true,true,true);
+			return true;
+		}
+		return false;
+			
+	}	
+	/**
+	 * benutzer einer rolle hinzufügen mit standardlesereht
+	 */
+	public boolean addUserToRole(String owner, String role , String user){
+		if(isRoleAdmin(owner,role) &&
+				benutzer.get(benutzer.indexOf(owner)).login &&
+				benutzer.get(benutzer.indexOf(user)).isRole(role) ){
+			benutzer.get(benutzer.indexOf(user)).addRole(role, true,false,false,false);
+			return true;
+		}
+		return false;		
+	}
+	public boolean removeUserFromRole(String owner, String role , String user){
+		if(isRoleAdmin(owner,role) &&
+				benutzer.get(benutzer.indexOf(owner)).login &&
+				benutzer.get(benutzer.indexOf(user)).isRole(role) ){
+			benutzer.get(benutzer.indexOf(user)).removeRole(role);
+			return true;
+		}
+		return false;				
+	}
+	
+	public String[] listRoles(String user){
+		return (String[])rollen.toArray();
+	}
 }
