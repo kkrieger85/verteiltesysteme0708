@@ -3,6 +3,7 @@
  */
 package project;
 
+import project.gui.MainFrame;
 import project.helperclasses.DDLogger;
 import project.network.RMIServerImpl;
 
@@ -22,6 +23,9 @@ public class Main2 {
 		DDLogger ddl = new DDLogger(DDLogger.ALL); 
 		Main2 main = new Main2();
 		main.server = new RMIServerImpl(); 
+		
+		MainFrame mf = MainFrame.getInstance(); 
+		mf.setVisible(true);
 	
 	}
 

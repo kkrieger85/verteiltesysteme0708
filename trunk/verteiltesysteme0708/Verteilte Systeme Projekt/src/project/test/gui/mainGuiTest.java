@@ -16,7 +16,8 @@ public class mainGuiTest {
 	 */
 	public static void main(String[] args) {
 		MainFrame mf = MainFrame.getInstance(); 
-		mf.show(); 
+
+		mf.setVisible(true);
 	}
 
 }
