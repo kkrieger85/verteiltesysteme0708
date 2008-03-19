@@ -3,6 +3,7 @@
  */
 package project.helperclasses;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -18,15 +19,14 @@ public class BundleWrapper {
 	public BundleWrapper() {
 		XMLConfigHelper xmlconf = new XMLConfigHelper(); 
 		String language = xmlconf.getProgrammLanguage(); 
-		if (language.compareTo("") != 0)
+		if (language.compareTo("") == 0)
 			language = "de"; 
-		
 		if (language.compareTo("de") == 0) {
-			this.bundle = ResourceBundle.getBundle("properties");
+			this.bundle = ResourceBundle.getBundle("properties", Locale.GERMAN);
 		} else if (language.compareTo("en") == 0) {
-			this.bundle = ResourceBundle.getBundle("properties_en");
+			this.bundle = ResourceBundle.getBundle("properties_en", Locale.ENGLISH);
 		} else {
-			this.bundle = ResourceBundle.getBundle("moepse");
+			this.bundle = ResourceBundle.getBundle("properties", Locale.GERMAN);
 		} 
 	}
 	
@@ -36,5 +36,8 @@ public class BundleWrapper {
 	public synchronized ResourceBundle getBundle() {
 		return bundle;
 	}
+	
+	
+	
 
 }
