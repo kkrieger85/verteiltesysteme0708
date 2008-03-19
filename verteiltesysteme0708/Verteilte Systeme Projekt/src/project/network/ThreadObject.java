@@ -34,7 +34,7 @@ public class ThreadObject extends Observable implements Runnable {
 	public static final int SEARCHFILE = 3; 
 	// TODO weitere Typen festlegen !!! 
 	
-	private static int MAXTRIALS = 10; 
+	private static int MAXTRIALS = 5; 
 	
 	private int type;  
 	private String serverPort; 

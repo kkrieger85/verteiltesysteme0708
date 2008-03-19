@@ -39,6 +39,7 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
 	private JMenuItem settings_settings;
 	private JMenuItem help_help;
 	private JMenuItem help_info;
+	private DDTabbedPane tabPageContainer;
 
 	/**
 	 * @throws HeadlessException
@@ -77,7 +78,7 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
 		
 
 		// Tabpage einbauen
-		DDTabbedPane tabPageContainer = new DDTabbedPane();
+		this.tabPageContainer = new DDTabbedPane();
 		gridbag.gridx = 0;
 		gridbag.gridy = 2;
 		gridbag.weightx = 1;
@@ -221,5 +222,12 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener 
 			lfv.setVisible(true);
 		}
 		
+	}
+
+	/**
+	 * @return the tabPageContainer
+	 */
+	public synchronized DDTabbedPane getTabPageContainer() {
+		return tabPageContainer;
 	}
 }

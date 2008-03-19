@@ -4,6 +4,7 @@
 package project.gui;
 
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 import javax.swing.JTabbedPane;
 
@@ -15,6 +16,10 @@ import project.helperclasses.BundleWrapper;
  */
 public class DDTabbedPane extends JTabbedPane {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7990331438587462729L;
 	private ResourceBundle bundle;
 	private InformationTabbedPage infopane;
 	private SearchTabbedPane searchpane;
@@ -40,6 +45,14 @@ public class DDTabbedPane extends JTabbedPane {
 		this.localpane = new LocaleTabbedPane();
 		this.add(this.bundle.getString("tabbedpages_localpage_title"), this.localpane); 
 		
+	}
+	
+	/** 
+	 * Gibt die Informationen nur weiter !!!
+	 * @param tableData
+	 */
+	public void addResults(Vector<Vector<Object>> tableData) {
+		this.searchpane.addResults(tableData); 
 	}
 
 

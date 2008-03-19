@@ -5,6 +5,7 @@ package project.network;
 
 import java.util.LinkedList;
 
+import project.centrallogic.FileSearchResultTemplate;
 import project.helperclasses.DDLogger;
 
 /**
@@ -71,7 +72,9 @@ public class ThreadResultProcessing implements Runnable{
 	public void searchFileActionHandler(){
 		DDLogger ddl = DDLogger.getLogger(); 
 		ddl.createLog("Logge gefundene Dateien!!", DDLogger.DEBUG);
-		ddl.createLog(((LinkedList<SearchResult>)this.resultObject).toString(),DDLogger.DEBUG);  
+		ddl.createLog(((LinkedList<SearchResult>)this.resultObject).toString(),DDLogger.DEBUG);
+		@SuppressWarnings("unused")
+		FileSearchResultTemplate fsrt = new FileSearchResultTemplate((LinkedList<SearchResult>)this.resultObject); 
 	}
 	
 	/**
