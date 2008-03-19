@@ -57,25 +57,26 @@ public class FileSearch {
 
 		File searchfolder = new File(folder);
 		// Zuerst die unterverzeichnisse durchlaufen lassen
-		
-		// Searchstring modifizieren zuerst ^ und $ einfügen 
-		searchString = "^" + searchString + ".$"; 
-		// * durch .* ersetzen 
-		searchString = searchString.replace("*", ".*"); 
-		// ? durch . ersetzen 
-		searchString = searchString.replace("?", "."); 
 
-
+		// Searchstring modifizieren zuerst ^ und $ einfügen
+		searchString = "^" + searchString + ".$";
+		// * durch .* ersetzen
+		searchString = searchString.replace("*", ".*");
+		// ? durch . ersetzen
+		searchString = searchString.replace("?", ".");
 
 		// Nun nach Dateien suchen !!!
-		File[] files = searchfolder.listFiles(new DDFileFilter(searchString)); 
+		File[] files = searchfolder.listFiles(new DDFileFilter(searchString));
 
 		// Eigene IP Adresse holen
 		NetworkHelper nh = new NetworkHelper();
 		if (files != null) {
 			for (int i = 0; i < files.length; i++) {
+				long fileSize = 0;
+				File f = new File(files[i].toString());
+				fileSize = f.length();
 				this.result.add(new SearchResult(nh.getOwnIPAdress(), files[i]
-						.toString()));
+						.toString(), fileSize));
 			}
 		}
 	}
@@ -86,28 +87,28 @@ public class FileSearch {
 	 * 
 	 * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert,
 	 *         reichert.sascha@googlemail.com</a>
-	 
+	 * 
 	 */
 	class DDFileFilter implements FileFilter {
 		private String searchString;
-		
-		public DDFileFilter(String search){
-			this.searchString = search; 
+
+		public DDFileFilter(String search) {
+			this.searchString = search;
 		}
 
 		public boolean accept(File f) {
-			boolean returnvalue = false; 
-			if (f.isFile()){
-				if (f.getName().matches(this.searchString)){
-					returnvalue = true; 
+			boolean returnvalue = false;
+			if (f.isFile()) {
+				if (f.getName().matches(this.searchString)) {
+					returnvalue = true;
 				}
-			} 
-			return returnvalue; 
+			}
+			return returnvalue;
 		}
 	}
 
 	/**
-	 * Einfache toString Methode die zur Ausgabe dient 
+	 * Einfache toString Methode die zur Ausgabe dient
 	 */
 	public String toString() {
 		String returnValue = "";

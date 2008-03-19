@@ -9,6 +9,10 @@ package project.exception;
  */
 public class XMLConfigException extends Exception {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -578196986831612593L;
 	// TODO Sprachwrapper einbauen !!! 
 	public static String ATTRIBUTENOTFOUND 		= "Attribut wurde nicht gefunden!!"; 
 

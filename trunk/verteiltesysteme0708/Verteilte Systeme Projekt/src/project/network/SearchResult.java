@@ -18,15 +18,16 @@ public class SearchResult implements Serializable{
 	private static final long serialVersionUID = 4246437713684261354L;
 	private String serverIP; 
 	private String fileName; 
+	private long fileSize; 
 	// Weitere Informationen mit einbauen !!! 
 	
 	/**
 	 * 
 	 */
-	public SearchResult(String serverIP, String fileName) {
-		// TODO Exception werfen falls etwas nicht funzt !!! 
+	public SearchResult(String serverIP, String fileName, long fileSize) {
 		this.serverIP = serverIP;
 		this.fileName = fileName; 
+		this.fileSize = fileSize; 
 	}
 
 	/**
@@ -51,6 +52,13 @@ public class SearchResult implements Serializable{
 	}
 
 	/**
+	 * @return the fileSize
+	 */
+	public synchronized long getFileSize() {
+		return fileSize;
+	}
+
+	/**
 	 * @param fileName the fileName to set
 	 */
 	public synchronized void setFileName(String fileName) {
@@ -68,7 +76,7 @@ public class SearchResult implements Serializable{
 	 * Einfach toString methode die den Inhalt des Elements wiedergibt 
 	 */
 	public String toString(){
-		return "Datei: " + this.fileName + "  IP: " + this.serverIP; 
+		return "File: " + this.fileName + "  IP: " + this.serverIP; 
 	}
 
 }
