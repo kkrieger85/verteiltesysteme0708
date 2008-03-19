@@ -23,7 +23,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import project.helperclasses.BundleWrapper;
-import project.helperclasses.DDLogger;
 import project.helperclasses.XMLConfigHelper;
 
 
@@ -189,12 +188,13 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 		
 		if (arg0.getSource().equals(this.filelist)){
 			if (arg0.getClickCount() == 1){
-				int selected = ((JList)arg0.getSource()).getSelectedIndex(); 
-				DDLogger.getLogger().createLog(((JList)arg0.getSource()).getSelectedValue().toString(), DDLogger.DEBUG); 
-				this.jspFileInfo.removeAll(); 
+
+				// DDLogger.getLogger().createLog(((JList)arg0.getSource()).getSelectedValue().toString(), DDLogger.DEBUG); 
+
 				DDFileInfoPanel ddfip  = new DDFileInfoPanel(((JList)arg0.getSource()).getSelectedValue().toString());				
-				this.jspFileInfo.add(ddfip); 
-				this.repaint(); 
+				this.jspFileInfo.getViewport().removeAll(); 
+				this.jspFileInfo.getViewport().add(ddfip);
+				this.jspFileInfo.repaint(); 
 			}
 		}
 	}
