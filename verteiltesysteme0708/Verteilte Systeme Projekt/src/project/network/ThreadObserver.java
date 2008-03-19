@@ -3,7 +3,7 @@
  */
 package project.network;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import project.helperclasses.*;
@@ -25,8 +25,8 @@ public class ThreadObserver implements Observer {
 	private static ThreadObserver observer = new ThreadObserver();
 	
 	/// Implementierung der beiden Listen:
-	private LinkedList<ThreadObject> runningQueue = new LinkedList<ThreadObject>(); 
-	private LinkedList<ThreadObject> unfinnishedQueue = new LinkedList<ThreadObject>(); 
+	private ArrayList<ThreadObject> runningQueue = new ArrayList<ThreadObject>(); 
+	private ArrayList<ThreadObject> unfinnishedQueue = new ArrayList<ThreadObject>(); 
 	
 	
 	
@@ -53,11 +53,15 @@ public class ThreadObserver implements Observer {
 		
 		// Abfrage ob das Objekt das den Observer aufgerufen hat auch wirklich gelöscht
 		// wurde 
-		if (this.runningQueue.remove(obj)) {
-			// TODO Fehlerbehandlung rein !!! 
-			// ddl.createLog("Obj aus Liste gelöscht!!", DDLogger.DEBUG); 
+		int removevalue = this.runningQueue.lastIndexOf(obj); 
+		if (removevalue != -1) {
+			this.runningQueue.remove(removevalue); 
+			ddl.createLog("Obj aus Liste gelöscht!! " , DDLogger.DEBUG); 
+			ddl.createLog("Liste:  " + runningQueue.toString(), DDLogger.DEBUG); 
+			
+			
 		} else {
-			// ddl.createLog("Obj nicht aus Liste gelöscht!!", DDLogger.DEBUG); 
+			ddl.createLog("Obj nicht aus Liste gelöscht!!", DDLogger.DEBUG); 
 		}
 		
 		// Abfrage ob die runningQueue leer ist und noch Threads aufnehmen kann 
@@ -127,9 +131,11 @@ public class ThreadObserver implements Observer {
 	 * Tritt ein wenn ein anderer Thread fertig wurde!! 
 	 */
 	private synchronized void startNewThread(){
-		ThreadObject tobj = this.unfinnishedQueue.poll(); 
-		this.startThread(tobj); 
-		this.runningQueue.add(tobj); 
+		if (this.unfinnishedQueue.size() > 0){
+			ThreadObject tobj = this.unfinnishedQueue.get(0); 
+			this.startThread(tobj); 
+			this.runningQueue.add(tobj); 
+		}
 	}
 	
 

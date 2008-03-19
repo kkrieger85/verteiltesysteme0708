@@ -25,7 +25,7 @@ import project.network.workerclasses.*;
  *		ID 				
  *	TODO Unique ID aufbauen !!! 		
  */
-public class ThreadObject extends Observable implements Runnable {
+public class ThreadObject extends Observable implements Runnable, Comparable<Object> {
 
 	
 	public static final int THREADTEST = 0; 
@@ -153,7 +153,7 @@ public class ThreadObject extends Observable implements Runnable {
 			synchronized (this) {
 				countTrials(); 
 				this.endingTime = new Date(); 
-				// ddl.createLog("Thread ended", DDLogger.DEBUG); 
+				ddl.createLog("Thread ended", DDLogger.DEBUG); 
 				this.setChanged(); 
 				this.notifyObservers(); 
 				refreshIdent(); 
@@ -244,5 +244,27 @@ public class ThreadObject extends Observable implements Runnable {
 	 */
 	public synchronized Object getResultObject(){
 		return this.threadWorkerInterf.getResultObject(); 		
+	}
+	
+	public String toString(){
+		return this.ident; 
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		int returnValue = 1; 
+		if (this.type == ((ThreadObject)arg0).type)
+			returnValue = 0; 
+		else returnValue = 1; 
+		
+		if (this.serverAddress.compareTo(((ThreadObject)arg0).serverAddress) == 0)
+			returnValue = 0; 
+		else returnValue = 1; 
+		
+		if (this.serverPort.compareTo(((ThreadObject)arg0).serverPort) == 0)
+			returnValue = 0; 
+		else returnValue = 1; 
+		
+		return returnValue;
 	}
 }
