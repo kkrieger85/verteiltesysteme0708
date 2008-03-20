@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package project.data;
 
 /**
@@ -11,11 +9,9 @@ package project.data;
  */
 public class DocumentMetadata {
 	
-	// KANN-Feld: Beschreibung
 	private String beschreibung;
 	private String rolle;
 	
-	// ...
 	
 	/**
 	 * Konstruktor der Metadaten
@@ -26,23 +22,43 @@ public class DocumentMetadata {
 	public DocumentMetadata(){
 	}
 	
+	/**
+	 * Gibt die enthaltene Beschreibung zurück
+	 * @return Beschreibung
+	 */
+	
 	public String getBeschreibung() {
 		return beschreibung;
 	}
+	
+	/**
+	 * Setzt die Beschreibung auf den Wert des übergebenen Strings
+	 * @param beschreibung neue Beschreibung
+	 */
 
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}
 	
+	/**
+	 * Gibt die enthaltene Rolle zurück
+	 * @return Enthaltene Rolle
+	 */
+	
 	public String getRolle(){
 		return rolle;
 	}
 	
+	/**
+	 * Setzt Rolle auf den Wert des übergebenen Strings
+	 * @param rolle neue Rolle
+	 */
 	public void setRolle(String rolle){
 		this.rolle = rolle;
 	}
-	/*
-	 * toString()
+	
+	/**
+	 * Gibt eine String Representation des Objektes zurück.
 	 */
 	public String toString() {
 		//ToDo String-Methode
