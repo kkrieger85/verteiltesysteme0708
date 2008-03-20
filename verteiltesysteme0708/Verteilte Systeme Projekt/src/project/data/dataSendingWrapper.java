@@ -76,9 +76,9 @@ public class dataSendingWrapper implements java.io.Serializable{
 
 			for(int i = 0; i < file.size(); i++){
 				if(i==(file.size()-1))
-					out.write((byte[])file.get(i),0,fileoffset);
+					out.write(file.get(i),0,fileoffset);
 				else 
-					out.write((byte[])file.get(i)); 
+					out.write(file.get(i)); 
 			}
 			outputfile = new java.io.File(filename + ".xml");
 			outputfile.createNewFile();
@@ -86,9 +86,9 @@ public class dataSendingWrapper implements java.io.Serializable{
 
 			for(int i = 0; i < xmlfile.size(); i++){
 				if(i==(xmlfile.size()-1))
-					out.write((byte[])xmlfile.get(i),0,xmloffset);
+					out.write(xmlfile.get(i),0,xmloffset);
 				else 
-					out.write((byte[])xmlfile.get(i)); 
+					out.write(xmlfile.get(i)); 
 			}
 		}catch(Exception ex)
 		{

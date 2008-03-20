@@ -22,14 +22,9 @@ import project.exception.DocumentWrapperException;
 import project.helperclasses.DDLogger;
 
 /**
- * Implementiert ein Dokument in allen Formen, wie es vorkommen kann
+ * Kapselt alle möglichen Metadaten zu einem Dokument
  * 
- * - lokales Dokument
- * - netzwerkverteiltes Dokument
- * - Backup Dokument
- * ...
- * 
- * @author ab
+ * @author Christian Schwerdtfeger
  *
  */
 public class DocumentWrapper implements project.data.Document {
@@ -121,6 +116,10 @@ public class DocumentWrapper implements project.data.Document {
 		return dmeta;
 	}
 	
+	/**
+	 * Methode die das DocumentWrapper-Objekt in eine XML-Datei abspeichert.
+	 */
+	
 	public void saveToXml(){
 		File xmlFile = new File(dfile.toString() + ".xml");
 	//	SAXBuilder saxb = new SAXBuilder();
@@ -200,6 +199,13 @@ public class DocumentWrapper implements project.data.Document {
 		}
 	}
 	
+	/**
+	 * Methode welche aus einer XML Datei ein DocumentWrapper Objekt erstellt und dieses zurückgibt
+	 * @param filename Name der XML-Datei
+	 * @return DocumentWrapper Objekt mit dem Inhalt der XML Datei
+	 * @throws DocumentWrapperException Wenn beim parsen der XML Datei ein Fehler passiert
+	 */
+	
 	public static DocumentWrapper loadFromXml(String filename)throws DocumentWrapperException{
 		try
 		{
@@ -254,6 +260,14 @@ public class DocumentWrapper implements project.data.Document {
 			throw new DocumentWrapperException("blubber");
 		}
 	}
+	
+	/**
+	 * Methode die in einer XML-Datei nach einem Attribut sucht.
+	 * @param searchString gesuchtes Attribut
+	 * @param filename Dateiname
+	 * @return Inhalt des Attributes
+	 * @throws DocumentWrapperException Wenn beim auslesen der XML-Datei ein Fehler auftritt
+	 */
 	
 	@SuppressWarnings("unchecked")
 	public static String searchAttribut(String searchString, String filename) throws DocumentWrapperException {
