@@ -13,6 +13,10 @@ public class DocumentDistribution {
 		this.backup = backups; 
 	}
 	
+	public Vector<Computer> getBackups(){
+		return backup;
+	}
+	
 	public void addComputer(Computer newBackup)
 	{
 		backup.add(newBackup);

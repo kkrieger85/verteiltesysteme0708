@@ -37,12 +37,16 @@ public class DocumentMetadata {
 	public String getRolle(){
 		return rolle;
 	}
+	
+	public void setRolle(String rolle){
+		this.rolle = rolle;
+	}
 	/*
 	 * toString()
 	 */
 	public String toString() {
 		//ToDo String-Methode
-		return "(" + beschreibung + ")";
+		return "(" + beschreibung + rolle + ")";
 	}
 
 }
