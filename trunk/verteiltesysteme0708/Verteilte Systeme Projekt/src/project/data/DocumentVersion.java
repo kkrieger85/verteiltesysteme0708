@@ -59,9 +59,9 @@ public class DocumentVersion {
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
-
-	public int getVersion() {
-		return versionNumber;
+	
+	public String toString(){
+		return String.valueOf(versionNumber);
 	}
 	
 }
