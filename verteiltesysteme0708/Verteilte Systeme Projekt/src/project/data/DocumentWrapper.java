@@ -204,11 +204,11 @@ public class DocumentWrapper implements project.data.Document {
 	 * @param filename Name der XML-Datei
 	 * @return DocumentWrapper Objekt mit dem Inhalt der XML Datei
 	 * @throws DocumentWrapperException Wenn beim parsen der XML Datei ein Fehler passiert
-	 */
-	
+	 */	
 	public static DocumentWrapper loadFromXml(String filename)throws DocumentWrapperException{
 		try
 		{
+			filename += ".xml"; 
 			DocumentWrapper wrapper = new DocumentWrapper();
 			DocumentMetadata mdata = new DocumentMetadata();
 			DocumentFile dfile = new DocumentFile(filename);
