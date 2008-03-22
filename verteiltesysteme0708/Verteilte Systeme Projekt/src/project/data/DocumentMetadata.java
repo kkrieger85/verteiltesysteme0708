@@ -1,6 +1,8 @@
 
 package project.data;
 
+import java.util.Vector;
+
 /**
  * Kapselt alle Metadaten des Dokuments
  * 
@@ -10,7 +12,7 @@ package project.data;
 public class DocumentMetadata {
 	
 	private String beschreibung;
-	private String rolle;
+	private Vector<String> rolle;
 	
 	
 	/**
@@ -23,7 +25,7 @@ public class DocumentMetadata {
 	}
 	
 	/**
-	 * Gibt die enthaltene Beschreibung zurück
+	 * Gibt die enthaltene Beschreibung zurï¿½ck
 	 * @return Beschreibung
 	 */
 	
@@ -32,7 +34,7 @@ public class DocumentMetadata {
 	}
 	
 	/**
-	 * Setzt die Beschreibung auf den Wert des übergebenen Strings
+	 * Setzt die Beschreibung auf den Wert des ï¿½bergebenen Strings
 	 * @param beschreibung neue Beschreibung
 	 */
 
@@ -41,24 +43,24 @@ public class DocumentMetadata {
 	}
 	
 	/**
-	 * Gibt die enthaltene Rolle zurück
+	 * Gibt die enthaltene Rolle zurï¿½ck
 	 * @return Enthaltene Rolle
 	 */
 	
-	public String getRolle(){
+	public Vector<String> getRolle(){
 		return rolle;
 	}
 	
 	/**
-	 * Setzt Rolle auf den Wert des übergebenen Strings
+	 * Setzt Rolle auf den Wert des ï¿½bergebenen Strings
 	 * @param rolle neue Rolle
 	 */
 	public void setRolle(String rolle){
-		this.rolle = rolle;
+		this.rolle.add(rolle);
 	}
 	
 	/**
-	 * Gibt eine String Representation des Objektes zurück.
+	 * Gibt eine String Representation des Objektes zurï¿½ck.
 	 */
 	public String toString() {
 		//ToDo String-Methode
