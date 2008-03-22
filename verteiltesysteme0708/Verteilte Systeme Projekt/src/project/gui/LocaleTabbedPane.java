@@ -3,6 +3,7 @@
  */
 package project.gui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -122,6 +123,7 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 		gridbag.gridwidth = 2; 
 		gridbag.weighty = 0.1;
 		gridbag.fill = GridBagConstraints.NONE;
+		this.addDocumentButton.addActionListener(this); 
 		this.add(this.addDocumentButton,gridbag); 	
 		
 	
@@ -129,7 +131,11 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// Buttons und so abfragen !!! 
+		if (((JButton)arg0.getSource()).equals(this.addDocumentButton)){
+			AddNewFileFrame anff = new AddNewFileFrame();
+			anff.setSize(new Dimension(640, 480));
+			anff.setVisible(true);
+		}
 		
 	}
 
@@ -150,7 +156,8 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 		File[] files = searchfolder.listFiles(new DDDirectoryFileFilter(""));
 		String[] filenames = new String[files.length]; 
 		for (int i = 0; i< files.length ; i++ ){
-			filenames[i] = files[i].toString(); 			
+			if (!files[i].toString().endsWith(".xml"))
+				filenames[i] = files[i].toString(); 			
 		}
 		this.filelist = new JList(filenames); 
 		return this.filelist; 
