@@ -158,19 +158,23 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 		File[] files = searchfolder.listFiles(new DDDirectoryFileFilter("*"));
 		
 		ArrayList<String> list = new ArrayList<String>();
-		for (int i = 0; i < files.length; i++) {
-			String searchXML = files[i].toString() + ".xml"; 
-			for (int j = 0; j < files.length; j++){
-				if (searchXML.compareTo(files[j].toString()) == 0){
-					list.add(files[i].toString()); 
+		
+		if (files != null) {
+			for (int i = 0; i < files.length; i++) {
+				String searchXML = files[i].toString() + ".xml"; 
+				for (int j = 0; j < files.length; j++){
+					if (searchXML.compareTo(files[j].toString()) == 0){
+						list.add(files[i].toString()); 
+					}
 				}
 			}
 		}
-		
+			
 		String[] filenames = new String[list.size()]; 
 		for (int i = 0; i< list.size() ; i++ ){
 			filenames[i] = list.get(i); 
 		}
+		
 		this.filelist = new JList(filenames); 
 		return this.filelist; 
 	}

@@ -12,6 +12,7 @@ import java.util.List;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jdom.input.JDOMParseException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
@@ -103,16 +104,18 @@ public class XMLConfigHelper {
 			if (!file.exists()) {
 				file.createNewFile();
 				file.setWritable(true);
-			}  
-				
-			doc = saxb.build(file);
+			} else if (file.length() != 0) {
+				doc = saxb.build(file);
+			}
 
-			if (doc.hasRootElement()) {
+			if (doc != null && doc.hasRootElement()) {
 				root = doc.getRootElement();
 			} else {
+				doc = new Document();
 				root = new Element("root");
 				doc.setRootElement(root);
 			}
+			
 			List<Element> list;
 			Iterator<Element> ite;
 
@@ -143,7 +146,11 @@ public class XMLConfigHelper {
 			filewriter.flush();
 
 		} catch (Exception ex) {
-			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+			if (DDLogger.getLogger() != null)
+				DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+			else {
+				ex.printStackTrace();
+			}
 		}
 
 		return false;

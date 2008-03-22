@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import project.helperclasses.BundleWrapper;
+import project.helperclasses.DDLogger;
 import project.helperclasses.NetworkHelper;
 import project.helperclasses.XMLConfigHelper;
 
@@ -38,14 +39,20 @@ public class InformationTabbedPage extends JPanel {
 		NetworkHelper nh = new NetworkHelper(); 
 		XMLConfigHelper xmlconfig = new XMLConfigHelper(); 
 		
-		String dir = xmlconfig.getMainFolder(); 
-		File f = new File(dir); 
-		String[] files = f.list(); 
-		int countFiles = files.length; 
+		String dir = xmlconfig.getMainFolder();
+		String[] files = new String[0];
+		int countFiles = 0;
+		long freeSpace = 0;
 		
-		// Freienspeicher anzeigen lassen 
-		long freeSpace = f.getFreeSpace(); 
-		// Belegten Speicher anzeigen lassen 
+		if (!dir.isEmpty()) {
+			File f = new File(dir); 
+			files = f.list(); 
+			countFiles = files.length;
+			
+			// Freienspeicher anzeigen lassen 
+			freeSpace = f.getFreeSpace(); 
+			// Belegten Speicher anzeigen lassen 
+		}
 
 		// Layout festlegen
 		GridBagLayout bagLayout = new GridBagLayout();
