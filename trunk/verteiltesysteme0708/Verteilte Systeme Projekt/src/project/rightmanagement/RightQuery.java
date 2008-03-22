@@ -53,7 +53,7 @@ public class RightQuery {
 	 * @throws LoginException
 	 */
 	public boolean login(String url, String user, String password) throws LoginException{
-		return instanz== new Simple(url,user, password);
+		return (instanz= new Simple(url,user, password))!=null;
 	}
 	/**
 	 * Setzt einen neuen RollenAdministrator
@@ -158,7 +158,9 @@ public class RightQuery {
 	public static void main(String[] args){
 		RightQuery test = new RightQuery();
 		try{
-			test.login("localhost","peter","lustig");
+			System.out.println("Starte Test\nLogin als peter lustig");
+			System.out.println(test.login("localhost","peter","lustig"));
+			System.out.println(test.listRoles());
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}

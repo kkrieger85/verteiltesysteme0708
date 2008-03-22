@@ -13,7 +13,7 @@ public class TasServer {
 	 * @param args
 	 */
 	public static void main(String[] args) { 
-		String host = "localhost";
+		String host = "127.0.0.1";
 		if (args.length != 0) {
 			if (args[0] != null) {
 				host = args[0];
@@ -21,12 +21,13 @@ public class TasServer {
 		}
 
 		try {
-			LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+			System.out.println("Horche an Port 2099");
+			LocateRegistry.createRegistry(2099);
 		} catch (RemoteException ex) {
 			System.out.println(ex.getMessage());
 		}
 		try {
-			Naming.rebind("rmi://" + host + "/server", new TasImpl());
+			Naming.rebind("rmi://" + host + "/auth", new TasImpl());
 		} catch (MalformedURLException ex) {
 			System.out.println(ex.getMessage());
 		} catch (RemoteException ex) {
