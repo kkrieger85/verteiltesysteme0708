@@ -18,16 +18,18 @@ public class SearchResult implements Serializable{
 	private static final long serialVersionUID = 4246437713684261354L;
 	private String serverIP; 
 	private String fileName; 
+	private String port; 
 	private long fileSize; 
 	// Weitere Informationen mit einbauen !!! 
 	
 	/**
 	 * 
 	 */
-	public SearchResult(String serverIP, String fileName, long fileSize) {
+	public SearchResult(String serverIP, String fileName, long fileSize, String port) {
 		this.serverIP = serverIP;
 		this.fileName = fileName; 
 		this.fileSize = fileSize; 
+		this.port = port; 
 	}
 
 	/**
@@ -77,6 +79,21 @@ public class SearchResult implements Serializable{
 	 */
 	public String toString(){
 		return "File: " + this.fileName + "  IP: " + this.serverIP; 
+	}
+
+	/** 
+	 * Port holen 
+	 */
+	public synchronized String getPort() {
+		return port;
+	}
+
+	/** 
+	 * Port setzen 
+	 * @param port
+	 */
+	public synchronized void setPort(String port) {
+		this.port = port;
 	}
 
 }

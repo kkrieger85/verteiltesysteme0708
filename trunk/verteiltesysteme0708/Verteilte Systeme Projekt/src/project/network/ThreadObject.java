@@ -31,7 +31,8 @@ public class ThreadObject extends Observable implements Runnable, Comparable<Obj
 	public static final int THREADTEST = 0; 
 	public static final int GETIPLISTACTION = 1; 
 	public static final int PUSHIPLISTACTION = 2; 
-	public static final int SEARCHFILE = 3; 
+	public static final int SEARCHFILE = 3;
+	public static final int DOWNLOADFILE = 4; 
 	// TODO weitere Typen festlegen !!! 
 	
 	private static int MAXTRIALS = 5; 
@@ -130,6 +131,7 @@ public class ThreadObject extends Observable implements Runnable, Comparable<Obj
 				case ThreadObject.GETIPLISTACTION: this.threadWorkerInterf = new GetIPListWorker(this.serverAddress, this.serverPort); break;
 				case ThreadObject.PUSHIPLISTACTION: this.threadWorkerInterf = new PushIPListWorker(this.serverAddress, this.serverPort); break;
 				case ThreadObject.SEARCHFILE: this.threadWorkerInterf = new SearchFileWorker(this.serverAddress, this.serverPort,this.informationHash);break; 
+				case ThreadObject.DOWNLOADFILE: this.threadWorkerInterf = new FileDownloadWorker(this.serverAddress,this.serverPort, this.informationHash); break; // TODO Einbauen !!! 
 				
 				default: throw new ThreadObjectException(ThreadObjectException.NOTYPE); 
 				}

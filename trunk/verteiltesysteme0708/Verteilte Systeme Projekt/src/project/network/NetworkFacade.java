@@ -4,11 +4,13 @@
 package project.network;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedList;
 
 import project.data.DocumentMetadata;
 import project.data.DocumentWrapper;
 import project.exception.NetworkFacadeException;
+import project.exception.ServerDataObjectException;
 
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
@@ -97,4 +99,34 @@ public class NetworkFacade {
 		throws NetworkFacadeException {
 		throw new NetworkFacadeException(NetworkFacadeException.SERVICENOTIMPLEMENTED); 		
 	}	
+	
+	/**
+	 * Lädt eine bestimmte Datei von einem bestimmten Server herunter 
+	 * @param filename
+	 * @param ipaddress
+	 * @throws ServerDataObjectException 
+	 */
+	public void downloadFileFromServer(String filename, String ipaddress, String Port)
+		throws NetworkFacadeException, ServerDataObjectException {
+		
+		if (filename == null || ipaddress == null){
+			throw new NetworkFacadeException(NetworkFacadeException.VALUEISNULL);
+		}
+		
+		// Threadcreator laden 
+		ThreadCreator tc = ThreadCreator.getInstance(); 
+		
+		// ServerDataObject erstellen 
+		ServerDataObject sdo = new ServerDataObject(ipaddress,Port,0);
+		LinkedList<ServerDataObject> ll = new LinkedList<ServerDataObject>(); 
+		ll.add(sdo); 
+		
+		// InformationHash zusammenbauen 
+		// Was muss rein ? Dateiname nur 
+		HashMap<String,Object> hash = new HashMap<String,Object>(); 
+		hash.put("filename", filename); 
+		tc.createThreads(ll, ThreadObject.DOWNLOADFILE, hash); 
+		
+			
+	}
 }

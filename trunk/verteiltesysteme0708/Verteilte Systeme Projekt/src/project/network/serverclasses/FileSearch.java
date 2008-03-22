@@ -4,9 +4,9 @@
 package project.network.serverclasses;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.LinkedList;
 
+import project.helperclasses.DDDirectoryFileFilter;
 import project.helperclasses.NetworkHelper;
 import project.helperclasses.XMLConfigHelper;
 import project.network.SearchResult;
@@ -66,7 +66,7 @@ public class FileSearch {
 		searchString = searchString.replace("?", ".");
 
 		// Nun nach Dateien suchen !!!
-		File[] files = searchfolder.listFiles(new DDFileFilter(searchString));
+		File[] files = searchfolder.listFiles(new DDDirectoryFileFilter(searchString));
 
 		// Eigene IP Adresse holen
 		NetworkHelper nh = new NetworkHelper();
@@ -76,38 +76,11 @@ public class FileSearch {
 				File f = new File(files[i].toString());
 				fileSize = f.length();
 				this.result.add(new SearchResult(nh.getOwnIPAdress(), files[i]
-						.toString(), fileSize));
+						.toString(), fileSize, nh.getOwnOpenPort()));
 			}
 		}
 	}
 
-	/**
-	 * Klasse dient als Suchfilter für die Dateisuche innerhalb eines
-	 * Verzeichnises
-	 * 
-	 * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert,
-	 *         reichert.sascha@googlemail.com</a>
-	 * 
-	 */
-	class DDFileFilter implements FileFilter {
-		private String searchString;
-
-		public DDFileFilter(String search) {
-			this.searchString = search;
-		}
-
-		public boolean accept(File f) {
-			boolean returnvalue = false;
-			if (f.isFile()) {
-				if (f.getName().matches(this.searchString)) {
-					if (!f.getName().endsWith(".xml")){
-						returnvalue = true;
-					}
-				}
-			}
-			return returnvalue;
-		}
-	}
 
 	/**
 	 * Einfache toString Methode die zur Ausgabe dient

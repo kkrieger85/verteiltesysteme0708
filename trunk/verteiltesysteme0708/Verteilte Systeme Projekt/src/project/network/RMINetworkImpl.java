@@ -9,6 +9,7 @@ import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 
+import project.data.dataSendingWrapper;
 import project.helperclasses.DDLogger;
 import project.network.serverclasses.FileSearch;
 
@@ -127,6 +128,13 @@ public class RMINetworkImpl extends UnicastRemoteObject implements
 		FileSearch fs = new FileSearch(); 
 		fs.searchFiles(searchString); 		
 		return fs.getResult();
+	}
+
+	@Override
+	public dataSendingWrapper getFile(String filename) throws RemoteException {
+		
+		dataSendingWrapper dsw = new dataSendingWrapper(filename);
+		return dsw;
 	}
 	
 
