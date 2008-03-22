@@ -73,10 +73,10 @@ public class RightQuery {
 	 * @return
 	 * @throws LoginException
 	 */
-	public boolean addRoleToDocument() throws LoginException{
+	public boolean addRoleToDocument(DocumentWrapper doc, String role) throws LoginException{
 		if(instanz == null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
-		return instanz.addRoleToDocument();
+		return instanz.addRoleToDocument(doc ,role);
 		
 	}
 	/**
@@ -84,10 +84,10 @@ public class RightQuery {
 	 * @return
 	 * @throws LoginException
 	 */
-	public boolean removeRoleFromDocument() throws LoginException{
+	public boolean removeRoleFromDocument(DocumentWrapper doc, String role) throws LoginException{
 		if(instanz==null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
-		return instanz.removeRoleFromDocument();
+		return instanz.removeRoleFromDocument(doc , role);
 		
 	}
 	
