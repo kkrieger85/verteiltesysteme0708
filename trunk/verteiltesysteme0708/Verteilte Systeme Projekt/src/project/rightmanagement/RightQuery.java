@@ -46,6 +46,7 @@ public class RightQuery {
 	}
 	/**loggt den Benutzer ein
 	 * Hier kann der Anwendungsentwickler die Implementation der Fassade angeben
+	 * diese Funktion muss als erstes Aufgerufen werden damit der benutzer eingelogt ist
 	 * @param user
 	 * @param password
 	 * @return
@@ -54,19 +55,35 @@ public class RightQuery {
 	public boolean login(String url, String user, String password) throws LoginException{
 		return instanz== new Simple(url,user, password);
 	}
-	
+	/**
+	 * Setzt einen neuen RollenAdministrator
+	 * @param user
+	 * @param role
+	 * @return
+	 * @throws LoginException
+	 */
 	public boolean setVertrauensstelle(String user, String role) throws LoginException{
 		if( instanz == null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
 		return instanz.setVertrauensstelle(user, role);
 		
 	}
+	/**
+	 * Dokument einer Rolle hinzufügen
+	 * @return
+	 * @throws LoginException
+	 */
 	public boolean addRoleToDocument() throws LoginException{
 		if(instanz == null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
 		return instanz.addRoleToDocument();
 		
 	}
+	/**
+	 * Rolle einem Dokument entziehen
+	 * @return
+	 * @throws LoginException
+	 */
 	public boolean removeRoleFromDocument() throws LoginException{
 		if(instanz==null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
@@ -74,31 +91,63 @@ public class RightQuery {
 		
 	}
 	
-	
+	/**
+	 * Benutzer zu einer Rolle hinzufügen
+	 * @param user
+	 * @param role
+	 * @return
+	 * @throws LoginException
+	 */
 	public boolean addUserToRole(String user, String role) throws LoginException{
 		if(instanz==null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
 		return instanz.addUserToRole(user, role);
 		
 	}
+	/**
+	 * Benutzer eine Rolle entziehen
+	 * @param user
+	 * @param role
+	 * @return
+	 * @throws LoginException
+	 */
 	public boolean removeUserFromRole(String user, String role) throws LoginException{
 		if(instanz==null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
 		return instanz.removeUserFromRole(user, role);
 		
 	}
+	/**
+	 * Alle Rollen des Users auflisten
+	 * @return
+	 * @throws LoginException
+	 */
 	public String[] listRoles() throws LoginException{
 		if(instanz==null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
 		return instanz.listRoles();
 		
 	}
+	/**
+	 * Dokumente verschlüßeln
+	 * @param doc
+	 * @return
+	 * @throws LoginException
+	 * @throws RightException
+	 */
 	public DocumentWrapper encrypt(DocumentWrapper doc) throws LoginException, RightException{
 		if(instanz==null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
 		return instanz.encrypt(doc);
 		
 	}
+	/**
+	 * Dokumente entschlüßeln
+	 * @param doc
+	 * @return
+	 * @throws LoginException
+	 * @throws RightException
+	 */
 	public DocumentWrapper decrypt(DocumentWrapper doc) throws LoginException, RightException{
 		if(instanz==null)
 			throw new LoginException(LoginException.NOTLOGGEDIN);
