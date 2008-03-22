@@ -223,7 +223,12 @@ public class DocumentWrapper implements project.data.Document {
 			dversion.setCreationTime(datef.parse(searchAttribut("creationTime", filename)));
 			
 			DocumentVersion tmp = new DocumentVersion();
-			tmp.setVersionNumber(Integer.parseInt(searchAttribut("parent", filename)));
+			try{
+				tmp.setVersionNumber(Integer.parseInt(searchAttribut("parent", filename)));
+			}catch(DocumentWrapperException dwe)
+			{
+				tmp.setVersionNumber(0);
+			}
 			dversion.setParent(tmp);
 			dversion.setVersionNumber(Integer.parseInt(searchAttribut("versionNumber", filename)));
 			
