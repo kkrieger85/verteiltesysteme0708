@@ -10,9 +10,10 @@ import java.io.IOException;
 
 public class Simple extends Fassade {
 	private TasInterface authServer;
-	
+
 	/**
 	 * Initialisierung mit Authorisationsserver, Benutzername und Password
+	 * 
 	 * @param url
 	 * @param user
 	 * @param passwd
@@ -27,22 +28,27 @@ public class Simple extends Fassade {
 	 */
 	public boolean changeDocument(DocumentWrapper doc) {
 		try {
-			return authServer
-					.canWriteInRole(user, doc.getMetadata().getRolle());
+			for (String rolle : doc.getMetadata().getRolle())
+				if (authServer.canWriteInRole(user, rolle))
+					return true;
 		} catch (Exception e) {
 		}
 		return false;
 	}
+
 	/**
 	 * Kann der Benutzer das Dokument öffnen
 	 */
 	public boolean openDocument(DocumentWrapper doc) {
 		try {
-			return authServer.canReadInRole(user, doc.getMetadata().getRolle());
+			for (String rolle : doc.getMetadata().getRolle())
+				if (authServer.canReadInRole(user, rolle))
+					return true;
 		} catch (Exception e) {
 		}
 		return false;
 	}
+
 	/**
 	 * Kann der Benuter in der Rolle Dokumente erstellen
 	 */
@@ -53,6 +59,7 @@ public class Simple extends Fassade {
 		}
 		return false;
 	}
+
 	/**
 	 * Wird intern von der Fassade während der Initialisierung aufgerufen
 	 */
@@ -69,6 +76,7 @@ public class Simple extends Fassade {
 			throw new LoginException(LoginException.SERVERFAIL);
 		}
 	}
+
 	/**
 	 * Rollenadministrator setzen
 	 */
@@ -80,18 +88,38 @@ public class Simple extends Fassade {
 		}
 		return false;
 	}
+
 	/**
-	 * Rolle einem Dokument hinzufügen
+	 * Rolle einem Dokument hinzufügen, hierzu muss der ausführende User ein
+	 * RollenAdministrator mind. einer rolle des Dokumentes sein
 	 */
-	public boolean addRoleToDocument() {
-		return true;
+	public boolean addRoleToDocument(DocumentWrapper doc, String role) {
+		try {
+			// gehe alle Rollen durch
+			for (String rolle : doc.getMetadata().getRolle())
+				// wenn der Benutzer Rollenadministrator ist, füge hinzu
+				if (authServer.isRoleAdmin(this.user, rolle)) {
+					doc.getMetadata().getRolle().add(role);
+					return true;
+				}
+		} catch (Exception e) {
+		}
+		return false;
 	}
+
 	/**
-	 * Rolle einem Dokument entziehen
+	 * Rolle einem Dokument entziehen, hierzu muss der ausführende user
+	 * RollenAdministrator der zu entfernenden Rolle sein
 	 */
-	public boolean removeRoleFromDocument() {
-		return true;
+	public boolean removeRoleFromDocument(DocumentWrapper doc, String role) {
+		try {
+			if (authServer.isRoleAdmin(this.user, role))
+				return doc.getMetadata().getRolle().remove(role);
+		} catch (Exception e) {
+		}
+		return false;
 	}
+
 	/**
 	 * Benutzer einer Rolle hinzufügen
 	 */
@@ -103,6 +131,7 @@ public class Simple extends Fassade {
 		}
 		return false;
 	}
+
 	/**
 	 * Benutzer eine Rolle entziehen
 	 */
@@ -114,6 +143,7 @@ public class Simple extends Fassade {
 		}
 		return false;
 	}
+
 	/**
 	 * Gibt die Liste aller ROllen des Users zurück
 	 */

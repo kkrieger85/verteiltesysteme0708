@@ -13,6 +13,13 @@ public abstract class Fassade {
 	protected String user;
 	protected String[] roles;
 	
+	/**
+	 * Login wird gestartet und die Fassade Initialisiert
+	 * @param url
+	 * @param user
+	 * @param password
+	 * @throws LoginException
+	 */
 	public Fassade(String url, String user, String password)throws  LoginException{
 		this.url=url;
 		this.user=user;
@@ -24,8 +31,8 @@ public abstract class Fassade {
 	public abstract boolean createDocument(String role);
 	protected abstract boolean login (String user, String password)throws LoginException;
 	public abstract boolean setVertrauensstelle(String user, String role);
-	public abstract boolean addRoleToDocument();
-	public abstract boolean removeRoleFromDocument();
+	public abstract boolean addRoleToDocument(DocumentWrapper doc, String role);
+	public abstract boolean removeRoleFromDocument(DocumentWrapper doc, String role);
 	public abstract boolean addUserToRole(String user, String role);
 	public abstract boolean removeUserFromRole(String user, String role);
 	public abstract String[] listRoles();
