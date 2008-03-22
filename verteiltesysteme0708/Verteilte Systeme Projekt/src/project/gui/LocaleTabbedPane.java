@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import project.helperclasses.BundleWrapper;
+import project.helperclasses.DDDirectoryFileFilter;
 import project.helperclasses.XMLConfigHelper;
 
 
@@ -168,27 +169,7 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 		this.setVisible(true);
 	}
 	
-	/** 
-	 * Klasse dient zum Filtern der Dateien 
-	 * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
-	 *
-	 */
-	class DDDirectoryFileFilter implements FileFilter {
-		@SuppressWarnings("unused")
-		private String searchString;
 
-		public DDDirectoryFileFilter(String search) {
-			this.searchString = search;
-		}
-
-		public boolean accept(File f) {
-			boolean returnvalue = false;
-			if (f.isFile()) {
-				returnvalue = true;
-			}
-			return returnvalue;
-		}
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

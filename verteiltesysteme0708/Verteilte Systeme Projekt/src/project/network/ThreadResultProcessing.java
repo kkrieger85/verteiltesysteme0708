@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import project.centrallogic.FileSearchResultTemplate;
 import project.helperclasses.DDLogger;
+import project.data.dataSendingWrapper;
 
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
@@ -63,6 +64,7 @@ public class ThreadResultProcessing implements Runnable{
 		switch (type){
 		case ThreadObject.GETIPLISTACTION: this.getIPListActionHandler(); break; 
 		case ThreadObject.SEARCHFILE: this.searchFileActionHandler(); break; 
+		case ThreadObject.DOWNLOADFILE: this.downloadFileActionHandler(); break; 
 		case ThreadObject.PUSHIPLISTACTION: break; 
 		default: break; 
 		}	
@@ -83,5 +85,19 @@ public class ThreadResultProcessing implements Runnable{
 	public void defaultCase(){
 		DDLogger ddl = DDLogger.getLogger(); 
 		ddl.createLog("Type wurde nicht gefunden!!", DDLogger.DEBUG);
+	}
+	
+	/**
+	 * Bearbeitet das Ergebnis also speichert die Datei auf dem Rechner ab!!
+	 */
+	public void downloadFileActionHandler(){
+		DDLogger ddl = DDLogger.getLogger(); 
+		ddl.createLog("Sichere Datei", DDLogger.DEBUG);
+		// Object casten !!! 
+		try {
+			((dataSendingWrapper)this.resultObject).saveToFile(); 
+		} catch (Exception ex){
+			ddl.createLog("Cannot cast Object!!", DDLogger.ERROR); 
+		}
 	}
 }

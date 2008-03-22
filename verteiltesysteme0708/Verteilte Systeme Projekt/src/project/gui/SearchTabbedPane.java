@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import project.helperclasses.BundleWrapper;
+import project.helperclasses.DDLogger;
 import project.centrallogic.*;
 import java.util.Vector;
 
@@ -106,8 +107,9 @@ public class SearchTabbedPane extends JPanel implements ActionListener {
 		// TODO Spaltennamen richtig einbauen 
 		String[] tableHeaders = { this.bundle.getString("searchpane_tabletopic_filename"),	 
 								  this.bundle.getString("searchpane_tabletopic_ipaddress"),
+								  this.bundle.getString("searchpane_tabletopic_port"),
 								  this.bundle.getString("searchpane_tabletopic_filesize")}; 
-		Object[][] tableData = {{ "", "", ""}};
+		Object[][] tableData = {};
 		DDTableModel tablemodel = new DDTableModel(tableData,tableHeaders);
 		this.table = new JTable(tablemodel);
 		this.table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -167,9 +169,28 @@ public class SearchTabbedPane extends JPanel implements ActionListener {
 		if (arg0.getSource().equals(this.downloadButton)){
 			// Wenn suchen Button gedrück wurde mach etwas ;) 
 			MainFrame.getInstance().refreshInformationLabel(this.bundle.getString("searchpane_startfileload_text"));
+			// Datenheraussuchen 
 			
-			// Central Logic Klasse ansteuern 
 			
+			int row = this.table.getSelectedRow(); 
+			if (row > 0)				
+			{
+				// Dateiname 
+				String filename = this.table.getValueAt(row, 0).toString(); 
+				
+				// IPAdresse 
+				String ipaddress = this.table.getValueAt(row,1).toString(); 
+				
+				// Port 
+				String port = this.table.getValueAt(row, 2).toString(); 
+				
+				// Central Logic Klasse ansteuern 
+				@SuppressWarnings("unused")
+				DownLoadFileTemplate dft = new DownLoadFileTemplate(filename,ipaddress, port); 
+			} else {
+				DDLogger.getLogger().createLog("Nichts angewählt!!",DDLogger.ERROR); 
+				// TODO Lokalisierung und Fehlermeldung ausgeben !!! 
+			}
 			
 		}
 		

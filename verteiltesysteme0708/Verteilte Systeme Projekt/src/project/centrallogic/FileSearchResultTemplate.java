@@ -38,7 +38,8 @@ public class FileSearchResultTemplate extends AbstractCentralLogic implements
 			Vector<Object> innerVector = new Vector<Object>(); 
 			innerVector.add(result.get(i).getFileName()); 
 			innerVector.add(result.get(i).getServerIP()); 
-			innerVector.add(result.get(i).getFileSize()); 
+			innerVector.add(result.get(i).getPort()); 
+			innerVector.add(result.get(i).getFileSize()); 		
 			outerVector.add(innerVector); 
 		}
 		// MainFrame holen 

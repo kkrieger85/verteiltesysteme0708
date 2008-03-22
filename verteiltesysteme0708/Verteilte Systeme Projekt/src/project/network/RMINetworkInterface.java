@@ -7,6 +7,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
+import project.data.dataSendingWrapper;
+
 /**
  * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
  *	RMI Interface zum Nutzen der RMI Funktionalität 
@@ -35,4 +37,12 @@ public interface RMINetworkInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	public LinkedList<SearchResult> startSearchRoutine(String searchString) throws RemoteException; 
+
+	/**
+	 * Routine soll eine Datei vom Server downloaden, dazu der String mit dem Dateinamen!!!
+	 * @param filename
+	 * @return
+	 * @throws RemoteException
+	 */
+	public dataSendingWrapper getFile(String filename) throws RemoteException; 
 }

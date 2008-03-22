@@ -42,6 +42,7 @@ public class NetworkHelper {
 	 * @return
 	 */
 	public String getOwnOpenPort() {
-		return "10000";
+		// StandardRMI Port ist immer 1099 
+		return "1099";
 	}
 }

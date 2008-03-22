@@ -10,6 +10,8 @@ package project.exception;
 public class NetworkFacadeException extends Exception {
 
 	public static final String SERVICENOTIMPLEMENTED = "Dienst noch nicht eingebaut!!!"; 
+	public static final String VALUEISNULL = "Ein Wert ist NULL"; 
+	
 	/**
 	 * 
 	 */
