@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileFilter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -154,11 +155,21 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 		String dir = xmlconfig.getMainFolder(); 
 		
 		File searchfolder = new File(dir);
-		File[] files = searchfolder.listFiles(new DDDirectoryFileFilter(""));
-		String[] filenames = new String[files.length]; 
-		for (int i = 0; i< files.length ; i++ ){
-			if (!files[i].toString().endsWith(".xml"))
-				filenames[i] = files[i].toString(); 			
+		File[] files = searchfolder.listFiles(new DDDirectoryFileFilter("*"));
+		
+		ArrayList<String> list = new ArrayList<String>();
+		for (int i = 0; i < files.length; i++) {
+			String searchXML = files[i].toString() + ".xml"; 
+			for (int j = 0; j < files.length; j++){
+				if (searchXML.compareTo(files[j].toString()) == 0){
+					list.add(files[i].toString()); 
+				}
+			}
+		}
+		
+		String[] filenames = new String[list.size()]; 
+		for (int i = 0; i< list.size() ; i++ ){
+			filenames[i] = list.get(i); 
 		}
 		this.filelist = new JList(filenames); 
 		return this.filelist; 

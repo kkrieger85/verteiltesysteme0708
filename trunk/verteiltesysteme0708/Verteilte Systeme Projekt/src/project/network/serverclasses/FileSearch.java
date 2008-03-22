@@ -4,6 +4,7 @@
 package project.network.serverclasses;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import project.helperclasses.DDDirectoryFileFilter;
@@ -56,27 +57,28 @@ public class FileSearch {
 	private void searchFiles(String searchString, String folder) {
 
 		File searchfolder = new File(folder);
-		// Zuerst die unterverzeichnisse durchlaufen lassen
-
-		// Searchstring modifizieren zuerst ^ und $ einfügen
-		searchString = "^" + searchString + ".$";
-		// * durch .* ersetzen
-		searchString = searchString.replace("*", ".*");
-		// ? durch . ersetzen
-		searchString = searchString.replace("?", ".");
 
 		// Nun nach Dateien suchen !!!
 		File[] files = searchfolder.listFiles(new DDDirectoryFileFilter(searchString));
+		// Nachschauen welche Dateien auch eine XML Datei dabeihaben 
+		ArrayList<String> list = new ArrayList<String>();
+		for (int i = 0; i < files.length; i++) {
+			String searchXML = files[i].toString() + ".xml"; 
+			for (int j = 0; j < files.length; j++){
+				if (searchXML.compareTo(files[j].toString()) == 0){
+					list.add(files[i].toString()); 
+				}
+			}
+		}
 
 		// Eigene IP Adresse holen
 		NetworkHelper nh = new NetworkHelper();
 		if (files != null) {
-			for (int i = 0; i < files.length; i++) {
+			for (int i = 0; i < list.size(); i++) {
 				long fileSize = 0;
-				File f = new File(files[i].toString());
+				File f = new File(list.get(i));
 				fileSize = f.length();
-				this.result.add(new SearchResult(nh.getOwnIPAdress(), files[i]
-						.toString(), fileSize, nh.getOwnOpenPort()));
+				this.result.add(new SearchResult(nh.getOwnIPAdress(), list.get(i), fileSize, nh.getOwnOpenPort()));
 			}
 		}
 	}

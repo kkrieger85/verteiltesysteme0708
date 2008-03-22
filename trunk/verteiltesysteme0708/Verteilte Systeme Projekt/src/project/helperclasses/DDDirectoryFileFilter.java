@@ -17,14 +17,26 @@ public class DDDirectoryFileFilter implements FileFilter {
 
 	public DDDirectoryFileFilter(String search) {
 		this.searchString = search;
+		
+		// Zuerst die unterverzeichnisse durchlaufen lassen
+
+		// Searchstring modifizieren zuerst ^ und $ einfügen
+		this.searchString = "^" + this.searchString + ".$";
+		// * durch .* ersetzen
+		this.searchString = this.searchString.replace("*", ".*");
+		// ? durch . ersetzen
+		this.searchString = this.searchString.replace("?", ".");
 	}
 
 	public boolean accept(File f) {
 		boolean returnvalue = false;
 		if (f.isFile()) {
-			if (!f.toString().endsWith(".xml")){
+			if (f.getName().toString().matches(this.searchString)) {
 				returnvalue = true;
 			}
+		//	if (!f.toString().endsWith(".xml")){
+				
+		//	}
 			
 		}
 		return returnvalue;
