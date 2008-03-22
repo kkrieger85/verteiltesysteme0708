@@ -102,9 +102,10 @@ public class XMLConfigHelper {
 			if (!file.exists()) {
 				file.createNewFile();
 				file.setWritable(true);
-			} else {
-				doc = saxb.build(new File(XMLConfigHelper.XMLCONFIGFILE));
-			}
+			}  
+				
+			doc = saxb.build(file);
+
 			if (doc.hasRootElement()) {
 				root = doc.getRootElement();
 			} else {

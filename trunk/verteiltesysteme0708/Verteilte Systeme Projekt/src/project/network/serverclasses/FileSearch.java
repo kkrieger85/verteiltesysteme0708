@@ -100,7 +100,9 @@ public class FileSearch {
 			boolean returnvalue = false;
 			if (f.isFile()) {
 				if (f.getName().matches(this.searchString)) {
-					returnvalue = true;
+					if (!f.getName().endsWith(".xml")){
+						returnvalue = true;
+					}
 				}
 			}
 			return returnvalue;
