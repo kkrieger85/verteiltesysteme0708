@@ -145,7 +145,7 @@ public class DocumentWrapper implements project.data.Document {
 			
 			//Rolle eintragen
 			dataObjElem = new Element("rolle");
-			dataObjElem.setText(dmeta.getRolle());
+			dataObjElem.setText(dmeta.getRolle().toString());
 			root.addContent(dataObjElem);
 			
 			//Versionsnummer eintragen
@@ -225,7 +225,7 @@ public class DocumentWrapper implements project.data.Document {
 			DocumentVersion tmp = new DocumentVersion();
 			try{
 				tmp.setVersionNumber(Integer.parseInt(searchAttribut("parent", filename)));
-			}catch(DocumentWrapperException dwe)
+			}catch(Exception dwe)
 			{
 				tmp.setVersionNumber(0);
 			}
@@ -262,7 +262,7 @@ public class DocumentWrapper implements project.data.Document {
 			return wrapper;
 		}catch (Exception ex)
 		{
-			throw new DocumentWrapperException("blubber");
+			throw new DocumentWrapperException(ex.getMessage());
 		}
 	}
 	

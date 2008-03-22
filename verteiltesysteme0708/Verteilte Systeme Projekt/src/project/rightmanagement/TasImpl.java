@@ -41,6 +41,7 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 			return benutzer.get(benutzer.indexOf(user)).canCreate(role);
 		return false;
 	}
+	
 	public boolean login(String user, String password)throws RemoteException{
 		if(benutzer.contains(user))
 			return benutzer.get(benutzer.indexOf(user)).login(password);
@@ -88,6 +89,10 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 	}
 	
 	public String[] listRoles(String user)throws RemoteException{
-		return (String[])rollen.toArray();
+		String[] returnValue = new String[rollen.size()]; 
+		for (int i = 0; i < rollen.size(); i++){
+			returnValue[i] = rollen.get(i); 
+		}
+		return returnValue; 
 	}
 }

@@ -27,6 +27,7 @@ public class XMLConfigHelper {
 	public static final String MAINFOLDERATTR = "mainfolder"; 
 	public static final String PROGRAMMLANGUAGE = "language"; 
 	public static final String LOGFILE = "logfile";
+	public static final String LOGINNAME = "loginname"; 
 	
 	private SAXBuilder saxb = new SAXBuilder();
 	private Document doc;
@@ -190,6 +191,20 @@ public class XMLConfigHelper {
 			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
 		}
 		return returnString; 	
+	}
+	
+	/** 
+	 * Gibt den Loginnamen zurück sofern dieser gemerkt wurde !!! 
+	 * @return
+	 */
+	public String getLoginname(){
+		String returnString = ""; 
+		try {
+			returnString = this.searchAttribut(XMLConfigHelper.LOGINNAME); 
+		} catch (Exception ex) {
+			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+		}
+		return returnString; 			
 	}
 
 }

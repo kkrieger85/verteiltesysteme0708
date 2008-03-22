@@ -51,6 +51,7 @@ public class DocumentMetadata {
 		return rolle;
 	}
 	
+	
 	/**
 	 * Setzt Rolle auf den Wert des �bergebenen Strings
 	 * @param rolle neue Rolle
