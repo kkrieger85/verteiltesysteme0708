@@ -7,7 +7,11 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.NotBoundException;
 import java.io.IOException;
-
+/**
+ * Dies ist die Simple Implementierung der Authentifikation
+ * in dieser art der Authentifikation gibt es keine ver bzw entschlüßelung
+ * @author mafolz
+ */
 public class Simple extends Fassade {
 	private TasInterface authServer;
 

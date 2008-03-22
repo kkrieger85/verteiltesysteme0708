@@ -24,6 +24,9 @@ public class TasObject implements Comparable{
 	 * @return
 	 */
 	public boolean login(String passwort){
+		// Debugausgabe
+		System.out.println("\tlogin:"+this.passwort.equals(passwort));
+		
 		if( this.passwort.equals(passwort)){
 			login= true;
 			return true;
@@ -91,6 +94,9 @@ public class TasObject implements Comparable{
 	public int compareTo(Object o){
 		if(o instanceof TasObject){
 			TasObject t = (TasObject)o;
+			// Debug ausgabe
+//			System.out.println("vergleiche "+ user+" mit "+ t.user);
+//			System.out.println("\t"+user.compareTo(t.user));
 			return user.compareTo(t.user);
 		}else if(o instanceof String){
 			String t = (String)o;
@@ -99,8 +105,10 @@ public class TasObject implements Comparable{
 		return -1;
 	}
 	public boolean equals(Object o){
-		if(compareTo(o) == 0)
+		if(compareTo(o) == 0) {
+//			System.out.println("ist gleich.");
 			return true;
+		}
 		return false;
 	}
 }

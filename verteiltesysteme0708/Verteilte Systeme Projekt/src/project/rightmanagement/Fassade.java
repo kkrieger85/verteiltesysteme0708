@@ -4,9 +4,11 @@ import project.exception.*;
 import project.data.*;
 import java.rmi.RemoteException;
 /**
- * Fassadeninterface für das Rechtemanagement
+ * Diese Fassade Kapselt die Implementeirung der Authentifikation
+ * von der aufruferklasse RightQuery und implemetiert für alle
+ * authentifikationsarten wichtige Funktionen bzw
+ * Konstruktoren
  * @author mafolz
- *
  */
 public abstract class Fassade {
 	protected String url;
