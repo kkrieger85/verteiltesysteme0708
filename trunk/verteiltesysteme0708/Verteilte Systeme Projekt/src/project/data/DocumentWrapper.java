@@ -191,7 +191,10 @@ public class DocumentWrapper implements project.data.Document {
 			
 			//Sperrzeit eintragen
 			dataObjElem = new Element("creationTime");
-			dataObjElem.setText(datef.format(lastVersion.getCreationTime()));
+			if (lastVersion.getSperrzeit() != null)
+				dataObjElem.setText(datef.format(lastVersion.getSperrzeit()));
+			else
+				dataObjElem.setText("");
 			root.addContent(dataObjElem);
 			
 			Vector<Computer> backups = dbackup.getBackups();
@@ -238,8 +241,13 @@ public class DocumentWrapper implements project.data.Document {
 			dversion.setCreationTime(datef.parse(searchAttribut("creationTime", filename)));
 			dversion.setSperrender(searchAttribut("sperrender", filename));
 			dversion.setSperrhost(searchAttribut("sperrhost", filename));
-			dversion.setSperrzeit(datef.parse(searchAttribut("sperrzeit", filename)));
-			
+			try
+			{
+				dversion.setSperrzeit(datef.parse(searchAttribut("sperrzeit", filename)));
+			} catch (Exception ex)
+			{
+				dversion.setSperrzeit(null);
+			}
 			DocumentVersion tmp = new DocumentVersion();
 			try{
 				tmp.setVersionNumber(Integer.parseInt(searchAttribut("parent", filename)));
