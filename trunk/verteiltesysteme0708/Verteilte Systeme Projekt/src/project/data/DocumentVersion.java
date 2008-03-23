@@ -15,6 +15,9 @@ public class DocumentVersion {
 	private String author_username;
 	private Date creationTime;
 	private String comment;
+	private String sperrender = "";
+	private String sperrhost = "";
+	private Date sperrzeit = null; 
 	
 	/**
 	 * Erstellt ein leeres DocumentVersion Objekt
@@ -125,6 +128,30 @@ public class DocumentVersion {
 		tmp += ", " + parent;
 		tmp += ", " + getCreationTime().toString();
 		return String.valueOf(versionNumber);
+	}
+
+	public String getSperrender() {
+		return sperrender;
+	}
+
+	public void setSperrender(String sperrender) {
+		this.sperrender = sperrender;
+	}
+
+	public String getSperrhost() {
+		return sperrhost;
+	}
+
+	public void setSperrhost(String sperrhost) {
+		this.sperrhost = sperrhost;
+	}
+
+	public Date getSperrzeit() {
+		return sperrzeit;
+	}
+
+	public void setSperrzeit(Date sperrzeit) {
+		this.sperrzeit = sperrzeit;
 	}
 	
 }

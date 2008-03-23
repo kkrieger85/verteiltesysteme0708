@@ -118,11 +118,11 @@ public class DocumentWrapper implements project.data.Document {
 	
 	/**
 	 * Methode die das DocumentWrapper-Objekt in eine XML-Datei abspeichert.
+	 * Sollte nach jeder Änderung an den Metadaten aufgerufen werden um diese zu sichern.
 	 */
 	
 	public void saveToXml(){
 		File xmlFile = new File(dfile.toString() + ".xml");
-	//	SAXBuilder saxb = new SAXBuilder();
 		Document doc = new Document();
 		Element root;
 		try{
@@ -179,6 +179,21 @@ public class DocumentWrapper implements project.data.Document {
 			dataObjElem.setText(dfile.toString());
 			root.addContent(dataObjElem);
 			
+			//sperrenden eintragen
+			dataObjElem = new Element("sperrender");
+			dataObjElem.setText(lastVersion.getSperrender());
+			root.addContent(dataObjElem);
+			
+			//Sperrhost eintragen
+			dataObjElem = new Element("sperrhost");
+			dataObjElem.setText(lastVersion.getSperrhost());
+			root.addContent(dataObjElem);
+			
+			//Sperrzeit eintragen
+			dataObjElem = new Element("creationTime");
+			dataObjElem.setText(datef.format(lastVersion.getCreationTime()));
+			root.addContent(dataObjElem);
+			
 			Vector<Computer> backups = dbackup.getBackups();
 			
 			//Backups eintragen
@@ -221,6 +236,9 @@ public class DocumentWrapper implements project.data.Document {
 			dversion.setComment(searchAttribut("comment", filename));
 			DateFormat datef = DateFormat.getDateInstance();
 			dversion.setCreationTime(datef.parse(searchAttribut("creationTime", filename)));
+			dversion.setSperrender(searchAttribut("sperrender", filename));
+			dversion.setSperrhost(searchAttribut("sperrhost", filename));
+			dversion.setSperrzeit(datef.parse(searchAttribut("sperrzeit", filename)));
 			
 			DocumentVersion tmp = new DocumentVersion();
 			try{
