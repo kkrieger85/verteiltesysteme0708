@@ -158,9 +158,14 @@ public class DocumentWrapper implements project.data.Document {
 			dataObjElem.setText("" + lastVersion.getParent().getVersionNumber());
 			root.addContent(dataObjElem);
 			
-			//author_Username eintragen
+			//authorUsername eintragen
 			dataObjElem = new Element("authorUsername");
-			dataObjElem.setText(lastVersion.getAuthor_username());
+			dataObjElem.setText(lastVersion.getAuthorUsername());
+			root.addContent(dataObjElem);
+
+			//authorHost eintragen
+			dataObjElem = new Element("authorHost");
+			dataObjElem.setText(lastVersion.getAuthorHost() != null ? lastVersion.getAuthorHost().getIP() : "");
 			root.addContent(dataObjElem);
 			
 			//CretionTime eintragen
@@ -181,18 +186,18 @@ public class DocumentWrapper implements project.data.Document {
 			
 			//sperrenden eintragen
 			dataObjElem = new Element("sperrender");
-			dataObjElem.setText(lastVersion.getSperrender());
+			dataObjElem.setText(dmeta.getSperrender());
 			root.addContent(dataObjElem);
 			
 			//Sperrhost eintragen
 			dataObjElem = new Element("sperrhost");
-			dataObjElem.setText(lastVersion.getSperrhost());
+			dataObjElem.setText(dmeta.getSperrhost() != null ? dmeta.getSperrhost().getIP() : "");
 			root.addContent(dataObjElem);
 			
 			//Sperrzeit eintragen
 			dataObjElem = new Element("creationTime");
-			if (lastVersion.getSperrzeit() != null)
-				dataObjElem.setText(datef.format(lastVersion.getSperrzeit()));
+			if (dmeta.getSperrzeit() != null)
+				dataObjElem.setText(datef.format(dmeta.getSperrzeit()));
 			else
 				dataObjElem.setText("");
 			root.addContent(dataObjElem);
@@ -235,18 +240,26 @@ public class DocumentWrapper implements project.data.Document {
 			mdata.setBeschreibung(searchAttribut("beschreibung", filename));
 			mdata.setRolle(searchAttribut("rolle", filename));
 			
-			dversion.setAuthor_username(searchAttribut("authorUsername", filename));
+			dversion.setAuthorUsername(searchAttribut("authorUsername", filename));
+
+			String authorHost = searchAttribut("authorHost", filename);
+			dversion.setAuthorHost(authorHost != "" ? new ComputerWrapper(authorHost) : null);
+			
 			dversion.setComment(searchAttribut("comment", filename));
+			
 			DateFormat datef = DateFormat.getDateInstance();
 			dversion.setCreationTime(datef.parse(searchAttribut("creationTime", filename)));
-			dversion.setSperrender(searchAttribut("sperrender", filename));
-			dversion.setSperrhost(searchAttribut("sperrhost", filename));
+			mdata.setSperrender(searchAttribut("sperrender", filename));
+			
+			String sperrhost = searchAttribut("sperrhost", filename);
+			mdata.setSperrhost(sperrhost != null ? new ComputerWrapper(sperrhost) : null);
+
 			try
 			{
-				dversion.setSperrzeit(datef.parse(searchAttribut("sperrzeit", filename)));
+				mdata.setSperrzeit(datef.parse(searchAttribut("sperrzeit", filename)));
 			} catch (Exception ex)
 			{
-				dversion.setSperrzeit(null);
+				mdata.setSperrzeit(null);
 			}
 			DocumentVersion tmp = new DocumentVersion();
 			try{

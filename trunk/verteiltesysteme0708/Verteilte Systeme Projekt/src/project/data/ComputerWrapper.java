@@ -39,5 +39,13 @@ public class ComputerWrapper implements Computer {
 	public String toString() {
 		return IP;
 	}
+
+	public String getIP() {
+		return IP;
+	}
+
+	public void setIP(String ip) {
+		IP = ip;
+	}
 	
 }
