@@ -157,33 +157,31 @@ public class XMLConfigHelper {
 	}
 	
 	/**
-	 * Liefert das Hauptverzeichnis zurück, in dem die Dateien gespeichert werden sollen !!!
+	 * Liefert das Hauptverzeichnis zurück, in dem die Dateien gespeichert werden sollen.
+	 * Standardwert: Aktuelles Arbeitsverzeichnis.
 	 * @return
 	 */
 	public String getMainFolder(){
-		String returnString = ""; 
 		try {
-			returnString = this.searchAttribut(XMLConfigHelper.MAINFOLDERATTR); 
+			return this.searchAttribut(XMLConfigHelper.MAINFOLDERATTR); 
 		} catch (Exception ex) {
 			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+			return System.getProperty("user.dir");
 		}
-		return returnString; 
 	}
 	
 	/**
-	 * Gibt die Sprache zurück
+	 * Gibt die Sprache zurück.
+	 * Standardwert: DE.
 	 * @return
 	 */
 	public String getProgrammLanguage(){	
-		String returnString = ""; 
 		try {
-			returnString = this.searchAttribut(XMLConfigHelper.PROGRAMMLANGUAGE); 
+			return this.searchAttribut(XMLConfigHelper.PROGRAMMLANGUAGE); 
 		} catch (Exception ex) {
 			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+			return "DE";
 		}
-		return returnString; 
-		
-		
 	}
 	
 	/**
@@ -191,27 +189,25 @@ public class XMLConfigHelper {
 	 * @return
 	 */
 	public String getLogfile(){	
-		String returnString = ""; 
 		try {
-			returnString = this.searchAttribut(XMLConfigHelper.LOGFILE); 
+			return this.searchAttribut(XMLConfigHelper.LOGFILE); 
 		} catch (Exception ex) {
 			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+			return new File(this.getMainFolder(), "default.log").getAbsolutePath();
 		}
-		return returnString; 	
 	}
 	
 	/** 
-	 * Gibt den Loginnamen zurück sofern dieser gemerkt wurde !!! 
+	 * Gibt den Loginnamen zurück, sofern dieser gemerkt wurden.
+	 * Ansonsten wird als Standardwert der Name des aktuell am System angemeldeten Benutzers zurückgegeben. 
 	 * @return
 	 */
 	public String getLoginname(){
-		String returnString = ""; 
 		try {
-			returnString = this.searchAttribut(XMLConfigHelper.LOGINNAME); 
+			return this.searchAttribut(XMLConfigHelper.LOGINNAME); 
 		} catch (Exception ex) {
 			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+			return System.getProperty("user.name");
 		}
-		return returnString; 			
 	}
-
 }
