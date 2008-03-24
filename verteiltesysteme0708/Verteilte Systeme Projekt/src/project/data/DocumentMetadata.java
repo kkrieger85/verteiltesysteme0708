@@ -1,6 +1,7 @@
 
 package project.data;
 
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -13,13 +14,13 @@ public class DocumentMetadata {
 	
 	private String beschreibung;
 	private Vector<String> rolle;
-	
+
+	private String sperrender = null;
+	private Computer sperrhost = null;
+	private Date sperrzeit = null;
 	
 	/**
 	 * Konstruktor der Metadaten
-	 * 
-	 *  Es muss mindestens der Dateinamen ausgefï¿½llt sein,
-	 *  alle anderen Parameter kï¿½nnen optional gesetzt werden
 	 */
 	public DocumentMetadata(){
 	}
@@ -53,7 +54,7 @@ public class DocumentMetadata {
 	
 	
 	/**
-	 * Setzt Rolle auf den Wert des ï¿½bergebenen Strings
+	 * Setzt Rolle auf den Wert des übergebenen Strings
 	 * @param rolle neue Rolle
 	 */
 	public void setRolle(String rolle){
@@ -61,11 +62,34 @@ public class DocumentMetadata {
 	}
 	
 	/**
-	 * Gibt eine String Representation des Objektes zurï¿½ck.
+	 * Gibt eine String Representation des Objektes zurück.
 	 */
 	public String toString() {
 		//ToDo String-Methode
 		return "(" + beschreibung + rolle + ")";
 	}
+	
+	public String getSperrender() {
+		return sperrender;
+	}
 
+	public void setSperrender(String sperrender) {
+		this.sperrender = sperrender;
+	}
+
+	public Computer getSperrhost() {
+		return sperrhost;
+	}
+
+	public void setSperrhost(Computer sperrhost) {
+		this.sperrhost = sperrhost;
+	}
+
+	public Date getSperrzeit() {
+		return sperrzeit;
+	}
+
+	public void setSperrzeit(Date sperrzeit) {
+		this.sperrzeit = sperrzeit;
+	}
 }

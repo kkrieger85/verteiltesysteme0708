@@ -35,5 +35,9 @@ public class DocumentFile {
 	public String toString() {
 		return filepath;
 	}
+
+	public String getFilepath() {
+		return filepath;
+	}
 	
 }

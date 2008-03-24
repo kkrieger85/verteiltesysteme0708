@@ -21,7 +21,7 @@ public class DocumentWrapperTest {
 			DocumentWrapper wrapper = new DocumentWrapper(dfile, dmeta);
 		
 			DocumentVersion dversion = new DocumentVersion();
-			dversion.setAuthor_username("testautor");
+			dversion.setAuthorUsername("testautor");
 			dversion.setComment("testcomment");
 			dversion.setCreationTime(new Date());
 			DocumentVersion tmp = new DocumentVersion();

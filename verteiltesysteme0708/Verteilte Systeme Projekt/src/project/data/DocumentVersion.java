@@ -12,12 +12,10 @@ public class DocumentVersion {
 
 	private int versionNumber;
 	private DocumentVersion parent;
-	private String author_username;
+	private String authorUsername;
+	private Computer authorHost;
 	private Date creationTime;
 	private String comment;
-	private String sperrender = "";
-	private String sperrhost = "";
-	private Date sperrzeit = null; 
 	
 	/**
 	 * Erstellt ein leeres DocumentVersion Objekt
@@ -67,17 +65,17 @@ public class DocumentVersion {
 	 * @return Autor
 	 */
 
-	public String getAuthor_username() {
-		return author_username;
+	public String getAuthorUsername() {
+		return authorUsername;
 	}
 	
 	/**
 	 * Setzt den Autor auf einen neuen Namen
-	 * @param author_username neuer Name des Autors
+	 * @param authorUsername neuer Name des Autors
 	 */
 
-	public void setAuthor_username(String author_username) {
-		this.author_username = author_username;
+	public void setAuthorUsername(String authorUsername) {
+		this.authorUsername = authorUsername;
 	}
 	
 	/**
@@ -122,7 +120,7 @@ public class DocumentVersion {
 	
 	public String toString(){
 		String tmp = "";
-		tmp += author_username;
+		tmp += authorUsername;
 		tmp += ", " + comment;
 		tmp += ", " + versionNumber;
 		tmp += ", " + parent;
@@ -130,28 +128,11 @@ public class DocumentVersion {
 		return String.valueOf(versionNumber);
 	}
 
-	public String getSperrender() {
-		return sperrender;
+	public Computer getAuthorHost() {
+		return authorHost;
 	}
 
-	public void setSperrender(String sperrender) {
-		this.sperrender = sperrender;
+	public void setAuthorHost(Computer authorHost) {
+		this.authorHost = authorHost;
 	}
-
-	public String getSperrhost() {
-		return sperrhost;
-	}
-
-	public void setSperrhost(String sperrhost) {
-		this.sperrhost = sperrhost;
-	}
-
-	public Date getSperrzeit() {
-		return sperrzeit;
-	}
-
-	public void setSperrzeit(Date sperrzeit) {
-		this.sperrzeit = sperrzeit;
-	}
-	
 }

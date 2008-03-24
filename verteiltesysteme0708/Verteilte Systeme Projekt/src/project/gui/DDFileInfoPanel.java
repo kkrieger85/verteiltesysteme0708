@@ -69,7 +69,7 @@ public class DDFileInfoPanel extends JPanel {
 		if (dwrapper != null){
 			this.desc.setText(dwrapper.getMetadata().getBeschreibung()); 			
 			this.version.setText(Integer.toString(dwrapper.getVersion().getVersionNumber()));
-			this.autor.setText(dwrapper.getVersion().getAuthor_username()); 
+			this.autor.setText(dwrapper.getVersion().getAuthorUsername()); 
 			this.create.setText(dwrapper.getVersion().getCreationTime().toString()); 
 			this.comment.setText(dwrapper.getVersion().getComment()); 
 		}
