@@ -51,8 +51,8 @@ public class RMIDiscovery {
     private RMIDiscovery(Class<DiscoveryServerInterface> serviceInterface, String serviceName) {
         _serviceInterface = serviceInterface;
         _serviceName = serviceName;
-        if(_serviceName == null || _serviceName.length() == 0){
-            _serviceName = Discovery.ANY;
+        if(_serviceName == null || _serviceName.length() == 0) {
+            _serviceName = DiscoveryProp.ANY;
         }
         
     }
@@ -65,9 +65,9 @@ public class RMIDiscovery {
      * @return The discovered server ref.
      * @exception java.rmi.ConnectException
      */
-    public static Remote lookup(Class<DiscoveryServerInterface> serviceInterface,String serviceName) throws java.rmi.ConnectException {
-        RMIDiscovery disco = new RMIDiscovery(serviceInterface, serviceName);
-        return disco.lookupImpl();
+    public static Remote lookup(Class<DiscoveryServerInterface> serviceInterface, String serviceName) throws java.rmi.ConnectException {
+        RMIDiscovery discovery = new RMIDiscovery(serviceInterface, serviceName);
+        return discovery.lookupImpl();
     }
     
     /**
@@ -103,13 +103,15 @@ public class RMIDiscovery {
         return lookupAll(serviceName, host, true);
     }
     
-    //impl
+    /**
+     * //impl
+     */
     private static Remote [] lookupAll(String serviceName, String [] host, boolean tryAll) {
         String url = "rmi://";
-        String imPrefix = Discovery.getRegistyUrlPrefix();
+        String imPrefix = DiscoveryProp.getRegistyUrlPrefix();
         Remote remote[] = new Remote[host.length];
         
-        for(int i=0; i < host.length; i++){
+        for(int i=0; i < host.length; i++) {
             try {
                 String hostAndPort = host[i];
                 StringBuffer buf = new StringBuffer();
@@ -133,12 +135,15 @@ public class RMIDiscovery {
         return remote;
     }
     
+    /**
+     * 
+     * @return
+     * @throws java.rmi.ConnectException
+     */
     private Remote lookupImpl() throws java.rmi.ConnectException {
-            
         startListener();
         startRequester();
         synchronized(_lock) {
-            
             while(_discoveryResult == null) {
                 try {
                     _lock.wait();
@@ -153,6 +158,7 @@ public class RMIDiscovery {
         } catch(IOException ex) {
             ex.printStackTrace(System.err);
         }
+        
         //check if the result is an exception
         if(_discoveryResult instanceof Exception) {
             throw new java.rmi.ConnectException("RMI discovery exception", (Exception)_discoveryResult);
@@ -160,9 +166,12 @@ public class RMIDiscovery {
         return (Remote)_discoveryResult;
     }
     
+    /**
+     * 
+     */
     private void startListener() {
-         int port = Discovery.getUnicastPort();
-         int range = Discovery.getUnicastPortRange();
+         int port = DiscoveryProp.getUnicastPort();
+         int range = DiscoveryProp.getUnicastPortRange();
          
          for(int i = port; _listener == null && i < port + range; i++) {
             try {
@@ -198,16 +207,19 @@ public class RMIDiscovery {
          DDLogger.getLogger().createLog("RMI discovery: Unicast Listener thread started!", DDLogger.DEBUG);
     }
     
+    /**
+     * 
+     */
     private void startRequester() {    
         Thread requester = new Thread() {
             public void run() {
                 try {
                     InetAddress.getLocalHost().getHostName();
                     
-                    InetAddress address = Discovery.getMulticastAddress();
-                    int multicastPort = Discovery.getMulticastPort();
-                    String header = Discovery.getProtocolHeader();
-                    String delim = Discovery.getProtocolDelim();
+                    InetAddress address = DiscoveryProp.getMulticastAddress();
+                    int multicastPort = DiscoveryProp.getMulticastPort();
+                    String header = DiscoveryProp.getProtocolHeader();
+                    String delim = DiscoveryProp.getProtocolDelim();
                     
                     String outMsg = header + delim + _listenerPort + delim + _serviceInterface.getName() + delim + _serviceName;
                     byte [] buf = outMsg.getBytes();        
@@ -231,7 +243,7 @@ public class RMIDiscovery {
                         throw new Exception("RMI discovery timed out after " + nAttempts);
                     }
                 } catch(Exception ex) {
-                    _discoveryResult=ex;
+                    _discoveryResult = ex;
                     synchronized(_lock) {
                         _lock.notifyAll();
                     }

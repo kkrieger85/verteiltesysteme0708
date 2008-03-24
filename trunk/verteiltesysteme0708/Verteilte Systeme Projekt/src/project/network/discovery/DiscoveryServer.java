@@ -15,19 +15,21 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
 
 	private java.util.HashMap<String, String> _dictionary = new java.util.HashMap<String, String>();
     
+	/**
+	 * 
+	 * @param args
+	 */
     public static void main(String [] args) {
         try {
-            checkCodebase();
+           checkCodebase();
             
            System.setSecurityManager(new RMISecurityManager());
-           //can set this from the cmd line -Djip.debug=true
-           //System.setProperty("jip.debug","true");
            
            //specify where the properties file is located
-           //here it's in the directoty that you run java from
+           //here it's in the directory that you run java from
            //you can set the properties on the cmd line if you prefer
            //Alt: you can also use setProperties(Properties props);
-           Discovery.setProperties("discovery.properties");
+           DiscoveryProp.setProperties("discovery.properties");
             
            //create service instance 
            DiscoveryServer server = new DiscoveryServer();
@@ -44,11 +46,21 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
         }
     }
     
+    /**
+     * 
+     * @throws RemoteException
+     */
     public DiscoveryServer() throws RemoteException {
         super();        
         init();
     }
     
+    /**
+     * 
+     * @param word
+     * @return
+     * @throws RemoteException
+     */
     public String translateWord(String word) throws RemoteException {
         Object result = _dictionary.get(word.toLowerCase());
         if(result == null) {
@@ -60,7 +72,9 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
         return result.toString();
     }
     
-    //add some words to the example dictionary
+    /**
+     * //add some words to the example dictionary
+     */
     private void init() {
         _dictionary.put("hello","hola");
         _dictionary.put("goodbye","Adiós");
@@ -68,6 +82,9 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
         _dictionary.put("sad","triste");
     }
     
+    /**
+     * 
+     */
     private static void checkCodebase() {
         String codebase = System.getProperty("java.rmi.server.codebase");
             

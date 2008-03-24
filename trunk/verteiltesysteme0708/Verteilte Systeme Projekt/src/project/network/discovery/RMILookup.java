@@ -94,7 +94,7 @@ public class RMILookup implements Runnable {
             try {
                 //check Discovery properties for naming convention
                 //then attempt to bind to the rmi-reg
-                String nameToReg = Discovery.getRegistyUrlPrefix() + serviceName;
+                String nameToReg = DiscoveryProp.getRegistyUrlPrefix() + serviceName;
                 Registry reg = LocateRegistry.getRegistry(port);
                 reg.rebind(nameToReg, service);
                 
@@ -119,8 +119,8 @@ public class RMILookup implements Runnable {
             try {
             	DDLogger.getLogger().createLog("RMI lookup: listening....", DDLogger.DEBUG);
                 
-                MulticastSocket socket = new MulticastSocket(Discovery.getMulticastPort());
-                InetAddress address = Discovery.getMulticastAddress();
+                MulticastSocket socket = new MulticastSocket(DiscoveryProp.getMulticastPort());
+                InetAddress address = DiscoveryProp.getMulticastAddress();
                 DDLogger.getLogger().createLog("RMI lookup: Multicast address=" + address, DDLogger.DEBUG);
             	
             	socket.joinGroup(address);
@@ -145,7 +145,7 @@ public class RMILookup implements Runnable {
                     
                     String msg = new String(packet.getData()).trim();
                     DDLogger.getLogger().createLog("RMI lookup: Recieved messaged " + msg, DDLogger.DEBUG);
-                    if(msg.startsWith(Discovery.getProtocolHeader())) {
+                    if(msg.startsWith(DiscoveryProp.getProtocolHeader())) {
                         
                         //request in format
                         //<header><delim><port><delim><interface><delim><serviceName>
@@ -169,7 +169,7 @@ public class RMILookup implements Runnable {
                         
                         //if the Discovery.ANY flag has been passed in or a valid name doesn't match this name
                         //let's go 'round again
-                        if(!serviceName.equals(Discovery.ANY) && !serviceName.equals(_serviceName)) {
+                        if(!serviceName.equals(DiscoveryProp.ANY) && !serviceName.equals(_serviceName)) {
                         	DDLogger.getLogger().createLog(getClass() + " service name mismatch", DDLogger.DEBUG);
                             continue;
                         }
@@ -205,10 +205,16 @@ public class RMILookup implements Runnable {
             }
             DDLogger.getLogger().createLog("RMI Lookup: listener exiting", DDLogger.DEBUG);
         }
+        
+        /**
+         * 
+         * @param msg
+         * @return
+         */
         private String [] parseMsg(String msg){
             //request in format
             //<header><delim><port><delim><interface><delim><serviceName>
-            java.util.StringTokenizer tok = new java.util.StringTokenizer(msg, Discovery.getProtocolDelim());
+            java.util.StringTokenizer tok = new java.util.StringTokenizer(msg, DiscoveryProp.getProtocolDelim());
             tok.nextToken(); //msg header
             String [] strArray = new String[3];
             strArray[0] = tok.nextToken();//reply port
