@@ -8,7 +8,7 @@ package project.network.discovery;
  * @version 0.1 (20.03.2008)
  *
  */
-public final class Discovery {
+public final class DiscoveryProp {
 	/*
 	System properties required
 	jip.rmi.multicast.address
@@ -22,7 +22,7 @@ public final class Discovery {
 	private static java.util.Properties _props;
     public static final String ANY="any";
     
-    private Discovery(){
+    private DiscoveryProp(){
     }
     
     public static void setProperties(java.util.Properties props){

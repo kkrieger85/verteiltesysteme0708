@@ -12,6 +12,10 @@ import java.rmi.*;
  */
 public class DiscoveryClient {
 
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		try {
 			if (args.length != 2) {
@@ -21,10 +25,7 @@ public class DiscoveryClient {
 
 			System.setSecurityManager(new RMISecurityManager());
 
-			// can set this from the cmd line -Djip.debug=true
-			// System.setProperty("jip.debug","true");
-
-			Discovery.setProperties("discovery.properties");
+			DiscoveryProp.setProperties("discovery.properties");
 
 			String language = args[0];
 			String wordToTranslate = args[1];
@@ -38,7 +39,7 @@ public class DiscoveryClient {
 			System.out.println("Discovered a matching RMI service!!!");
 
 			// cast to correct interface type
-			DiscoveryServer server = (DiscoveryServer) remote;
+			DiscoveryServerInterface server = (DiscoveryServerInterface) remote;
 
 			System.out.println("Attemping to translate " + wordToTranslate + " ...");
 
