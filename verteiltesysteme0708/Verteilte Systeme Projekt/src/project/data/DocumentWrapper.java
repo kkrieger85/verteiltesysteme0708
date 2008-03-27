@@ -143,10 +143,16 @@ public class DocumentWrapper implements project.data.Document {
 			dataObjElem.setText(dmeta.getBeschreibung());
 			root.addContent(dataObjElem);
 			
-			//Rolle eintragen
-			dataObjElem = new Element("rolle");
-			dataObjElem.setText(dmeta.getRolle().toString());
-			root.addContent(dataObjElem);
+			//Rollen eintragen
+			Vector<String> rollen = new Vector<String>();
+			rollen = dmeta.getRolle();
+			for (int i = 0; i < rollen.size(); i++)
+			{
+				dataObjElem = new Element("rolle" + i);
+				dataObjElem.setText(rollen.get(i));
+				root.addContent(dataObjElem);
+			}
+			
 			
 			//Versionsnummer eintragen
 			dataObjElem = new Element("versionNumber");
@@ -195,7 +201,7 @@ public class DocumentWrapper implements project.data.Document {
 			root.addContent(dataObjElem);
 			
 			//Sperrzeit eintragen
-			dataObjElem = new Element("creationTime");
+			dataObjElem = new Element("sperrZeit");
 			if (dmeta.getSperrzeit() != null)
 				dataObjElem.setText(datef.format(dmeta.getSperrzeit()));
 			else
@@ -238,7 +244,30 @@ public class DocumentWrapper implements project.data.Document {
 			DocumentVersion dversion = new DocumentVersion();
 			
 			mdata.setBeschreibung(searchAttribut("beschreibung", filename));
-			mdata.setRolle(searchAttribut("rolle", filename));
+			
+			Vector<String> rollen = new Vector<String>();
+			int i = 0;
+			while(true)
+			{
+				String tmps = "";
+				try
+				{
+					tmps = searchAttribut("rolle" + i, filename);
+				} catch(DocumentWrapperException dwe)
+				{
+				}
+				if (tmps != "")
+				{
+					rollen.add(tmps);
+					tmps = "";
+					i++;
+				}
+				else
+				{
+					break;
+				}
+			}
+			mdata.setRolle(rollen);
 			
 			dversion.setAuthorUsername(searchAttribut("authorUsername", filename));
 
@@ -247,8 +276,9 @@ public class DocumentWrapper implements project.data.Document {
 			
 			dversion.setComment(searchAttribut("comment", filename));
 			
-			DateFormat datef = DateFormat.getDateInstance();
+			DateFormat datef = DateFormat.getDateTimeInstance();
 			dversion.setCreationTime(datef.parse(searchAttribut("creationTime", filename)));
+			
 			mdata.setSperrender(searchAttribut("sperrender", filename));
 			
 			String sperrhost = searchAttribut("sperrhost", filename);
@@ -272,7 +302,7 @@ public class DocumentWrapper implements project.data.Document {
 			dversion.setVersionNumber(Integer.parseInt(searchAttribut("versionNumber", filename)));
 			
 			Vector<Computer> backups = new Vector<Computer>();
-			int i = 0;
+			i = 0;
 			while(true)
 			{
 				String tmps = "";
@@ -345,9 +375,6 @@ public class DocumentWrapper implements project.data.Document {
 			throw new DocumentWrapperException(DocumentWrapperException.ATTRIBUTENOTFOUND);
 		}
 
-		if (resultString == null || resultString.compareTo("") == 0) {
-			throw new DocumentWrapperException(DocumentWrapperException.ATTRIBUTENOTFOUND);
-		}
 
 		return resultString;
 	}

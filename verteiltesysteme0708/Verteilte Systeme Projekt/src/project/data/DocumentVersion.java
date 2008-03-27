@@ -120,12 +120,16 @@ public class DocumentVersion {
 	
 	public String toString(){
 		String tmp = "";
-		tmp += authorUsername;
-		tmp += ", " + comment;
+		if (authorUsername != null)
+			tmp += authorUsername;
+		if (comment != null)
+			tmp += ", " + comment;
 		tmp += ", " + versionNumber;
-		tmp += ", " + parent;
-		tmp += ", " + getCreationTime().toString();
-		return String.valueOf(versionNumber);
+		if (parent != null)
+			tmp += ", " + parent;
+		if (creationTime != null)
+			tmp += ", " + getCreationTime().toString();
+		return tmp;
 	}
 
 	public Computer getAuthorHost() {
