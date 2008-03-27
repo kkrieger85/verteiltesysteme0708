@@ -41,7 +41,7 @@ public class DocumentWrapperTest {
 			
 			wrapper.saveToXml();
 			
-			DocumentWrapper newwrapper = DocumentWrapper.loadFromXml("test.txt.xml");
+			DocumentWrapper newwrapper = DocumentWrapper.loadFromXml("test.txt");
 			System.out.println(newwrapper);
 			
 		}catch (Exception ex)

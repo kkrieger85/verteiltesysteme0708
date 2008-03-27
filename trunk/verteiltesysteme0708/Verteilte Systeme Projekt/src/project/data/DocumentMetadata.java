@@ -23,6 +23,7 @@ public class DocumentMetadata {
 	 * Konstruktor der Metadaten
 	 */
 	public DocumentMetadata(){
+		rolle = new Vector<String>();
 	}
 	
 	/**
@@ -62,11 +63,27 @@ public class DocumentMetadata {
 	}
 	
 	/**
+	 * Ersetzt den Vector Rolle mit dem übergebenen Vector
+	 * @param rollen neuer Rollen-Vector
+	 */
+	
+	public void setRolle(Vector<String> rollen){
+		this.rolle = rollen;
+	}
+	
+	/**
 	 * Gibt eine String Representation des Objektes zurück.
 	 */
 	public String toString() {
-		//ToDo String-Methode
-		return "(" + beschreibung + rolle + ")";
+		String tmp = "(" + beschreibung + rolle; 
+		if (sperrender != null)
+			tmp += "Sperrender: " + sperrender;
+		if (sperrhost != null)
+			tmp += "Sperrhost: " + sperrhost;
+		if (sperrzeit != null)
+			tmp += "Sperrzeit: " + sperrzeit;
+		
+		return  tmp + ")";
 	}
 	
 	public String getSperrender() {
