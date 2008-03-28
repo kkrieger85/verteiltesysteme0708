@@ -17,8 +17,7 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 	private Vector<TasObject> benutzer;
 	
 	
-	public TasImpl() throws RemoteException {
-		super();	
+	public TasImpl() throws RemoteException {	
 		benutzer= new Vector<TasObject>(40);
 		rollen = new Vector<String>(); 
 		
