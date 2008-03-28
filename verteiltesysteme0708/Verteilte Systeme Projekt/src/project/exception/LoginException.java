@@ -1,8 +1,7 @@
 package project.exception;
 /**
- * Fehler die das Login betreffen 
+ * Fehler die das Login des Rechtemanagement betreffen
  * @author mafolz
- *
  */
 public class LoginException extends Exception {
 	public final static String SERVERFAIL  = "Servername nicht erreichbar";

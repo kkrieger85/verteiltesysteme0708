@@ -158,6 +158,8 @@ public class RightQuery {
 	public static void main(String[] args){
 		RightQuery test = new RightQuery();
 		try{
+			System.out.println("Starte Test\nLogin als heinz testosteron");
+			System.out.println(test.login("localhost","heinz","testosteron"));
 			System.out.println("Starte Test\nLogin als peter lustig");
 			System.out.println(test.login("localhost","peter","lustig"));
 			System.out.println(test.listRoles());
