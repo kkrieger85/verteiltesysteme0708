@@ -2,6 +2,13 @@ package project.rightmanagement;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+/**
+ * RMI Interface f&uuml;r die Simple Authentifizierung.
+ * Diese Methoden werden von dem Authentifikationsserver
+ * Implementiert. m&uuml;&szlig;en aber dem Client bekannt sein f&uuml;r 
+ * einen RMI-Aufruf.
+ * @author mafolz
+ */
 public interface TasInterface extends Remote {
 	public boolean canWriteInRole(String user, String role)throws RemoteException;
 	public boolean canReadInRole( String user, String role)throws RemoteException;
