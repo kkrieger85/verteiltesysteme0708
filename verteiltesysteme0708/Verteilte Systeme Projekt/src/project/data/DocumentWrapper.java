@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
+import project.network.ServerDataObject;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
@@ -171,7 +173,7 @@ public class DocumentWrapper implements project.data.Document {
 
 			//authorHost eintragen
 			dataObjElem = new Element("authorHost");
-			dataObjElem.setText(lastVersion.getAuthorHost() != null ? lastVersion.getAuthorHost().getIP() : "");
+			dataObjElem.setText(lastVersion.getAuthorHost() != null ? lastVersion.getAuthorHost().getAddress() : "");
 			root.addContent(dataObjElem);
 			
 			//CretionTime eintragen
@@ -208,7 +210,7 @@ public class DocumentWrapper implements project.data.Document {
 				dataObjElem.setText("");
 			root.addContent(dataObjElem);
 			
-			Vector<Computer> backups = dbackup.getBackups();
+			LinkedList<ServerDataObject> backups = dbackup.getBackups();
 			
 			//Backups eintragen
 			for (int i = 0; i < backups.size(); i++)
@@ -242,6 +244,7 @@ public class DocumentWrapper implements project.data.Document {
 			DocumentMetadata mdata = new DocumentMetadata();
 			DocumentFile dfile = new DocumentFile(filename);
 			DocumentVersion dversion = new DocumentVersion();
+			project.helperclasses.NetworkHelper nwhelper = new project.helperclasses.NetworkHelper();
 			
 			mdata.setBeschreibung(searchAttribut("beschreibung", filename));
 			
@@ -272,7 +275,7 @@ public class DocumentWrapper implements project.data.Document {
 			dversion.setAuthorUsername(searchAttribut("authorUsername", filename));
 
 			String authorHost = searchAttribut("authorHost", filename);
-			dversion.setAuthorHost(authorHost != "" ? new ComputerWrapper(authorHost) : null);
+			dversion.setAuthorHost(authorHost != "" ? new ServerDataObject(authorHost, nwhelper.getOwnOpenPort(), 0) : null);
 			
 			dversion.setComment(searchAttribut("comment", filename));
 			
@@ -301,7 +304,9 @@ public class DocumentWrapper implements project.data.Document {
 			dversion.setParent(tmp);
 			dversion.setVersionNumber(Integer.parseInt(searchAttribut("versionNumber", filename)));
 			
-			Vector<Computer> backups = new Vector<Computer>();
+			
+			
+			LinkedList<ServerDataObject> backups = new LinkedList<ServerDataObject>();
 			i = 0;
 			while(true)
 			{
@@ -314,7 +319,7 @@ public class DocumentWrapper implements project.data.Document {
 				}
 				if (tmps != "")
 				{
-					backups.add(new ComputerWrapper(tmps));
+					backups.add(new ServerDataObject(tmps, nwhelper.getOwnOpenPort(), 0));
 					tmps = "";
 					i++;
 				}

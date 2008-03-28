@@ -1,7 +1,8 @@
 package project.classtests.helper;
 
 import java.util.Date;
-import java.util.Vector;
+import java.util.LinkedList;
+import project.network.*;
 
 import project.data.*;
 
@@ -29,10 +30,12 @@ public class DocumentWrapperTest {
 			dversion.setParent(tmp);
 			dversion.setVersionNumber(1);
 			
-			Vector<Computer> backups = new Vector<Computer>();
+			project.helperclasses.NetworkHelper nwhelper = new project.helperclasses.NetworkHelper();
+			
+			LinkedList<ServerDataObject> backups = new LinkedList<ServerDataObject>();
 			for (int i = 1; i <= 3; i++)
 			{
-				backups.add(new ComputerWrapper("192.168.1." + i));
+				backups.add(new ServerDataObject("192.168.1." + i, nwhelper.getOwnOpenPort(), 0));
 			}
 			
 			DocumentDistribution ddist = new DocumentDistribution(backups);

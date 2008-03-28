@@ -1,6 +1,8 @@
 package project.data;
 
-import java.util.Vector;
+import java.util.LinkedList;
+import project.network.*;
+
 
 /**
  * Klasse die verteilungsspezifische Informationen enthält.
@@ -13,14 +15,14 @@ public class DocumentDistribution {
 
 	// Backup-Rechner
 	// @TODO: korrekt implementieren
-	private Vector<Computer> backup;
+	private LinkedList<ServerDataObject> backup;
 	
 	/**
 	 * Erstellt aus einem Vektor von Computer ein DocumentDistribution Objekt
 	 * @param backups
 	 */
 	
-	public DocumentDistribution(Vector<Computer> backups) 
+	public DocumentDistribution(LinkedList<ServerDataObject> backups) 
 	{
 		this.backup = backups; 
 	}
@@ -30,7 +32,7 @@ public class DocumentDistribution {
 	 * @return Vector<Computer> welcher die Backuprechner enthält.
 	 */
 	
-	public Vector<Computer> getBackups(){
+	public LinkedList<ServerDataObject> getBackups(){
 		return backup;
 	}
 	
@@ -39,7 +41,7 @@ public class DocumentDistribution {
 	 * @param newBackup neuer Backuprechner
 	 */
 	
-	public void addComputer(Computer newBackup)
+	public void addComputer(ServerDataObject newBackup)
 	{
 		backup.add(newBackup);
 	}
@@ -49,7 +51,7 @@ public class DocumentDistribution {
 	 * @param oldBackup zu entfernender Backuprechner
 	 */
 	
-	public void removeComputer(Computer oldBackup)
+	public void removeComputer(ServerDataObject oldBackup)
 	{
 		backup.remove(oldBackup);
 	}

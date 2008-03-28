@@ -3,6 +3,7 @@ package project.centrallogic;
 import project.data.*;
 import java.io.*;
 import java.util.*;
+import project.network.*;
 
 /**
  * @author Christian Schwerdtfeger
@@ -17,7 +18,7 @@ public class VerteilungInst implements Verteilung {
 	 * @param doc Das Dokument für das Backup-Rechner gesucht werden
 	 * @param anzahl Die Anzahl der Backup-Rechner die gesucht werden sollen.
 	 */
-	public Vector<Computer> distributeDocument(Document doc, int anzahl){
+	public LinkedList<ServerDataObject> distributeDocument(Document doc, int anzahl){
 
 		//zuerst einmal holen wir uns die größe unseres dokumentes.
 		
@@ -25,7 +26,8 @@ public class VerteilungInst implements Verteilung {
 		long groesse = docfile.length();
 		
 		// wir schnappen uns einfach mal den ersten Rechner aus unserer IP-Liste ...
-		Vector<Computer> computers = project.Main.network.getIPListe();
+		NetworkFacade network = new NetworkFacade();
+		LinkedList<ServerDataObject> computers = network.getIPList();
 		
 		if (computers.size() < anzahl)
 		{
@@ -38,28 +40,28 @@ public class VerteilungInst implements Verteilung {
 		{
 			for (int j = i; j < computers.size() - 1; j++)
 			{
-				long firstpercents; // prozentuale Anzahl des benutzten Speicherplatzes für computer(j)
-				long secondpercents; // prozentuale Anzahl des benutzten Speicherplatzes für computer(j+1)
+				long firstspace; // prozentuale Anzahl des benutzten Speicherplatzes für computer(j)
+				long secondspace; // prozentuale Anzahl des benutzten Speicherplatzes für computer(j+1)
 				
-				firstpercents = ((ComputerWrapper)computers.get(j)).getUsedSpace() / (((ComputerWrapper)computers.get(j)).getAvailableSpace() / 100);
-				secondpercents = ((ComputerWrapper)computers.get(j)).getUsedSpace() / (((ComputerWrapper)computers.get(j)).getAvailableSpace() / 100);
-				if (firstpercents > secondpercents)
+				firstspace = ((ServerDataObject)computers.get(j)).getFreespace();
+				secondspace = ((ServerDataObject)computers.get(j)).getFreespace();
+				if (firstspace > secondspace)
 				{
-					ComputerWrapper temp = (ComputerWrapper)computers.get(j);
-					computers.setElementAt(computers.get(j+1), j);
-					computers.setElementAt(temp, j+1);
+					ServerDataObject temp = (ServerDataObject)computers.get(j);
+					computers.set(j, computers.get(j+1));
+					computers.set(j+1, temp);
 				}
 			}
 		}
 		
-		Vector<Computer> complist = new Vector<Computer>();
+		LinkedList<ServerDataObject> complist = new LinkedList<ServerDataObject>();
 		
 		for (int i = 0; i < anzahl; i++)
 		{
 			//Wenn der Speicherplatz größer als die Größe des Dokumentes ist kommt der Computer in die Liste.
-			if (((ComputerWrapper)computers.get(i)).getAvailableSpace() > groesse)
+			if (((ServerDataObject)computers.get(i)).getFreespace() > groesse)
 			{
-				complist.add((ComputerWrapper)computers.get(i));
+				complist.add((ServerDataObject)computers.get(i));
 			}
 		}
 		

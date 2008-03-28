@@ -3,6 +3,8 @@ package project.centrallogic;
 import project.data.*;
 import project.helperclasses.NetworkHelper;
 import project.helperclasses.XMLConfigHelper;
+import project.network.ServerDataObject;
+import project.exception.*;
 
 import java.io.File;
 import java.util.Date;
@@ -177,7 +179,15 @@ public class LineareVersionierung implements Versionierung {
 		version.setVersionNumber(1);
 		version.setParent(null);
 		version.setAuthorUsername(xmlconfig.getLoginname());
-		version.setAuthorHost(new ComputerWrapper(network.getOwnIPAdress()));
+		
+		project.helperclasses.NetworkHelper nwhelper = new project.helperclasses.NetworkHelper();
+		
+		try{
+		version.setAuthorHost(new ServerDataObject(network.getOwnIPAdress(), nwhelper.getOwnOpenPort(), 0));
+		} catch (ServerDataObjectException sdoe)
+		{
+			version.setAuthorHost(null);
+		}
 		version.setCreationTime(new Date());
 		version.setComment(comment);
 
