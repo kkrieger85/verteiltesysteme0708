@@ -21,8 +21,8 @@ public class TasServer {
 		}
 
 		try {
-			System.out.println("Horche an Port 2099");
-			LocateRegistry.createRegistry(2099);
+			System.out.println("Horche an Port " + Registry.REGISTRY_PORT);
+			LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 		} catch (RemoteException ex) {
 			System.out.println(ex.getMessage());
 		}

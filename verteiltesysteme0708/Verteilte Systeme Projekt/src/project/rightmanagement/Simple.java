@@ -69,7 +69,7 @@ public class Simple extends Fassade {
 	 */
 	protected boolean login(String user, String password) throws LoginException {
 		try {
-			authServer = (TasInterface) Naming.lookup("rmi://" + url + "/server");
+			authServer = (TasInterface) Naming.lookup("rmi://" + url + "/auth");
 			roles = authServer.listRoles(user);
 			return authServer.login(user, password);
 		} catch (RemoteException e) {
