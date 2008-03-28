@@ -7,12 +7,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import project.helperclasses.BundleWrapper;
+import project.helperclasses.DDDirectoryFileFilter;
 import project.helperclasses.DDLogger;
 import project.helperclasses.NetworkHelper;
 import project.helperclasses.XMLConfigHelper;
@@ -39,18 +41,29 @@ public class InformationTabbedPage extends JPanel {
 		NetworkHelper nh = new NetworkHelper(); 
 		XMLConfigHelper xmlconfig = new XMLConfigHelper(); 
 		
-		String dir = xmlconfig.getMainFolder();
-		String[] files = new String[0];
+		String dirString = xmlconfig.getMainFolder();
 		int countFiles = 0;
 		long freeSpace = 0;
+		File dir = new File(dirString); 
 		
-		if (!dir.isEmpty()) {
-			File f = new File(dir); 
-			files = f.list(); 
-			countFiles = files.length;
+		if (!dirString.isEmpty()) {
+
 			
+			File searchfolder = new File(dirString);
+			File[] files = searchfolder.listFiles(new DDDirectoryFileFilter("*"));
+			
+			if (files != null) {
+				for (int i = 0; i < files.length; i++) {
+					String searchXML = files[i].toString() + ".xml"; 
+					for (int j = 0; j < files.length; j++){
+						if (searchXML.compareTo(files[j].toString()) == 0){
+							countFiles++; 
+						}
+					}
+				}
+			}
 			// Freienspeicher anzeigen lassen 
-			freeSpace = f.getFreeSpace(); 
+			freeSpace = dir.getFreeSpace(); 
 			// Belegten Speicher anzeigen lassen 
 		}
 
@@ -107,7 +120,7 @@ public class InformationTabbedPage extends JPanel {
 		// Label für Verzeichnis 
 		gridbag.gridx = 1;
 		gridbag.gridy = 2;
-		JLabel dirlabel = new JLabel(dir);
+		JLabel dirlabel = new JLabel(dirString);
 		this.add(dirlabel, gridbag);
 
 		// Label für Anzahl der dateien 
@@ -116,8 +129,6 @@ public class InformationTabbedPage extends JPanel {
 		JLabel dircountfileslabel = new JLabel(this.bundle
 				.getString("informationpane_dircountfileslabel_text"));
 		this.add(dircountfileslabel, gridbag);	
-		// eigene IP Adresse anzeigen 
-		// Adresse herausfinden !!! 
 
 		
 		// Label für IP Adresse 
