@@ -146,7 +146,7 @@ public class RightQuery {
 	 * @param doc
 	 * @return
 	 * @throws LoginException
-	 * @throws RightException
+	 * @throws RightException 
 	 */
 	public DocumentWrapper decrypt(DocumentWrapper doc) throws LoginException, RightException{
 		if(instanz==null)
@@ -162,7 +162,8 @@ public class RightQuery {
 			System.out.println(test.login("localhost","peter","lustig"));
 			System.out.println(test.listRoles());
 		}catch(Exception e){
-			System.out.println(e.getMessage());
+			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 

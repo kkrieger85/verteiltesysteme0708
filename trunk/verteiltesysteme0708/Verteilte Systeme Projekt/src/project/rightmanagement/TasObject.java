@@ -54,7 +54,8 @@ public class TasObject implements Comparable{
 		rollen.remove(rolle);
 	}
 	public String[] getRoles(){
-		return (String[]) rollen.keySet().toArray();
+		String[] temp = new String[40];
+		return (String[]) rollen.keySet().toArray(temp);
 	}
 	
 	/**
