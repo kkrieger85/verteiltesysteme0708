@@ -1,12 +1,13 @@
 package project.network.discovery;
 
 /**
+ *	Kapselklasse für die Properties der Discovery.
  *
  *
  * @author Andreas Kuntz
  * 
- * @version 0.1 (20.03.2008)
- *
+ * @version 0.2 (28.03.2008)
+ * 
  */
 public final class DiscoveryProp {
 	/*
@@ -26,7 +27,7 @@ public final class DiscoveryProp {
     }
     
     public static void setProperties(java.util.Properties props){
-        _props=props;
+        _props = props;
     }
     
     public static void setProperties(String fileName) throws java.io.IOException {
@@ -38,7 +39,7 @@ public final class DiscoveryProp {
     }
     
     public static java.net.InetAddress getMulticastAddress() throws java.net.UnknownHostException {
-        String multicastAddress=_props.getProperty("project.network.discovery.multicast.address");
+        String multicastAddress = _props.getProperty("project.network.discovery.multicast.address");
         return java.net.InetAddress.getByName(multicastAddress); 
     }
     
@@ -67,7 +68,7 @@ public final class DiscoveryProp {
     }
     
     private static int getIntProperty(String propertyName) {
-        String str=_props.getProperty(propertyName);
+        String str = _props.getProperty(propertyName);
         return Integer.parseInt(str);
     }
 }

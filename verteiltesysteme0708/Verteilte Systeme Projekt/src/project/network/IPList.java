@@ -28,7 +28,7 @@ import project.helperclasses.*;
  */
 public class IPList implements Serializable {
 
-	private static String file = "iplist.xml";
+	private static String file = "saved_files/iplist.xml";
 	private static IPList iplist = new IPList();
 	private static LinkedList<ServerDataObject> list = new LinkedList<ServerDataObject>();
 	

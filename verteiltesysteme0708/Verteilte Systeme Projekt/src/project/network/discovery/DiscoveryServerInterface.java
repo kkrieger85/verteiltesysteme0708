@@ -12,6 +12,11 @@ import java.rmi.*;
  */
 public interface DiscoveryServerInterface extends Remote {
 
-	public String translateWord(String word) throws RemoteException;
-	
+	/**
+	 * 
+	 * @param word
+	 * @return
+	 * @throws RemoteException
+	 */
+	public String test() throws RemoteException;
 }

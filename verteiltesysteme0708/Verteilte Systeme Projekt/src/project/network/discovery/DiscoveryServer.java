@@ -4,7 +4,8 @@ import java.rmi.*;
 import java.rmi.server.*;
 
 /**
- *
+ * RMI-Server
+ * nutzt RMILookup
  *
  * @author Andreas Kuntz
  * 
@@ -13,8 +14,6 @@ import java.rmi.server.*;
  */
 public class DiscoveryServer extends UnicastRemoteObject implements DiscoveryServerInterface {
 
-	private java.util.HashMap<String, String> _dictionary = new java.util.HashMap<String, String>();
-    
 	/**
 	 * 
 	 * @param args
@@ -29,14 +28,14 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
            //here it's in the directory that you run java from
            //you can set the properties on the cmd line if you prefer
            //Alt: you can also use setProperties(Properties props);
-           DiscoveryProp.setProperties("discovery.properties");
+           DiscoveryProp.setProperties("saved_files/discovery.properties");
             
            //create service instance 
            DiscoveryServer server = new DiscoveryServer();
            
            //create a jini like lookup service for the RMI service
            //with the service instance and its name
-           RMILookup.bind(server, "Spanish");
+           RMILookup.bind(server, "Discovery");
            //NOTE: bind() will also try to bind to the RMIRegistry if it is running
            //This doesn't affect the multicast listener.
            //if the registry isn't running then a warning message if printed
@@ -51,8 +50,7 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
      * @throws RemoteException
      */
     public DiscoveryServer() throws RemoteException {
-        super();        
-        init();
+        super();
     }
     
     /**
@@ -61,27 +59,10 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
      * @return
      * @throws RemoteException
      */
-    public String translateWord(String word) throws RemoteException {
-        Object result = _dictionary.get(word.toLowerCase());
-        if(result == null) {
-            throw new RemoteException(word + " not found");
-        }
-        
-        System.out.println(getClass() + " translateWord(" + word + ")");
-        
-        return result.toString();
+    public String test() throws RemoteException {
+        return "OK!";
     }
-    
-    /**
-     * //add some words to the example dictionary
-     */
-    private void init() {
-        _dictionary.put("hello","hola");
-        _dictionary.put("goodbye","Adiós");
-        _dictionary.put("happy","feliz");
-        _dictionary.put("sad","triste");
-    }
-    
+
     /**
      * 
      */

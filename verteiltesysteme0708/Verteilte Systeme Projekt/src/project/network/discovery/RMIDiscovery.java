@@ -7,7 +7,8 @@ import java.io.*;
 import project.helperclasses.DDLogger;
 
 /**
- *
+ * RMIDiscovery-Klasse
+ * Sucht nach RMILookup-Server um Discovery zu erfüllen.
  *
  * @author Andreas Kuntz
  * 
@@ -161,9 +162,9 @@ public class RMIDiscovery {
         
         //check if the result is an exception
         if(_discoveryResult instanceof Exception) {
-            throw new java.rmi.ConnectException("RMI discovery exception", (Exception)_discoveryResult);
+            throw new java.rmi.ConnectException("RMI discovery exception", (Exception) _discoveryResult);
         }
-        return (Remote)_discoveryResult;
+        return (Remote) _discoveryResult;
     }
     
     /**
@@ -176,13 +177,13 @@ public class RMIDiscovery {
          for(int i = port; _listener == null && i < port + range; i++) {
             try {
                 _listener = new ServerSocket(i);
-                _listenerPort=i;
+                _listenerPort = i;
             } catch(IOException ex) {
                 System.err.println("Port " + i + " exception " + ex.getMessage());
             }
          }
          if(_listener == null) {
-            throw new RuntimeException("Failed to create listener socket in port range " + port + "-" + (port+range));
+            throw new RuntimeException("Failed to create listener socket in port range " + port + "-" + (port + range));
          }
          Thread listenerThread=new Thread() {
             @SuppressWarnings("unchecked")

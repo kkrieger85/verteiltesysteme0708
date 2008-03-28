@@ -3,7 +3,7 @@ package project.network.discovery;
 import java.rmi.*;
 
 /**
- * 
+ * RMIClient
  * 
  * @author Andreas Kuntz
  * 
@@ -18,8 +18,8 @@ public class DiscoveryClient {
 	 */
 	public static void main(String[] args) {
 		try {
-			if (args.length != 2) {
-				System.out.println("syntax: TestClient <language> <word to translate>");
+			if (args.length != 1) {
+				System.out.println("syntax: TestClient <service>");
 				System.exit(1);
 			}
 
@@ -27,25 +27,24 @@ public class DiscoveryClient {
 
 			DiscoveryProp.setProperties("discovery.properties");
 
-			String language = args[0];
-			String wordToTranslate = args[1];
+			String service = args[0];
 
 			// Use RMIDiscovery to locate the service
 
 			System.out.println("Attempting RMI discovery....");
 
-			Remote remote = RMIDiscovery.lookup((Class<DiscoveryServerInterface>) DiscoveryServerInterface.class, language);
+			Remote remote = RMIDiscovery.lookup((Class<DiscoveryServerInterface>) DiscoveryServerInterface.class, service);
 
 			System.out.println("Discovered a matching RMI service!!!");
 
 			// cast to correct interface type
 			DiscoveryServerInterface server = (DiscoveryServerInterface) remote;
 
-			System.out.println("Attemping to translate " + wordToTranslate + " ...");
+			System.out.println("Attemping to test...");
 
-			String word = server.translateWord(wordToTranslate);
+			String word = server.test();
 
-			System.out.println(wordToTranslate + " in " + args[0] + " is " + word);
+			System.out.println(word);
 			System.out.println("Done!");
 
 			/*
