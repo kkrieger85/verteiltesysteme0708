@@ -33,7 +33,7 @@ public class XMLConfigHelper {
 	private SAXBuilder saxb = new SAXBuilder();
 	private Document doc;
 
-	public static String XMLCONFIGFILE = "config.xml";
+	public static String XMLCONFIGFILE = "saved_files/config.xml";
 
 	/**
 	 * Standardkonstruktor Aufgabau der XML-Datei:

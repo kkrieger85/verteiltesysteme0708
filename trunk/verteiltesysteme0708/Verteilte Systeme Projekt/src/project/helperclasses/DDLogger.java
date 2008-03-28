@@ -71,7 +71,7 @@ public class DDLogger {
 					logfile = xmlconf.getLogfile(); 
 				} catch (Exception exc) {
 					XMLConfigHelper xmlconf = new XMLConfigHelper(); 
-					logfile = "default.log"; 
+					logfile = "saved_files/default.log"; 
 					xmlconf.saveAttribut(XMLConfigHelper.LOGFILE, logfile); 
 				}
 				

@@ -8,12 +8,13 @@ import java.rmi.registry.*;
 import project.helperclasses.DDLogger;
 
 /**
- *
+ * RMILookup-Klasse
+ * Stellt Server bereit der auf valide Nachfragen wartet um Discovery zu erfüllen.
  *
  * @author Andreas Kuntz
  * 
- * @version 0.1 (20.03.2008)
- *
+ * @version 0.2 (28.03.2008)
+ * 
  */
 public class RMILookup implements Runnable {
 
