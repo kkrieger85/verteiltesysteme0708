@@ -1,8 +1,8 @@
 package project.centrallogic;
 
 import project.data.Document;
-import project.data.Computer;
-import java.util.Vector;
+import java.util.*;
+import project.network.ServerDataObject;
 
 /**
  * @author ab
@@ -14,6 +14,6 @@ public interface Verteilung {
 	 * Dokument jetzt letztendlich im Netzwerk verteilen
 	 * 
 	 */
-	public Vector<Computer> distributeDocument(Document doc, int anzahl) throws Exception;
+	public LinkedList<ServerDataObject> distributeDocument(Document doc, int anzahl) throws Exception;
 	
 }

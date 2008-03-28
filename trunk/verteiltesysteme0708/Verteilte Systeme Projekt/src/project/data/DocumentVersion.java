@@ -2,6 +2,7 @@
 package project.data;
 
 import java.util.Date;
+import project.network.ServerDataObject;
 
 /**
  *  Klasse die versionierungsspezifische Daten enthält.
@@ -13,7 +14,7 @@ public class DocumentVersion {
 	private int versionNumber;
 	private DocumentVersion parent;
 	private String authorUsername;
-	private Computer authorHost;
+	private ServerDataObject authorHost;
 	private Date creationTime;
 	private String comment;
 	
@@ -132,11 +133,11 @@ public class DocumentVersion {
 		return tmp;
 	}
 
-	public Computer getAuthorHost() {
+	public ServerDataObject getAuthorHost() {
 		return authorHost;
 	}
 
-	public void setAuthorHost(Computer authorHost) {
+	public void setAuthorHost(ServerDataObject authorHost) {
 		this.authorHost = authorHost;
 	}
 }
