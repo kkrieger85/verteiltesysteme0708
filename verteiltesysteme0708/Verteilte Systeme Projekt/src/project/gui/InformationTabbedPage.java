@@ -63,7 +63,8 @@ public class InformationTabbedPage extends JPanel {
 				}
 			}
 			// Freienspeicher anzeigen lassen 
-			freeSpace = dir.getFreeSpace(); 
+			freeSpace = dir.getFreeSpace();
+			freeSpace = freeSpace /1024 / 1024;
 			// Belegten Speicher anzeigen lassen 
 		}
 
@@ -150,7 +151,7 @@ public class InformationTabbedPage extends JPanel {
 		// Label für IP Adresse 
 		gridbag.gridx = 1;
 		gridbag.gridy = 4;
-		JLabel freespace = new JLabel(Long.toString(freeSpace));
+		JLabel freespace = new JLabel(Long.toString(freeSpace) + " MB");
 		this.add(freespace, gridbag);	
 	
 	}
