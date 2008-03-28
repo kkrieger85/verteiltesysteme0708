@@ -125,7 +125,9 @@ public class LoginFrame extends JFrame implements ActionListener{
 			try {
 				if (rq.login("localhost", this.username.getText(), this.pwd.getText())){
 					DDLogger.getLogger().createLog("Login mit: " + this.username.getText() + " Erfolgreich" , DDLogger.DEBUG); 
-					
+					MainFrame mf = MainFrame.getInstance(); 
+					mf.setVisible(true);
+					this.setVisible(false);
 				} else 
 					DDLogger.getLogger().createLog("Login mit: " + this.username.getText() + " Nicht erfolgreich" , DDLogger.DEBUG); 
 				
