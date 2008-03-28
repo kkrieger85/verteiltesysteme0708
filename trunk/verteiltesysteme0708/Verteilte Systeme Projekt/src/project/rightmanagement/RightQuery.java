@@ -2,10 +2,10 @@ package project.rightmanagement;
 import project.exception.*;
 import project.data.*;
 /**
- * Eigendliche Instanz des Rechtemanagement,
+ * Eigendliche Instanz zum ausf&uuml;hren des Rechtemanagement,
  * Durch das Fassadeninterface muss nur die Instanz-Variabel
  * mit der entsprechenden Rechtemanagement-Klasse
- * initialisiert werden. Weitere Modifikationen sind nicht nötig.
+ * initialisiert werden. Weitere Modifikationen sind nicht n&ouml;tig.
  * @author mafolz
  *
  */
@@ -13,7 +13,8 @@ public class RightQuery {
 	private Fassade instanz;
 	
 	/**
-	 * Gibt zurück ob der DocumentWrapper geändert werden darf
+	 * Gibt zur&uuml;ck ob der DocumentWrapper ge&auml;ndert werden darf.
+	 * Wirft LoginException wenn zuvor nicht eingeloggt wurde.
 	 * @return
 	 * @throws LoginException
 	 */
@@ -23,7 +24,8 @@ public class RightQuery {
 		return instanz.changeDocument(id);
 	}
 	/**
-	 * Gibt zurück ob der DocumentWrapper gelesen werden darf
+	 * Gibt zur&uuml;ck ob der DocumentWrapper gelesen werden darf.
+	 * Wirft LoginException wenn zuvor nicht eingeloggt wurde.
 	 * @return
 	 * @throws LoginException
 	 */
@@ -34,7 +36,8 @@ public class RightQuery {
 		
 	}
 	/**
-	 * Gibt zurück ob in der entsprechenden ROlle Dateien erzeugt werden dürfen
+	 * Gibt zur&uuml;ck ob in der entsprechenden Rolle Dateien erzeugt werden d&uuml;fen
+	 * Wirft LoginException wenn zuvor nicht eingeloggt wurde.
 	 * @return
 	 * @throws LoginException
 	 */
@@ -45,8 +48,9 @@ public class RightQuery {
 		
 	}
 	/**loggt den Benutzer ein
-	 * Hier kann der Anwendungsentwickler die Implementation der Fassade angeben
-	 * diese Funktion muss als erstes Aufgerufen werden damit der benutzer eingelogt ist
+	 * Hier kann der Anwendungsentwickler die <i>Implementation der Fassade</i> angeben,
+	 * diese Funktion <b>muss als erstes Aufgerufen</b> werden damit der Benutzer eingelogt 
+	 * ist und eine Instanz der Authentifizierung erstellt werden kann. 
 	 * @param user
 	 * @param password
 	 * @return
@@ -56,7 +60,8 @@ public class RightQuery {
 		return (instanz= new Simple(url,user, password))!=null;
 	}
 	/**
-	 * Setzt einen neuen RollenAdministrator
+	 * Setzt eine neue Vertrauensstelle bzw. RollenAdministrator f&uuml;r die
+	 * angegebene Rolle.
 	 * @param user
 	 * @param role
 	 * @return
@@ -69,7 +74,7 @@ public class RightQuery {
 		
 	}
 	/**
-	 * Dokument einer Rolle hinzufügen
+	 * Dokument eine Rolle hinzuf&uuml;gen
 	 * @return
 	 * @throws LoginException
 	 */
@@ -92,7 +97,7 @@ public class RightQuery {
 	}
 	
 	/**
-	 * Benutzer zu einer Rolle hinzufügen
+	 * Benutzer zu einer Rolle hinzuf&uuml;gen
 	 * @param user
 	 * @param role
 	 * @return
@@ -118,7 +123,7 @@ public class RightQuery {
 		
 	}
 	/**
-	 * Alle Rollen des Users auflisten
+	 * Alle Rollen des aufrufenden Benutzers auflisten
 	 * @return
 	 * @throws LoginException
 	 */
@@ -129,7 +134,7 @@ public class RightQuery {
 		
 	}
 	/**
-	 * Dokumente verschlüßeln
+	 * Dokumente verschl&uuml;&szlig;eln
 	 * @param doc
 	 * @return
 	 * @throws LoginException
@@ -142,7 +147,7 @@ public class RightQuery {
 		
 	}
 	/**
-	 * Dokumente entschlüßeln
+	 * Dokumente entschl&uuml;&szlig;eln
 	 * @param doc
 	 * @return
 	 * @throws LoginException
@@ -155,6 +160,10 @@ public class RightQuery {
 		
 	}
 	
+	/**
+	 * Debug-Testing  Main-methode.
+	 * @param args
+	 */
 	public static void main(String[] args){
 		RightQuery test = new RightQuery();
 		try{

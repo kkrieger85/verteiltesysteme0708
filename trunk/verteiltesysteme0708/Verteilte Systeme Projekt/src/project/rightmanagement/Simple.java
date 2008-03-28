@@ -9,15 +9,15 @@ import java.rmi.NotBoundException;
 import java.io.IOException;
 /**
  * Dies ist die Simple Implementierung der Authentifikation
- * in dieser art der Authentifikation gibt es keine ver bzw entschlüßelung
+ * in dieser Art der Authentifikation gibt es keine ver- bzw entschl&uuml;&szlig;elung
  * @author mafolz
  */
 public class Simple extends Fassade {
 	private TasInterface authServer;
 
 	/**
-	 * Initialisierung mit Authorisationsserver, Benutzername und Password
-	 * 
+	 * Initialisierung mit Authorisationsserver, Benutzername und Password.
+	 * Es wird einfach an den Interfacekostrukter weitergeleitet.
 	 * @param url
 	 * @param user
 	 * @param passwd
@@ -28,7 +28,8 @@ public class Simple extends Fassade {
 	}
 
 	/**
-	 * Kann der Benutzer das Dokument verändern?
+	 * Pr&uuml;ft ob der Benutzer in einer Rolle, des
+	 * Dokumentes schreibberechtigt ist.
 	 */
 	public boolean changeDocument(DocumentWrapper doc) {
 		try {
@@ -41,7 +42,8 @@ public class Simple extends Fassade {
 	}
 
 	/**
-	 * Kann der Benutzer das Dokument öffnen
+	 * Pr&uuml;ft ob der Benutzer in einer Rolle, des
+	 * Dokumentes leseberechtigt ist.
 	 */
 	public boolean openDocument(DocumentWrapper doc) {
 		try {
@@ -54,7 +56,8 @@ public class Simple extends Fassade {
 	}
 
 	/**
-	 * Kann der Benuter in der Rolle Dokumente erstellen
+	 * Pr&uuml;ft ob der Benutzer in der angegebenen Rolle,
+	 * Dokumente erstellen darf.
 	 */
 	public boolean createDocument(String role) {
 		try {
@@ -65,7 +68,9 @@ public class Simple extends Fassade {
 	}
 
 	/**
-	 * Wird intern von der Fassade während der Initialisierung aufgerufen
+	 * Wird intern von der Fassade während der Initialisierung aufgerufen.
+	 * Hier wird das RMI-Interface gebunden und Exceptions gefangen,
+	 * und verarbeitet bei entsprechenden LoginExceptions
 	 */
 	protected boolean login(String user, String password) throws LoginException {
 		try {
@@ -94,8 +99,8 @@ public class Simple extends Fassade {
 	}
 
 	/**
-	 * Rolle einem Dokument hinzufügen, hierzu muss der ausführende User ein
-	 * RollenAdministrator mind. einer rolle des Dokumentes sein
+	 * Rolle einem Dokument hinzuf&uuml;gen, hierzu muss der ausf&uuml;hrende Benutzer
+	 * ein RollenAdministrator mind. einer Rolle des Dokumentes sein.
 	 */
 	public boolean addRoleToDocument(DocumentWrapper doc, String role) {
 		try {
@@ -112,7 +117,7 @@ public class Simple extends Fassade {
 	}
 
 	/**
-	 * Rolle einem Dokument entziehen, hierzu muss der ausführende user
+	 * Rolle einem Dokument entziehen, hierzu muss der ausf&uuml;hrende user
 	 * RollenAdministrator der zu entfernenden Rolle sein
 	 */
 	public boolean removeRoleFromDocument(DocumentWrapper doc, String role) {
@@ -125,7 +130,7 @@ public class Simple extends Fassade {
 	}
 
 	/**
-	 * Benutzer einer Rolle hinzufügen
+	 * Benutzer einer Rolle hinzuf&uuml;gen
 	 */
 	public boolean addUserToRole(String user, String role) {
 		try {
@@ -149,7 +154,7 @@ public class Simple extends Fassade {
 	}
 
 	/**
-	 * Gibt die Liste aller ROllen des Users zurück
+	 * Gibt die Liste aller Rollen des aufrufenden Benutzers zur&uuml;ck
 	 */
 	public String[] listRoles() {
 		return roles;
