@@ -7,7 +7,6 @@ import project.data.*;
  * mit der entsprechenden Rechtemanagement-Klasse
  * initialisiert werden. Weitere Modifikationen sind nicht n&ouml;tig.
  * @author mafolz
- *
  */
 public class RightQuery {
 	private Fassade instanz;
