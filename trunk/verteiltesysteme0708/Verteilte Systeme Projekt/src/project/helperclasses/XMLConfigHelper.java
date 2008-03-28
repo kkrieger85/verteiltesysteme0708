@@ -12,7 +12,6 @@ import java.util.List;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import org.jdom.input.JDOMParseException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
@@ -29,6 +28,7 @@ public class XMLConfigHelper {
 	public static final String PROGRAMMLANGUAGE = "language"; 
 	public static final String LOGFILE = "logfile";
 	public static final String LOGINNAME = "loginname"; 
+	public static final String AUTHSERVER = "authserver"; 
 	
 	private SAXBuilder saxb = new SAXBuilder();
 	private Document doc;
@@ -208,6 +208,19 @@ public class XMLConfigHelper {
 		} catch (Exception ex) {
 			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
 			return System.getProperty("user.name");
+		}
+	}
+	
+	/**
+	 * Gibt den Authserver 
+	 * @return
+	 */
+	public String getAuthserver(){
+		try {
+			return this.searchAttribut(XMLConfigHelper.AUTHSERVER); 
+		} catch (Exception ex) {
+			DDLogger.getLogger().createLog(ex.getMessage(), DDLogger.ERROR);
+			return System.getProperty("127.0.0.1");
 		}
 	}
 }
