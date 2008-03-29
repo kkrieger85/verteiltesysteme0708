@@ -36,7 +36,8 @@ public class ChangeSettingsFrame extends JDialog implements ActionListener{
 	private ResourceBundle bundle;
 	private JButton settingsPathButton; 
 	private JButton logfilePathButton; 
-	private JTextField logfilePath; 
+	private JTextField logfilePath;
+	private JButton cancelButton; 
 
 	/**
 	 * 
@@ -131,6 +132,15 @@ public class ChangeSettingsFrame extends JDialog implements ActionListener{
 		gridbag.gridy = 3;
 		this.add(logfilePathButton, gridbag);
 		
+		// Cancelbutton einbauen 
+		this.cancelButton = new JButton(this.bundle
+				.getString("login_cancelbutton_text"));
+		this.cancelButton.addActionListener(this);
+		gridbag.gridx = 1;
+		gridbag.gridy = 4;
+		this.add(this.cancelButton, gridbag);
+
+		
 	}
 
 	@Override
@@ -155,7 +165,7 @@ public class ChangeSettingsFrame extends JDialog implements ActionListener{
 		}
 	}
 	// Logdatei einstellen 
-	if (e.getSource().equals(this.logfilePathButton)){
+	else if (e.getSource().equals(this.logfilePathButton)){
 		
 		XMLConfigHelper xmlconf = new XMLConfigHelper(); 	
 		String settingspath = xmlconf.getMainFolder(); 
@@ -172,6 +182,10 @@ public class ChangeSettingsFrame extends JDialog implements ActionListener{
 		} catch (Exception ex ){
 			// TODO Richtig abfangen !!! 
 		}
+	} 
+    else if (this.cancelButton.equals(e.getSource())){
+		// Abbrechen 
+		this.setVisible(false); 
 	}
 
 	}

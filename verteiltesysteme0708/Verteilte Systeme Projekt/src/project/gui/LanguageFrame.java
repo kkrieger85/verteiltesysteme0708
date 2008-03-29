@@ -33,6 +33,7 @@ public class LanguageFrame extends JDialog implements ActionListener {
 	private ResourceBundle bundle;
 	private JComboBox combobox; 
 	private JButton languageButton;
+	private JButton cancelButton; 
 
 	public LanguageFrame() {
 
@@ -80,13 +81,21 @@ public class LanguageFrame extends JDialog implements ActionListener {
 		gridbag.gridy = 0;
 		this.add(combobox, gridbag);
 
-		// Button für Deutsch
+		// Butten fürs Einstellen !!! 
 		languageButton = new JButton(this.bundle
 				.getString("language_choose_button"));
 		languageButton.addActionListener(this);
 		gridbag.gridx = 1;
 		gridbag.gridy = 1;
 		this.add(languageButton, gridbag);
+		
+		// Cancelbutton einbauen 
+		cancelButton = new JButton(this.bundle
+				.getString("login_cancelbutton_text"));
+		cancelButton.addActionListener(this);
+		gridbag.gridx = 0;
+		gridbag.gridy = 1;
+		this.add(cancelButton, gridbag);
 
 	}
 
@@ -114,6 +123,9 @@ public class LanguageFrame extends JDialog implements ActionListener {
 				mf.refreshInformationLabel(this.getBundle().getString(
 						"language_change_information")+ "  " + value);
 				mf.repaint();
+			} else if (this.cancelButton.equals(obj)){
+				// Abbrechen 
+				this.setVisible(false); 
 			}
 		} catch (Exception ex) {
 
