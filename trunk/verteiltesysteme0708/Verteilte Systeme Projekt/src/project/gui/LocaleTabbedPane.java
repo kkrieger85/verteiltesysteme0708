@@ -109,7 +109,7 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 		this.add(jsp,gridbag); 
  
 		// Dateiinfopanel einbauen !!! 
-		this.informationPanel = new DDFileInfoPanel("Test"); 
+		this.informationPanel = new DDFileInfoPanel(null); 
         this.jspFileInfo = new JScrollPane(this.informationPanel); 
 		gridbag.gridx = 1;
 		gridbag.gridy = 2;

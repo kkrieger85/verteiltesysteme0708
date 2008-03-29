@@ -61,19 +61,21 @@ public class DDFileInfoPanel extends JPanel {
 	private void fillForm() {
 		// DocumentWrapper öffnen 
 		DocumentWrapper dwrapper = null;
-		try {
-			dwrapper = DocumentWrapper.loadFromXml(this.file);
-		} catch (DocumentWrapperException e) {
-			DDLogger.getLogger().createLog(e.getMessage(), DDLogger.ERROR); 
-		} 
-		if (dwrapper != null){
-			this.desc.setText(dwrapper.getMetadata().getBeschreibung()); 			
-			this.version.setText(Integer.toString(dwrapper.getVersion().getVersionNumber()));
-			this.autor.setText(dwrapper.getVersion().getAuthorUsername()); 
-			this.create.setText(dwrapper.getVersion().getCreationTime().toString()); 
-			this.comment.setText(dwrapper.getVersion().getComment()); 
+		if (this.file != null){	
+			try {
+				dwrapper = DocumentWrapper.loadFromXml(this.file);
+			} catch (DocumentWrapperException e) {
+				DDLogger.getLogger().createLog(e.getMessage(), DDLogger.ERROR); 
+			} 
+			if (dwrapper != null){
+				this.desc.setText(dwrapper.getMetadata().getBeschreibung()); 			
+				this.version.setText(Integer.toString(dwrapper.getVersion().getVersionNumber()));
+				this.autor.setText(dwrapper.getVersion().getAuthorUsername()); 
+				this.create.setText(dwrapper.getVersion().getCreationTime().toString()); 
+				this.comment.setText(dwrapper.getVersion().getComment()); 
+			}
+			this.repaint(); 
 		}
-		this.repaint(); 
 	}
 
 	/** 
