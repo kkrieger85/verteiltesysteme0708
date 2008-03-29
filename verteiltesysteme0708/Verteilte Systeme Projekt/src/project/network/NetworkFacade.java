@@ -106,7 +106,7 @@ public class NetworkFacade {
 	 * @param ipaddress
 	 * @throws ServerDataObjectException 
 	 */
-	public void downloadFileFromServer(String filename, String ipaddress, String Port)
+	public void downloadFileFromServer(String filename, String ipaddress, String Port, String userName)
 		throws NetworkFacadeException, ServerDataObjectException {
 		
 		if (filename == null || ipaddress == null){
@@ -125,6 +125,7 @@ public class NetworkFacade {
 		// Was muss rein ? Dateiname nur 
 		HashMap<String,Object> hash = new HashMap<String,Object>(); 
 		hash.put("filename", filename); 
+		hash.put("username", userName); 
 		tc.createThreads(ll, ThreadObject.DOWNLOADFILE, hash); 
 		
 			
