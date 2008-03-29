@@ -33,6 +33,9 @@ public class FileDownloadWorker extends AbstractThreadWorker {
 		super(address, port, informationHash);
 	}
 	
+	/**
+	 * Start der Routine 
+	 */
 	public synchronized boolean start() {
 		try {
 		RMINetworkInterface intf = (RMINetworkInterface) Naming.lookup("rmi://"+this.serverAddress +"/server");		

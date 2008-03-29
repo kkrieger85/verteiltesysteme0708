@@ -29,14 +29,14 @@ public class MiddlewareInst implements Middleware {
 			throw new Exception("Dokument liegt nicht in gültiger Fassung lokal vor");
 
 		// bei Rechteverwaltung prüfen, ob Rechte ok sind
-		if (!project.Main.rechte.can_createDocument(doc))
+//		if (!project.Main.rechte.can_createDocument(doc))
 			throw new Exception("Dokument darf nicht verteilt werden");
 		
 		// Document versionieren
-		project.Main.vers.newDocument(doc, comment);
+//		project.Main.vers.newDocument(doc, comment);
 		
 		// Dokument verteilen
-		project.Main.vert.distributeDocument(doc, distributeNumber);
+//		project.Main.vert.distributeDocument(doc, distributeNumber);
 			
 	}
 

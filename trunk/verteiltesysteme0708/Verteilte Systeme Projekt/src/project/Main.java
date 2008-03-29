@@ -1,56 +1,56 @@
 package project;
 
-import konzept.diverse.abnetwork.Network;
-import konzept.diverse.abnetwork.NetworkInst;
-import konzept.diverse.abnetwork.Server;
-import konzept.diverse.abnetwork.ServerInst;
-import project.centrallogic.*;
 import project.gui.*;
+import project.helperclasses.DDLogger;
+import project.helperclasses.OptionSingleton;
+import project.network.RMIServerImpl;
 
 
 /**
- * Main-Klasse, die den Startvorgang der Software durchführt
- * und alle global nötigen Module als Singleton enthält
- * @author ab
- * 
+ * Neue richtige Mainmethode wo keine unnötigen Sachen drin stehen ;) 
+ * @author <a href="mailto:reichert.sascha@googlemail.com">Sascha Reichert, reichert.sascha@googlemail.com</a>
+ *
  */
 public class Main {
-
-	// Programmbereich Netzwerk: Netzwerkdienste (Client) und Netzwerkserver
-	public static Server server;
-	public static Network network;
-
-	// Programmbereich Middleware
-	public static Versionierung vers;
-	public static Verteilung vert;
-	public static Rechteverwaltung rechte;
 	
-	public static Middleware middleware;
+	// RMI Serveraufruf kommt später in der Mainmethode 
+	public RMIServerImpl server; 
 	
-	// Programmbereich GUI
-// 	public static GUI gui;
+	public static String AUTHMODE = "auth"; 
+	public static String DEBUGMODE = "debug"; 
 	
-	public static void main(String[] args) {
-
-		// zuerst starten wir den Server, arbeitet unabhängig von allen anderen Modulen
-		server = new ServerInst();
-
-		// dann starten wir die clientseitigen Netzwerkfunktionen ...
-		network = new NetworkInst();
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {	
+		// Startargumente durchgehen 
+		for (int i = 0; i < args.length; i++){
+			if (args[i].compareTo(Main.AUTHMODE) == 0){
+				OptionSingleton.setAutservermode(true); 
+			}
+			
+			if (args[i].compareTo(Main.DEBUGMODE) == 0){
+				OptionSingleton.setDebugmode(true); 
+			}
+		}
 		
-		// dann die ganzen Module der Middleware starten
-		vers  = new LineareVersionierung();
-		vert  = new VerteilungInst();
-		rechte= new RechteverwaltungInst();
 		
-		middleware = new MiddlewareInst();
-
-		// und zuletzt die GUI
-// 		gui = new GUIInst();
+		// Logger muss initialisiert werden 
+		if (OptionSingleton.isDebugmode()){
+			@SuppressWarnings("unused")
+			DDLogger ddl = new DDLogger(DDLogger.ALL); 
+		} else {
+			@SuppressWarnings("unused")
+			DDLogger ddl = new DDLogger(DDLogger.ERROR); 
+		}
 		
-		// und wir starten das grafische Benutzerinterface
-// 		gui.start();
+		Main2 main = new Main2();
+		main.server = new RMIServerImpl(); 
 		
+		MainFrame mf = MainFrame.getInstance(); 
+		mf.setVisible(true);
+	
 	}
+
 
 }
