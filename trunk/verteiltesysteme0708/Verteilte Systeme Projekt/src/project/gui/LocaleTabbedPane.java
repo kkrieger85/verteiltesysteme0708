@@ -179,10 +179,6 @@ public class LocaleTabbedPane extends JPanel implements ActionListener, ListSele
 		return this.filelist; 
 	}
 	
-	public void repaint(){
-		super.repaint(); 
-		this.setVisible(true);
-	}
 	
 
 

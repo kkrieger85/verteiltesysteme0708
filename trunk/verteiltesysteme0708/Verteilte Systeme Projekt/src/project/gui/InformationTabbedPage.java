@@ -155,4 +155,5 @@ public class InformationTabbedPage extends JPanel {
 		this.add(freespace, gridbag);	
 	
 	}
+	
 }
