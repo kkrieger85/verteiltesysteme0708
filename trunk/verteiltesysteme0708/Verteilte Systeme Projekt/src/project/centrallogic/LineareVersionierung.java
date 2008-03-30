@@ -37,10 +37,10 @@ public class LineareVersionierung implements Versionierung {
 	 * @param byHost
 	 * @return
 	 */
-	public static boolean isDocumentLockedBy(Document doc, Computer byHost) {
+	public static boolean isDocumentLockedBy(Document doc, ServerDataObject byHost) {
 		DocumentMetadata mdata = doc.getMetadata();
 
-		return mdata.getSperrhost().getIP().equals(byHost.getIP());
+		return mdata.getSperrhost().getAddress().equals(byHost.getAddress());
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class LineareVersionierung implements Versionierung {
 	 * @param byHost
 	 * @throws LockException 
 	 */
-	public static void ensureDocumentLockedBy(Document doc, Computer byHost)
+	public static void ensureDocumentLockedBy(Document doc, ServerDataObject byHost)
 		throws LockException
 	{
 		if (!isDocumentLockedBy(doc, byHost))
@@ -147,7 +147,7 @@ public class LineareVersionierung implements Versionierung {
 	 * des Dokuments ist. Übergabeparameter sind das Dokument, der Name
 	 * des sperrenden Benutzers und der sperrende Rechner.
 	 */
-	public void lockDocument(Document doc, String byUser, Computer byHost)
+	public void lockDocument(Document doc, String byUser, ServerDataObject byHost)
 		throws LockException
 	{
 		ensureDocumentUnlocked(doc);
@@ -212,7 +212,7 @@ public class LineareVersionierung implements Versionierung {
 	 * @param byHost
 	 * @throws LockException
 	 */
-	public void renewDocumentLock(Document doc, String byUser, Computer byHost)
+	public void renewDocumentLock(Document doc, String byUser, ServerDataObject byHost)
 		throws LockException
 	{
 		ensureDocumentLockedBy(doc, byHost);
@@ -235,7 +235,7 @@ public class LineareVersionierung implements Versionierung {
 	 * @param byHost
 	 * @throws LockException
 	 */
-	public void unlockDocument(Document doc, String byUser, Computer byHost)
+	public void unlockDocument(Document doc, String byUser, ServerDataObject byHost)
 		throws LockException
 	{
 		if (isDocumentLockedBy(doc, byHost))
@@ -301,7 +301,7 @@ public class LineareVersionierung implements Versionierung {
 	 * behandeln muss.
 	 */
 	public void documentWasUpdated(Document doc, DocumentVersion newVersion,
-			String byUser, Computer byHost)
+			String byUser, ServerDataObject byHost)
 		throws LockException
 	{
 		ensureDocumentLockedBy(doc, byHost);

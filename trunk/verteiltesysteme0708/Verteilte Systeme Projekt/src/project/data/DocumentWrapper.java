@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
-import project.network.ServerDataObject;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +20,7 @@ import org.jdom.output.XMLOutputter;
 
 import project.exception.DocumentWrapperException;
 import project.helperclasses.DDLogger;
+import project.network.ServerDataObject;
 
 /**
  * Kapselt alle möglichen Metadaten zu einem Dokument
@@ -32,16 +31,24 @@ import project.helperclasses.DDLogger;
 public class DocumentWrapper implements project.data.Document {
 
 
-	// Informationen über physikalischen Speicherort
+	/**
+	 * Informationen über physikalischen Speicherort
+	 */ 
 	private DocumentFile dfile 				= null;
 
-	// Metadaten des Dokuments
+	/**
+	 * Metadaten des Dokuments
+	 */ 
 	private DocumentMetadata dmeta 			= null;
 	
-	// Versionsinformationen zur aktuellen Version des Dokuments
+	/**
+	 * Versionsinformationen zur aktuellen Version des Dokuments
+	 */
 	private DocumentVersion lastVersion 		= null;
 	
-	// Verteilungs- (Backup-) Informationen über das Dokument 
+	/**
+	 * Verteilungs- (Backup-) Informationen über das Dokument 
+	 */
 	private DocumentDistribution dbackup 	= null;
 	
 	
@@ -85,34 +92,68 @@ public class DocumentWrapper implements project.data.Document {
 		return (dfile != null && dmeta != null);
 	}
 
+	/**
+	 * Methode die die Versionierungsinformationen zurückgibt.
+	 */
 
 	public DocumentVersion getVersion() {
 		return lastVersion;
 	}
+	
+	/**
+	 * Setzt die Versionierungsinformationen auf "dversion".
+	 */
 
 	public void setVersion(DocumentVersion dversion) {
 		this.lastVersion = dversion;
 	}
+	
+	/**
+	 * Methode die die Verteilungsinformationen zurückgibt.
+	 */
 
 	public DocumentDistribution getDistribution() {
 		return dbackup;
 	}
+	
+	/**
+	 * Setzt die Verteilungsinformationen auf "dbackup"
+	 * @param dbackup die neuen Backupinformationen 
+	 */
 
 	public void setDistribution(DocumentDistribution dbackup) {
 		this.dbackup = dbackup;
 	}
 	
+	/**
+	 * Setzt die Fileinformationen auf "dfile"
+	 * @param dfile die neuen Fileinformationen
+	 */
+	
 	public void setFile(DocumentFile dfile){
 		this.dfile = dfile;
 	}
+	
+	/**
+	 * Setzt die Metadaten auf "dmeta"
+	 * @param dmeta die neuen Metainformationen
+	 */
 	
 	public void setMetadata(DocumentMetadata dmeta){
 		this.dmeta = dmeta;
 	}
 	
+	/**
+	 * Methode die die Fileinformationen zurückgibt.
+	 */
+	
 	public DocumentFile getFile() {
 		return dfile;
 	}
+	
+	/**
+	 * Methode die die Metadaten zurückgibt.
+	 */
 
 	public DocumentMetadata getMetadata() {
 		return dmeta;
@@ -199,7 +240,7 @@ public class DocumentWrapper implements project.data.Document {
 			
 			//Sperrhost eintragen
 			dataObjElem = new Element("sperrhost");
-			dataObjElem.setText(dmeta.getSperrhost() != null ? dmeta.getSperrhost().getIP() : "");
+			dataObjElem.setText(dmeta.getSperrhost() != null ? dmeta.getSperrhost().getAddress() : "");
 			root.addContent(dataObjElem);
 			
 			//Sperrzeit eintragen
@@ -230,12 +271,14 @@ public class DocumentWrapper implements project.data.Document {
 		}
 	}
 	
+	
 	/**
 	 * Methode welche aus einer XML Datei ein DocumentWrapper Objekt erstellt und dieses zurückgibt
 	 * @param filename Name der XML-Datei
 	 * @return DocumentWrapper Objekt mit dem Inhalt der XML Datei
 	 * @throws DocumentWrapperException Wenn beim parsen der XML Datei ein Fehler passiert
 	 */	
+	
 	public static DocumentWrapper loadFromXml(String filename)throws DocumentWrapperException{
 		try
 		{
@@ -285,7 +328,16 @@ public class DocumentWrapper implements project.data.Document {
 			mdata.setSperrender(searchAttribut("sperrender", filename));
 			
 			String sperrhost = searchAttribut("sperrhost", filename);
-			mdata.setSperrhost(sperrhost != null ? new ComputerWrapper(sperrhost) : null);
+			ServerDataObject sperrhostobj;
+			if (sperrhost != null)
+			{
+				sperrhostobj = new ServerDataObject(sperrhost, "1099", 0);
+			}
+			else
+			{
+				sperrhostobj = null;
+			}
+			mdata.setSperrhost(sperrhostobj);
 
 			try
 			{
@@ -340,6 +392,7 @@ public class DocumentWrapper implements project.data.Document {
 		}
 	}
 	
+	
 	/**
 	 * Methode die in einer XML-Datei nach einem Attribut sucht.
 	 * @param searchString gesuchtes Attribut
@@ -384,9 +437,10 @@ public class DocumentWrapper implements project.data.Document {
 		return resultString;
 	}
 
-	/*
-	 * toString()
+	/**
+	 * Methode die eine Stringrepresentation des Objektes zurückgibt.
 	 */
+	
 	public String toString() {
 		String s = dfile + ",\n " + dmeta + ",\n " + lastVersion + ",\n " + dbackup;
 		return s;
