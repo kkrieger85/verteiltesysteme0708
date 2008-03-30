@@ -8,12 +8,11 @@ import java.rmi.registry.Registry;
 
 public class TasServer {
 	/**
-	 * Standard Main Methode zum Starten des Servers
-	 * 
+	 * Standard Main Methode zum Starten des Servers 
 	 * @param args
 	 */
 	public static void main(String[] args) { 
-		String host = "127.0.0.1";
+		String host = "localhost";
 		if (args.length != 0) {
 			if (args[0] != null) {
 				host = args[0];
