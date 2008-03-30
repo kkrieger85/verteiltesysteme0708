@@ -1,6 +1,12 @@
 package project.network.discovery;
 
+import java.net.InetAddress;
 import java.rmi.*;
+import java.rmi.registry.Registry;
+
+import project.helperclasses.DiskSpaceHelper;
+import project.network.IPList;
+import project.network.ServerDataObject;
 
 /**
  * RMIClient
@@ -13,38 +19,55 @@ import java.rmi.*;
 public class DiscoveryClient {
 
 	/**
+	 * args[0] == Discovery
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		if (args.length != 1) {
+			System.out.println("syntax: TestClient <service>");
+			System.exit(1);
+		}
+		work(args[0]);
+	}
+	
+	@SuppressWarnings("static-access")
+	public static void work(String arg) {
 		try {
-			if (args.length != 1) {
-				System.out.println("syntax: TestClient <service>");
-				System.exit(1);
-			}
-
 			System.setSecurityManager(new RMISecurityManager());
 
 			DiscoveryProp.setProperties("discovery.properties");
 
-			String service = args[0];
+			String service = arg;
 
 			// Use RMIDiscovery to locate the service
 
 			System.out.println("Attempting RMI discovery....");
+			
+			Remote remote;
+			try {
+				remote = RMIDiscovery.lookup((Class<DiscoveryServerInterface>) DiscoveryServerInterface.class, service);
+				System.out.println("Discovered a matching RMI service!!!");
 
-			Remote remote = RMIDiscovery.lookup((Class<DiscoveryServerInterface>) DiscoveryServerInterface.class, service);
+				// cast to correct interface type
+				DiscoveryServerInterface server = (DiscoveryServerInterface) remote;
 
-			System.out.println("Discovered a matching RMI service!!!");
+				System.out.println("Attemping to test...");
 
-			// cast to correct interface type
-			DiscoveryServerInterface server = (DiscoveryServerInterface) remote;
+				String word = server.test();
 
-			System.out.println("Attemping to test...");
-
-			String word = server.test();
-
-			System.out.println(word);
+				if(!IPList.getInstance().isIsroot())
+					IPList.getInstance().setIPList(server.getIPList());
+				else {
+					DiskSpaceHelper dsh = new DiskSpaceHelper();
+					IPList.getInstance().addObject(new ServerDataObject(InetAddress.getLocalHost().toString(), String.valueOf(Registry.REGISTRY_PORT), dsh.getMyAvailableSpace()));
+				}
+				System.out.println(word);
+			} catch (java.rmi.ConnectException e) {
+				if(!IPList.getInstance().isIsroot())
+					System.out.println("Fehler bei Discovery und root-Einrichtung!");
+			}
+				
 			System.out.println("Done!");
 
 			/*

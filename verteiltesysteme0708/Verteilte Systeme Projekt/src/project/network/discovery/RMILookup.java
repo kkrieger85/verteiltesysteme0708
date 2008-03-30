@@ -6,6 +6,8 @@ import java.rmi.*;
 import java.rmi.registry.*;
 
 import project.helperclasses.DDLogger;
+import project.network.IPList;
+import project.network.ServerDataObject;
 
 /**
  * RMILookup-Klasse
@@ -115,7 +117,7 @@ public class RMILookup implements Runnable {
         /**
          * Create multicast listener then loop listening for valid requests
          */
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings({ "unchecked", "static-access" })
 		public void run() {
             try {
             	DDLogger.getLogger().createLog("RMI lookup: listening....", DDLogger.DEBUG);
@@ -146,14 +148,14 @@ public class RMILookup implements Runnable {
                     
                     String msg = new String(packet.getData()).trim();
                     DDLogger.getLogger().createLog("RMI lookup: Recieved messaged " + msg, DDLogger.DEBUG);
-                    if(msg.startsWith(DiscoveryProp.getProtocolHeader())) {
+                    if(msg.startsWith(DiscoveryProp.getProtocolHeader()) && IPList.getInstance().isIsroot()) {
                         
                         //request in format
                         //<header><delim><port><delim><interface><delim><serviceName>
                         
                         String [] params = null;
                         try {
-                            params=parseMsg(msg);
+                            params = parseMsg(msg);
                         } catch(Exception ex) {
                         	DDLogger.getLogger().createLog("RMI lookup: bad packet format " + ex.getMessage(), DDLogger.ERROR);
                             continue;
@@ -162,6 +164,8 @@ public class RMILookup implements Runnable {
                         int repPort = Integer.parseInt(params[0]);
                         String interfaceName = params[1];
                         String serviceName = params[2];
+                        
+    					IPList.getInstance().addObject(new ServerDataObject(repAddress.toString(), String.valueOf(Registry.REGISTRY_PORT), 0));
                         
                         DDLogger.getLogger().createLog("RMI lookup: Service name=" + serviceName, DDLogger.DEBUG);
                         DDLogger.getLogger().createLog("RMI lookup: Service interface=" + interfaceName, DDLogger.DEBUG);
@@ -176,7 +180,7 @@ public class RMILookup implements Runnable {
                         }
                         //now check that the service implements the interface
                         //the discoverer is looking for
-                        boolean match=false;
+                        boolean match = false;
                         for(int i = 0; !match && i < _serviceInterface.length; i++) {
                             match = _serviceInterface[i].getName().equals(interfaceName);
                         }

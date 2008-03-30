@@ -1,6 +1,3 @@
-/**
- * 
- */
 package project.network;
 
 import java.io.File;
@@ -31,13 +28,12 @@ public class IPList implements Serializable {
 	private static String file = "saved_files/iplist.xml";
 	private static IPList iplist = new IPList();
 	private static LinkedList<ServerDataObject> list = new LinkedList<ServerDataObject>();
+	private static boolean isroot = false;
 	
 	private static final String ADDRESS = "address";
 	private static final String PORT = "port";
-	private static final String FREESPACE = "freespace"; 
-	/**
-	 * 
-	 */
+	private static final String FREESPACE = "freespace";
+	
 	private static final long serialVersionUID = -5049195550478153165L;
 
 	/**
@@ -229,5 +225,13 @@ public class IPList implements Serializable {
 			return true; 
 		} else 
 			return false; 
+	}
+
+	public static boolean isIsroot() {
+		return isroot;
+	}
+
+	public static void setIsroot(boolean isroot) {
+		IPList.isroot = isroot;
 	}
 }
