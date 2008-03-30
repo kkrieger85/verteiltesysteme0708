@@ -132,10 +132,20 @@ public class DocumentVersion {
 			tmp += ", " + getCreationTime().toString();
 		return tmp;
 	}
+	
+	/**
+	 * Methode die den Host des Dokumentenautors zurückgibt.
+	 * @return ServerDataObject des Autorenhosts.
+	 */
 
 	public ServerDataObject getAuthorHost() {
 		return authorHost;
 	}
+	
+	/**
+	 * Setzt den Host des Dokumentenautors auf "authorHost".
+	 * @param authorHost der neue Dokumentenautoren-Host.
+	 */
 
 	public void setAuthorHost(ServerDataObject authorHost) {
 		this.authorHost = authorHost;

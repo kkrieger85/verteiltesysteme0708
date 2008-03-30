@@ -1,6 +1,7 @@
 package project.centrallogic;
 
 import project.data.*;
+import project.network.ServerDataObject;
 
 /**
  * @author ab
@@ -47,6 +48,6 @@ public interface Versionierung {
 	 * @throws Exception
 	 */
 	public void documentWasUpdated(Document doc, DocumentVersion newVersion,
-			String byUser, Computer byHost)
+			String byUser, ServerDataObject byHost)
 		throws Exception;
 }

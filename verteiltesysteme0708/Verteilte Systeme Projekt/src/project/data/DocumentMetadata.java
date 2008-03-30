@@ -4,6 +4,8 @@ package project.data;
 import java.util.Date;
 import java.util.Vector;
 
+import project.network.ServerDataObject;
+
 /**
  * Kapselt alle Metadaten des Dokuments
  * 
@@ -16,7 +18,7 @@ public class DocumentMetadata {
 	private Vector<String> rolle;
 
 	private String sperrender = null;
-	private Computer sperrhost = null;
+	private ServerDataObject sperrhost = null;
 	private Date sperrzeit = null;
 	
 	/**
@@ -86,25 +88,55 @@ public class DocumentMetadata {
 		return  tmp + ")";
 	}
 	
+	/**
+	 * Gibt den Namen des Benutzers zurück, der das Dokument gesperrt hat.
+	 * @return String der den Namen des Benutzers enthält. Null wenn Dokument nicht gesperrt.
+	 */
+	
 	public String getSperrender() {
 		return sperrender;
 	}
+	
+	/**
+	 * Setzt den Sperrenden auf den Wert des übergebenen Strings.
+	 * @param sperrender der neue Sperrende. Null wenn Dokument entsperrt werden soll.
+	 */
 
 	public void setSperrender(String sperrender) {
 		this.sperrender = sperrender;
 	}
+	
+	/**
+	 * Gibt den Host des Sperrenden zurück
+	 * @return Objekt das den Host des Sperrenden enthält. Null wenn Dokument nicht gesperrt.
+	 */
 
-	public Computer getSperrhost() {
+	public ServerDataObject getSperrhost() {
 		return sperrhost;
 	}
+	
+	/**
+	 * Setzt den Host des Sperrenden auf "sperrhost"
+	 * @param sperrhost neuer Sperrhost. Null wenn Dokument entsperrt werden soll.
+	 */
 
-	public void setSperrhost(Computer sperrhost) {
+	public void setSperrhost(ServerDataObject sperrhost) {
 		this.sperrhost = sperrhost;
 	}
+	
+	/**
+	 * Gibt die Zeit zurück, zu der das Dokument gesperrt wurde.
+	 * @return Date Objekt mit dem Datum, wann das Dokument gesperrt wurde. Null wenn Dokument nicht gesperrt
+	 */
 
 	public Date getSperrzeit() {
 		return sperrzeit;
 	}
+	
+	/**
+	 * Setzt die Sperrzeit auf "sperrzeit".
+	 * @param sperrzeit Neue Sperrzeit. Null wenn Dokument entsperrt werden soll.
+	 */
 
 	public void setSperrzeit(Date sperrzeit) {
 		this.sperrzeit = sperrzeit;
