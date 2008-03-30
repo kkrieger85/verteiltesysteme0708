@@ -2,6 +2,10 @@ package project.network.discovery;
 
 import java.rmi.*;
 import java.rmi.server.*;
+import java.util.LinkedList;
+
+import project.network.IPList;
+import project.network.ServerDataObject;
 
 /**
  * RMI-Server
@@ -19,30 +23,34 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
 	 * @param args
 	 */
     public static void main(String [] args) {
-        try {
-           checkCodebase();
+        work();
+    }
+    
+    public static void work() {
+    	try {
+            checkCodebase();
+             
+            System.setSecurityManager(new RMISecurityManager());
             
-           System.setSecurityManager(new RMISecurityManager());
-           
-           //specify where the properties file is located
-           //here it's in the directory that you run java from
-           //you can set the properties on the cmd line if you prefer
-           //Alt: you can also use setProperties(Properties props);
-           DiscoveryProp.setProperties("saved_files/discovery.properties");
+            //specify where the properties file is located
+            //here it's in the directory that you run java from
+            //you can set the properties on the cmd line if you prefer
+            //Alt: you can also use setProperties(Properties props);
+            DiscoveryProp.setProperties("saved_files/discovery.properties");
+             
+            //create service instance 
+            DiscoveryServer server = new DiscoveryServer();
             
-           //create service instance 
-           DiscoveryServer server = new DiscoveryServer();
-           
-           //create a jini like lookup service for the RMI service
-           //with the service instance and its name
-           RMILookup.bind(server, "Discovery");
-           //NOTE: bind() will also try to bind to the RMIRegistry if it is running
-           //This doesn't affect the multicast listener.
-           //if the registry isn't running then a warning message if printed
-            
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
+            //create a jini like lookup service for the RMI service
+            //with the service instance and its name
+            RMILookup.bind(server, "Discovery");
+            //NOTE: bind() will also try to bind to the RMIRegistry if it is running
+            //This doesn't affect the multicast listener.
+            //if the registry isn't running then a warning message if printed
+             
+         } catch(Exception ex) {
+             ex.printStackTrace();
+         }
     }
     
     /**
@@ -61,6 +69,14 @@ public class DiscoveryServer extends UnicastRemoteObject implements DiscoverySer
      */
     public String test() throws RemoteException {
         return "OK!";
+    }
+    
+    public LinkedList<ServerDataObject> getIPList() {
+    	return IPList.getInstance().getIPList();
+    }
+    
+    public void setIPList(LinkedList<ServerDataObject> list){
+    	IPList.getInstance().setIPList(list);
     }
 
     /**

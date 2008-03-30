@@ -5,6 +5,7 @@ import java.net.*;
 import java.io.*;
 
 import project.helperclasses.DDLogger;
+import project.network.IPList;
 
 /**
  * RMIDiscovery-Klasse
@@ -185,7 +186,7 @@ public class RMIDiscovery {
          if(_listener == null) {
             throw new RuntimeException("Failed to create listener socket in port range " + port + "-" + (port + range));
          }
-         Thread listenerThread=new Thread() {
+         Thread listenerThread = new Thread() {
             @SuppressWarnings("unchecked")
 			public void run() {
                 try {
@@ -213,7 +214,8 @@ public class RMIDiscovery {
      */
     private void startRequester() {    
         Thread requester = new Thread() {
-            public void run() {
+            @SuppressWarnings("static-access")
+			public void run() {
                 try {
                     InetAddress.getLocalHost().getHostName();
                     
@@ -241,7 +243,9 @@ public class RMIDiscovery {
                     socket.leaveGroup(address);
                     socket.close();
                     if(_discoveryResult == null) {
-                        throw new Exception("RMI discovery timed out after " + nAttempts);
+                    	DDLogger.getLogger().createLog("RMI discovery timed out after " + nAttempts, DDLogger.DEBUG);
+                    	IPList.getInstance().setIsroot(true);
+                    	throw new Exception("RMI discovery timed out after " + nAttempts);
                     }
                 } catch(Exception ex) {
                     _discoveryResult = ex;

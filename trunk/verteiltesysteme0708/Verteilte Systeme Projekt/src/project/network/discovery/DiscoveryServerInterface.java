@@ -1,6 +1,9 @@
 package project.network.discovery;
 
 import java.rmi.*;
+import java.util.LinkedList;
+
+import project.network.ServerDataObject;
 
 /**
  *
@@ -19,4 +22,8 @@ public interface DiscoveryServerInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	public String test() throws RemoteException;
+	
+	public LinkedList<ServerDataObject> getIPList();
+	
+	public void setIPList(LinkedList<ServerDataObject> list);
 }
