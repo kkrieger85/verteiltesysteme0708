@@ -5,6 +5,7 @@ import java.util.Vector;
 
 /**
  * Dies ist die Implementierung des RMI Interfaces der Simple-Authorisation
+ * auf der Serverseite. Hier k&ouml;nnen Benutzerdaten festgelegt werden.
  * @author mafolz
  */
 public class TasImpl  extends UnicastRemoteObject implements TasInterface {
@@ -13,9 +14,13 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 	//Alle Rollen die vergeben werden können
 	private Vector<String> rollen;
 	//Alle dem Server bekannten Benutzer
-	private Vector<TasObject> benutzer;
+	private Vector<TasObject> benutzer;	
 	
-	
+	/**
+	 * Erstellt ein Objekt der TasImpl.
+	 * Die Benutzerdaten werden hier festgelegt.
+	 * @throws RemoteException
+	 */
 	public TasImpl() throws RemoteException {	
 		benutzer= new Vector<TasObject>(40);
 		rollen = new Vector<String>(); 
@@ -34,7 +39,11 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		benutzer.get(0).addRole(
 				rollen.get(1),true,false,false,false); // Gastrolle
 	}
-	
+	/**
+	 * Implementierung der abstrakten Methode.
+	 * Pr&uuml;ft ob der Benutzer &uuml;berhaupt existiert und gibt
+	 * dessen Schreibrecht in der Rolle zur&uuml;ck
+	 */
 	public boolean canWriteInRole(String user, String role)throws RemoteException{
 		// Temporäres vergleichsobjekt
 		TasObject temp = new TasObject(user,"nichtleer");
@@ -47,6 +56,11 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		}
 		return false;
 	}
+	/**
+	 * Implementierung der abstrakten Methode.
+	 * Pr&uuml;ft ob der Benutzer &uuml;berhaupt existiert und gibt
+	 * dessen Leserecht in der Rolle zur&uuml;ck
+	 */
 	public boolean canReadInRole( String user, String role)throws RemoteException{
 		// Temporäres vergleichsobjekt
 		TasObject temp = new TasObject(user,"nichtleer");
@@ -59,6 +73,11 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		}
 		return false;
 	}
+	/**
+	 * Implementierung der abstrakten Methode.
+	 * Pr&uuml;ft ob der Benutzer &uuml;berhaupt existiert und gibt
+	 * dessen Recht in der Rolle Dokumente zu erstellen zur&uuml;ck
+	 */
 	public boolean canCreateInRole(String user, String role)throws RemoteException{
 		// Temporäres vergleichsobjekt
 		TasObject temp = new TasObject(user,"nichtleer");
@@ -72,7 +91,7 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		return false;
 	}
 	/**
-	 * Liefert true wenn benutzer und PW eines TasOjbectes passen
+	 * Liefert wenn Benutzer und PW eines TasOjbectes passen
 	 */
 	public boolean login(String user, String password)throws RemoteException{
 		// Temporäres vergleichsobjekt
@@ -88,7 +107,7 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		return false;
 	}
 	/**
-	 * Gbit zurück ob der entsprechende beutzer in der angegebenen Role Administrator ist
+	 * Gbit zur&uuml;ck ob der entsprechende Benutzer in der angegebenen Rolle Administrator ist
 	 */
 	public boolean isRoleAdmin(String user, String role)throws RemoteException{
 		// Temporäres vergleichsobjekt
@@ -104,8 +123,8 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		
 	}
 	/**
-	 * erstellt Rollenadministrator, Aufrufender benutzer mus in der entsprechenden Rolle
-	 * Administrator sein und der betrefende Benutzer muss ind er Rolle sein 
+	 * Erstellt Rollenadministrator, Aufrufender Benutzer muss in der entsprechenden Rolle
+	 * Administrator sein und der betrefende Benutzer muss in der Rolle sein 
 	 */
 	public boolean createRoleAmin(String owner, String role , String user)throws RemoteException{
 		// Temporäre vergleichsobjekte
@@ -124,7 +143,7 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 			
 	}	
 	/**
-	 * benutzer einer rolle hinzufügen mit standardlesereht
+	 * Benutzer eine Rolle hinzuf&uuml;gen mit Standardleserecht
 	 */
 	public boolean addUserToRole(String owner, String role , String user)throws RemoteException{
 		// Temporäre vergleichsobjekte
@@ -142,7 +161,7 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		return false;		
 	}
 	/**
-	 * entfernt benutzer von eienr Rolle, er Aufrufende benutzer muss in dieser
+	 * Entfernt Benutzer von einer Rolle, der Aufrufende Benutzer muss in dieser
 	 * Rolle Administrator sein
 	 */
 	public boolean removeUserFromRole(String owner, String role , String user)throws RemoteException{
@@ -160,7 +179,9 @@ public class TasImpl  extends UnicastRemoteObject implements TasInterface {
 		}
 		return false;				
 	}
-	
+	/**
+	 * Gibt die Rollen des angegebenen Benutzers wieder
+	 */
 	public String[] listRoles(String user)throws RemoteException{
 		// Temporäres vergleichsobjekt
 		TasObject temp	= new TasObject(user,"nichtleer");

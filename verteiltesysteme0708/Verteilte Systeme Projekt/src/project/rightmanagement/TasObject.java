@@ -2,7 +2,7 @@ package project.rightmanagement;
 
 import java.util.*;
 /**
- * ein Benutzerobjekt, die überklasse mus darauf achten das die angegebene Rolle existiert
+ * ein Benutzerobjekt, die &Uuml;berklasse muss darauf achten das die angegebene Rolle existiert
  * @author mafolz
  *
  */
@@ -19,7 +19,8 @@ public class TasObject implements Comparable{
 		this.rollen=new Hashtable<String, TasRole>(40);
 	}
 	/**
-	 * Login funktion
+	 * Login-Funktion welche da Passwort mit dem &uuml;bergebenen
+	 * vergleicht.
 	 * @param passwort
 	 * @return
 	 */
@@ -34,7 +35,7 @@ public class TasObject implements Comparable{
 		return false;		
 	}
 	/**
-	 * eine Rolle hizufügen
+	 * Benutzer eine Rolle zuweisen
 	 * @param rolle
 	 * @param lesen
 	 * @param schreiben
@@ -44,12 +45,24 @@ public class TasObject implements Comparable{
 	public void addRole(String rolle, boolean lesen, boolean schreiben, boolean erstellen, boolean admin){
 		rollen.put( rolle, new TasRole(lesen,schreiben,erstellen,admin));
 	}
+	/**
+	 * Benutzerrechte in einer Rolle setzen.
+	 * @param rolle
+	 * @param lesen
+	 * @param schreiben
+	 * @param erstellen
+	 * @param admin
+	 */
 	public void setRole(String rolle, boolean lesen, boolean schreiben, boolean erstellen, boolean admin){
 		rollen.get( rolle).lesen = lesen;
 		rollen.get( rolle).schreiben = schreiben;
 		rollen.get( rolle).erstellen = erstellen;
 		rollen.get( rolle).admin = admin;
 	}		
+	/**
+	 * Rolle einem benutzer vollst&auml;ndig entziehen.
+	 * @param rolle
+	 */
 	public void removeRole(String rolle){
 		rollen.remove(rolle);
 	}
@@ -59,28 +72,52 @@ public class TasObject implements Comparable{
 	}
 	
 	/**
-	 * Abfrage der berechtigungen
+	 * Abfrage ob Benutzer in der Rolle ist.
 	 * @param rolle
 	 * @return
 	 */
 	public boolean isRole(String rolle){
 		return rollen.containsKey(rolle);
 	}
+	/**
+	 * Abfrage ob benutzer in der angegebenen Rolle
+	 * Rollenadministrator ist.
+	 * @param rolle
+	 * @return
+	 */
 	public boolean isAdmin(String rolle){
 		if( isRole(rolle))
 			return rollen.get(rolle).admin;
 		return false;
 	}
+	/**
+	 * Abfrage ob der Benutzer in der angegebenen Rolle
+	 * lesen kann
+	 * @param rolle
+	 * @return
+	 */
 	public boolean canRead(String rolle){
 		if( isRole(rolle))
 			return rollen.get(rolle).lesen;
 		return false;
 	}
+	/**
+	 * Abfrage ob der Benutzer in der angegebenen Rolle
+	 * schreiben kann
+	 * @param rolle
+	 * @return
+	 */
 	public boolean canWrite(String rolle){
 		if( isRole(rolle))
 			return rollen.get(rolle).schreiben;
 		return false;
 	}
+	/**
+	 * Abfrage ob der Benutzer in der angegebenen Rolle
+	 * Dokumente erstellen kann
+	 * @param rolle
+	 * @return
+	 */
 	public boolean canCreate(String rolle){
 		if( isRole(rolle))
 			return rollen.get(rolle).erstellen;
@@ -88,8 +125,8 @@ public class TasObject implements Comparable{
 	}
 	
 	/**
-	 * vergleich über usernamen, da usernamen einmalig sein müßen,
-	 * kann dies so geschehen um schnell benutzer in einem benutzervektor zu 
+	 * Vergleichsmethode &uuml;ber Benutzernamen, da Benutzernamen einmalig sein m&uuml;&szlig;en,
+	 * kann dies so geschehen um schnell benutzer in einem Benutzervektor zu 
 	 * finden
 	 */ 
 	public int compareTo(Object o){

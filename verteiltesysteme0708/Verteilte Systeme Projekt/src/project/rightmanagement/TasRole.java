@@ -1,7 +1,9 @@
 package project.rightmanagement;
 
 /**
- * Bitmaske der rechtevergabe einer Rolle pro benutzer
+ * Bitmaske der rechtevergabe einer Rolle pro Benutzer.
+ * Mit dieser Klasse ist das Serverseitige verwalten dieser
+ * leichter.
  * @author mafolz
  *
  */
